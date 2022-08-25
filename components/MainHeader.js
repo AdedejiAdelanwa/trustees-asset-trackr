@@ -44,7 +44,7 @@ const HeaderWrapper = styled.header`
   .user-box{
     align-items: center;
     justify-content: space-between;
-    width: 4rem;
+    width: 12rem;
   }
 
   svg {
