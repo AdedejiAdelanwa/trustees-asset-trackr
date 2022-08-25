@@ -6,9 +6,10 @@ module.exports = {
   ],
   theme: {
     colors: {
+      white: '#ffffff',
       darkgreen: '#345C45',
       lightgrey: '#F3F3F3',
-      textblack: '#323232',
+      black: '#323232',
       lightgreen: '#BBF1D1',
       pitch: '#F9B353',
       lemongreen: '#97A92E',
