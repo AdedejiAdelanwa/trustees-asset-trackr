@@ -87,7 +87,7 @@ const MainHeader = () => {
           ""
         )}
         <nav
-          className={`mobile-nav text-black bg-lightgrey w-3/4 h-screen  left-0 top-0 z-10 absolute ${
+          className={`mobile-nav text-black bg-lightgrey w-3/4 h-screen  left-0 top-0 z-10 fixed ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } ease-in-out duration-300`}
         >
