@@ -41,7 +41,7 @@ const HeaderWrapper = styled.header`
     }
   }
 
-  .user-box{
+  .user-box {
     align-items: center;
     justify-content: space-between;
     width: 12rem;
@@ -60,15 +60,15 @@ const HeaderWrapper = styled.header`
       display: block;
       margin-right: 1.5rem;
     }
-    .user-box{
-    align-items: center;
-    justify-content: center;
-    width: 4rem;
+    .user-box {
+      align-items: center;
+      justify-content: center;
+      width: 4rem;
 
-    p{
-      display: none;
+      p {
+        display: none;
+      }
     }
-  }
   }
 `;
 
@@ -115,7 +115,7 @@ const MainHeader = () => {
             </li>
           </ul>
           <Link href="/">
-            <button className=" w-3/4 absolute bottom-12 ml-8 py-4 px-6 text-darkgreen  rounded-md border-solid border-2 border-darkgreen hover:bg-lightgreen hover:shadow-md">
+            <button className=" w-3/4 absolute bottom-40 ml-8 py-4 px-6 text-darkgreen  rounded-md border-solid border-2 border-darkgreen hover:bg-lightgreen hover:shadow-md">
               Help & Support
             </button>
           </Link>
@@ -127,7 +127,13 @@ const MainHeader = () => {
       </div>
 
       <div className=" user-box flex font-bold">
-        <Image src={User} width="40px" height={"40px"} className="rounded-full border-solid border-6 border-darkgreen bg-lightgreen" alt="Johnson O."/>
+        <Image
+          src={User}
+          width="40px"
+          height={"40px"}
+          className="rounded-full border-solid border-6 border-darkgreen bg-lightgreen"
+          alt="Johnson O."
+        />
         <p className="">Labake J.</p>
       </div>
     </HeaderWrapper>
