@@ -10,15 +10,16 @@ import User from "../public/assets/user-icon.png";
 import { useState } from "react";
 
 const HeaderWrapper = styled.header`
-  width: 100%;
+  width: 100vw;
   height: 10vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: inherit;
   font-size: 1.6rem;
-  padding: 0 5rem;
+  padding: 0 2.5rem;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  z-index: 1;
 
   .logo-group {
     align-items: flex-end;
@@ -30,8 +31,8 @@ const HeaderWrapper = styled.header`
       padding-left: 2rem;
       font-size: 4rem;
     }
-    .menu-list {
-    }
+    /* .menu-list {
+    } */
     .list-item {
       height: 6rem;
       display: flex;
@@ -53,6 +54,7 @@ const HeaderWrapper = styled.header`
 
   @media screen and (max-width: 768px) {
     padding: 0 2rem;
+  
   }
   @media screen and (max-width: 414px) {
     padding: 0 1.5rem;
@@ -99,22 +101,22 @@ const MainHeader = () => {
           <ul className="menu-list">
             <li className="list-item hover:bg-lightgreen">
               <GrHomeRounded fontSize={"2.4rem"} />
-              <Link href="/">Home</Link>
+              <Link href="/dashboard/home">Home</Link>
             </li>
             <li className="list-item hover:bg-lightgreen">
               <GrDiamond fontSize={"2.4rem"} />
-              <Link href="/">Assets</Link>
+              <Link href="/dashboard/assets">Assets</Link>
             </li>
             <li className="list-item hover:bg-lightgreen">
               <RiFileList3Line fontSize={"2.4rem"} />
-              <Link href="/">Estate plans</Link>
+              <Link href="/dashboard/estate-plans">Estate plans</Link>
             </li>
             <li className="list-item hover:bg-lightgreen">
               <FiSettings fontSize={"2.4rem"} />
-              <Link href="/">Settings</Link>
+              <Link href="/dashboard/settings">Settings</Link>
             </li>
           </ul>
-          <Link href="/">
+          <Link href="/help-and-support">
             <button className=" w-3/4 absolute bottom-40 ml-8 py-4 px-6 text-darkgreen  rounded-md border-solid border-2 border-darkgreen hover:bg-lightgreen hover:shadow-md">
               Help & Support
             </button>
