@@ -1,14 +1,122 @@
 import { Fragment, useState } from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import { faker } from '@faker-js/faker';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
-
 import { Listbox, Transition } from "@headlessui/react";
-import { BsCheck2 } from "react-icons/bs";
+import { AiOutlineBank, AiOutlineCar, AiOutlineStock } from "react-icons/ai";
+import { BsCheck2, BsHouse } from "react-icons/bs";
+import { BiBitcoin } from "react-icons/bi";
 import { HiOutlineSelector } from "react-icons/hi";
 import SideNav from "../../components/SideNavigation";
+import Link from "next/link";
 
 const assetTypes = [{ name: "₦ Naira Assets" }, { name: "$ Dollar Assets" }];
+
+const topAssets = [
+  {
+    name: "Bitcoin",
+    value: "190020",
+    symbol: (
+      <BiBitcoin
+        fontSize="2.5rem"
+        className="bg-lightgreen p-1 rounded text-darkgreen"
+      />
+    ),
+  },
+  {
+    name: "Real estate",
+    value: "1900",
+    symbol: (
+      <BsHouse
+        fontSize="2.5rem"
+        className="bg-lightgreen p-1 rounded text-darkgreen"
+      />
+    ),
+  },
+  {
+    name: "Bank Accounts",
+    value: "100000",
+    symbol: (
+      <AiOutlineBank
+        fontSize="2.5rem"
+        className="bg-lightgreen p-1 rounded text-darkgreen"
+      />
+    ),
+  },
+  {
+    name: "Stocks",
+    value: "500000",
+    symbol: (
+      <AiOutlineStock
+        fontSize="2.5rem"
+        className="bg-lightgreen p-1 rounded text-darkgreen"
+      />
+    ),
+  },
+  {
+    name: "Cars",
+    value: "100000",
+    symbol: (
+      <AiOutlineCar
+        fontSize="2.5rem"
+        className="bg-lightgreen p-1 rounded text-darkgreen"
+      />
+    ),
+  },
+];
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend
+);
+
+ const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: false,
+      text: 'Asset Performace',
+    },
+  },
+};
+
+const labels = ['January', 'March', 'May', 'June'];
+
+const data = {
+  labels,
+  datasets: [
+    {
+      fill: true,
+       label: '',
+      data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+      borderColor: '#345C45',
+      backgroundColor: 'rgba(187, 241, 209, .6)',
+    },
+  ],
+};
+
 
 export default function Index() {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,7 +139,7 @@ export default function Index() {
             </small>
           </div>
         </div>
-        <div className="w-72 text-[1.5rem]">
+        <div className="w-72 text-[1.5rem] sm:mt-[1rem]">
           <Listbox value={selected} onChange={setSelected}>
             <div className="relative mt-1">
               <Listbox.Button className="relative w-full cursor-default  rounded-md border-2 border-black bg-white py-4 pl-3 text-left">
@@ -87,6 +195,55 @@ export default function Index() {
               </Transition>
             </div>
           </Listbox>
+        </div>
+      </div>
+      <div className="flex sm:flex-col justify-between">
+        <div className="w-[44rem] sm:w-[100%]">
+          <div className="flex justify-between sm:mt-[2rem]">
+            <h2 className="font-bold text-[2rem]">Top Assets</h2>
+            <Link href="/">
+              <span className=" text-[1.8rem] text-darkgreen font-semibold cursor-pointer">
+                + Add Asset
+              </span>
+            </Link>
+          </div>
+          <table className="table-auto w-[100%]  mt-[1rem]">
+            <tbody className="text-[1.6rem]">
+              {topAssets.map(({ name, value, symbol }) => (
+                <tr
+                  key={name}
+                  className="h-[5rem] w-[100%] flex items-center border-b-2 border-lightgrey"
+                >
+                  <td className="w-[80%] sm:w-[60%] flex items-center">
+                    {symbol}
+                    {name}
+                  </td>
+                  <td className="w-[20%] sm:w-[40%] text-right font-semibold">
+                    &#8358;{value}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="flex justify-end pt-[1rem]">
+            <Link href="/dashboard/assets">
+              <span className=" text-[1.6rem] text-darkgreen cursor-pointer">
+                See all
+              </span>
+            </Link>
+          </div>
+        </div>
+        <div className="w-[55rem] sm:w-[100%]">
+          <div className="flex justify-between sm:flex-col sm:mt-[2rem]">
+            <h2 className="text-[1.6rem] font-semibold">Net worth History</h2>
+            <p className="font-semibold text-[1.6rem]">
+              Value Change:
+              <span className=" text-green font-semibold ml-4">
+                200% &#8593;
+              </span>
+            </p>
+          </div>
+          <Line options={options} data={data} />
         </div>
       </div>
     </section>

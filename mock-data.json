@@ -1,0 +1,9 @@
+{
+    "topAssets": [
+        {"name": "Bitcoin", "value": "190020"},
+        {"name": "Real estate", "value": "1900"},
+        {"name": "Bank Accounts", "value": "100000"},
+        {"name": "Stocks", "value": "500000"},
+        {"name": "Cars", "value": "100000"}
+    ]
+}
