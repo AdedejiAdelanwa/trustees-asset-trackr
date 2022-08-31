@@ -31,8 +31,7 @@ const HeaderWrapper = styled.header`
       padding-left: 2rem;
       font-size: 4rem;
     }
-    /* .menu-list {
-    } */
+  
     .list-item {
       height: 6rem;
       display: flex;

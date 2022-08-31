@@ -12,9 +12,8 @@ const LayoutWrapper = styled.div`
     /* .menu-btn {
       display: none;
     } */
-    .menu-list {
-    }
-    .list-item {
+   
+    .side-nav-item {
       height: 6rem;
       display: flex;
       align-items: center;
@@ -47,7 +46,7 @@ const LayoutWrapper = styled.div`
       padding-left: 2rem;
       font-size: 4rem;
     } */
-    .list-item a{
+    .side-nav-item a{
       display: none;
     }
     .main-content{

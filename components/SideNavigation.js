@@ -19,7 +19,7 @@ const SideNav = () => {
         onClick={() => setIsSidNavOpen(!isSideNavOpen)}
       /> */}
       <ul className="menu-list w-[100%]">
-        <li className="list-item hover:bg-lightgreen">
+        <li className="side-nav-item hover:bg-lightgreen">
           <Link href="/">
             <GrHomeRounded fontSize={"2.4rem"} />
           </Link>
@@ -27,15 +27,15 @@ const SideNav = () => {
             Home
           </Link>
         </li>
-        <li className="list-item hover:bg-lightgreen">
+        <li className="side-nav-item hover:bg-lightgreen">
           <GrDiamond fontSize={"2.4rem"} />
           <Link href="/dashboard/assets">Assets</Link>
         </li>
-        <li className="list-item hover:bg-lightgreen">
+        <li className="side-nav-item hover:bg-lightgreen">
           <RiFileList3Line fontSize={"2.4rem"} />
           <Link href="/dashboard/estate-plans">Estate plans</Link>
         </li>
-        <li className="list-item hover:bg-lightgreen">
+        <li className="side-nav-item hover:bg-lightgreen">
           <FiSettings fontSize={"2.4rem"} />
           <Link href="/dashboard/settings">Settings</Link>
         </li>
