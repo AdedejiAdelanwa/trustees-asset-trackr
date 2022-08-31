@@ -9,7 +9,7 @@ const SideNav = () => {
   const [isSideNavOpen, setIsSidNavOpen] = useState(false);
   return (
     <nav
-      className={`side-nav text-black py-[2.5rem] bg-lightgrey w-[20%] flex flex-col items-center   h-[90vh]  left-0 bottom-0 fixed ${
+      className={`side-nav text-black py-[2.5rem] bg-lightgrey w-[20%] flex flex-col items-center   h-[90vh]  left-0 bottom-0 absolute ${
         isSideNavOpen ? "-translate-x-full" : "translate-x-0"
       } ease-in-out duration-300`}
     >
