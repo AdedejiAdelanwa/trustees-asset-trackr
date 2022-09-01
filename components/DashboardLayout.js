@@ -30,6 +30,10 @@ const LayoutWrapper = styled.div`
     margin-right: 1.5rem;
   }
 
+  #hsbar{
+    margin-bottom: 1rem;
+  }
+
   @media screen and (max-width: 768px) {
     .side-nav{
         width: 12%;
