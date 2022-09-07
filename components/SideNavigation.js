@@ -6,7 +6,7 @@ import { FiSettings } from "react-icons/fi";
 import { GrDiamond, GrHomeRounded } from "react-icons/gr";
 import { RiFileList3Line, RiQuestionMark } from "react-icons/ri";
 
-const SideNav = ({ href }) => {
+const SideNav = () => {
   const [isSideNavOpen, setIsSidNavOpen] = useState(false);
   const router = useRouter();
   console.log(router.pathname);
