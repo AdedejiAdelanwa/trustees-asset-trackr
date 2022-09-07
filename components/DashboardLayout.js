@@ -24,7 +24,7 @@ const LayoutWrapper = styled.div`
     margin-bottom: 1rem;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 800px) {
     .side-nav-item a{
       display: none;
     }
