@@ -13,7 +13,7 @@ const SideNav = () => {
 
   return (
     <nav
-      className={`side-nav text-black py-[2.5rem] bg-lightgrey w-[20%] md:w-[12%] sm:hidden flex flex-col items-center   h-[90vh]  left-0 bottom-0 fixed ${
+      className={`side-nav text-black py-[2.5rem] bg-lightgrey w-[20%] md:w-[12%] sm:hidden flex flex-col items-center   h-[90vh]  left-0 top-[10vh] fixed ${
         isSideNavOpen ? "-translate-x-full" : "translate-x-0"
       } ease-in-out duration-300`}
     >
@@ -23,7 +23,7 @@ const SideNav = () => {
         onClick={() => setIsSidNavOpen(!isSideNavOpen)}
       /> */}
       <ul className="menu-list w-[100%]">
-        <li className={`side-nav-item hover:bg-lightgreen ${router.pathname === "/dashboard/home" ? `bg-lightgreen`: ""}`}>
+        <li className={`side-nav-item hover:text-darkgreen hover:font-bold ${router.pathname === "/dashboard/home" ? `bg-lightgreen`: ""}`}>
           <Link href="/dashboard/home" >
             <GrHomeRounded fontSize={"2.4rem"} />
           </Link>
@@ -31,19 +31,19 @@ const SideNav = () => {
             Home
           </Link>
         </li>
-        <li className={`side-nav-item hover:bg-lightgreen ${router.pathname === "/dashboard/assets" ? `bg-lightgreen`: ""}`}>
+        <li className={`side-nav-item hover:text-darkgreen hover:font-bold ${router.pathname === "/dashboard/assets" ? `bg-lightgreen`: ""}`}>
         <Link href="/dashboard/assets">
           <GrDiamond fontSize={"2.4rem"} />
           </Link>
           <Link href="/dashboard/assets">Assets</Link>
         </li>
-        <li className={`side-nav-item hover:bg-lightgreen ${router.pathname === "/dashboard/estate-plans" ? `bg-lightgreen`: ""}`}>
+        <li className={`side-nav-item hover:text-darkgreen hover:font-bold ${router.pathname === "/dashboard/estate-plans" ? `bg-lightgreen`: ""}`}>
         <Link href="/dashboard/estate-plans">
           <RiFileList3Line fontSize={"2.4rem"} />
           </Link>
           <Link href="/dashboard/estate-plans">Estate plans</Link>
         </li>
-        <li className={`side-nav-item hover:bg-lightgreen ${router.pathname === "/dashboard/settings" ? `bg-lightgreen`: ""}`}>
+        <li className={`side-nav-item hover:text-darkgreen hover:font-bold ${router.pathname === "/dashboard/settings" ? `bg-lightgreen`: ""}`}>
         <Link href="/dashboard/settings">
           <FiSettings fontSize={"2.4rem"} />
           </Link>
