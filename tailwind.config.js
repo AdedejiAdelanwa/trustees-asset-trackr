@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -23,6 +24,7 @@ module.exports = {
     },
     screens:{
       'sm': {'max': '414px'},
+      'md': {'max': "768px"},
     }
   },
   plugins: [],

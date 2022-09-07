@@ -80,7 +80,6 @@ const topAssets = [
     ),
   },
 ];
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -131,14 +130,14 @@ export default function Index() {
   const [isVisible, setIsVisible] = useState(false);
   const [selected, setSelected] = useState(assetTypes[0]);
   return (
-    <section className="main-content text-black bg-white w-[80%] h-[90vh] p-[3rem] right-0 absolute overflow-auto">
+    <section className="main-content text-black bg-white w-[80%] sm:w-[100%!important] md:w-[88%]   h-[90vh] p-[3rem] sm:px-[1.5rem] right-0 absolute overflow-auto">
       <h2 className="text-[2.8rem] font-bold">Hi Labake 👋🏼 </h2>
-      <div className="asset-figures flex justify-between items-center mt-[3.5rem]">
+      <div className="asset-figures flex justify-between sm:flex-col sm:mt-[1.8rem] items-center mt-[3.5rem]">
         <div>
           <h3 className="font-semibold text-[1.8rem]">Total Value</h3>
           <div className="flex items-center">
             <p className="text-[3rem] mr-2 font-normal">
-              &#8358;{isVisible ? "40203930.00" : "XXXXX.XX"}{" "}
+              &#8358;{isVisible ? "40203930.00" : "XXXXX.XX"}
             </p>
             <small
               className="text-[2.5rem] cursor-pointer"
@@ -206,8 +205,8 @@ export default function Index() {
           </Listbox>
         </div>
       </div>
-      <div className="flex sm:flex-col justify-between">
-        <div className="w-[44rem] sm:w-[100%]">
+      <div className="flex md:flex-col sm:flex-col justify-between">
+        <div className="w-[44rem] md:w-[100%]">
           <div className="flex justify-between sm:mt-[2rem]">
             <h2 className="font-bold text-[2rem]">Top Assets</h2>
             <Link href="/">
@@ -242,7 +241,7 @@ export default function Index() {
             </Link>
           </div>
         </div>
-        <div className="w-[55rem] sm:w-[100%]">
+        <div className="w-[55rem] md:w-[100%]">
           <div className="flex justify-between sm:flex-col sm:mt-[2rem]">
             <h2 className="text-[1.6rem] font-semibold">Net worth History</h2>
             <p className="font-semibold text-[1.6rem]">
@@ -271,7 +270,7 @@ export default function Index() {
           {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
             <div
               key={num}
-              className="w-[30rem] h-[30.5rem] m-[1rem] bg-white flex-grow flex-shrink-0 flex-[25rem] rounded-[5px] shadow-lg transition-all duration-200 ease-in-out hover:shadow-md hover:translate-y-[-1px] overflow-hidden"
+              className=" w-[30rem] sm:w-[40rem] md:w-[60rem] h-[30.5rem] m-[1rem] bg-white flex-grow flex-shrink-0 flex-[25rem] rounded-[5px] shadow-lg transition-all duration-200 ease-in-out hover:shadow-md hover:translate-y-[-1px] overflow-hidden"
             >
               <Image src={Writer} alt="describe" />
               <div className="p-[1.8rem]">
