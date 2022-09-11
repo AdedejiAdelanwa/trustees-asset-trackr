@@ -14,12 +14,11 @@ import designate from "../public/assets/designateImage.png";
 import plan from "../public/assets/planImage.png";
 
 export default function Home() {
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setshowSubmission(false)
   };
-  
+
   return (
     <div>
       <Head>
@@ -29,12 +28,10 @@ export default function Home() {
       </Head>
       <Container>
         <main className="flex w-[100%] flex-col  font-Poppins">
-
-          <div
-            className=" w-full h-[100vh] sm:h-fit px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between sm:px-[1rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain">
+          <div className=" w-full h-[100vh] sm:h-fit px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between sm:px-[1rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain">
             <div className="w-1/2 sm:w-full mt-[11rem] sm:mt-[3rem]  ">
               <h1 className="w-[46rem] sm:w-[37rem] text-[4.8rem] text-darkgreen">
-                Let’s help you <br/> track and organise your wealth
+                Let’s help you <br /> track and organise your wealth
               </h1>
               <p className="w-[37rem] sm:w-[30rem]  text-black text-[1.6rem] ">
                 Easily keep track of your assets, designate beneficiaries and
@@ -47,14 +44,13 @@ export default function Home() {
               </Link>
             </div>
             <div className="w-1/2 sm:hidden ml-[15.5rem] md:ml-[1rem] mt-[6rem] md:mt-[-32rem] ">
-                <Image src={heroImage} alt="heroImage" />
+              <Image src={heroImage} alt="heroImage" />
             </div>
-            
           </div>
 
           <div className="flex sm:flex-col mt-[10rem] h-[51rem] sm:h-[68rem] px-[15.2rem] md:px-[1rem] sm:px-[1rem] justify-between bg-[url('/assets/firstBlob.svg')] bg-no-repeat [background-position-y:8.4rem]  sm:[background-position-y:7rem] sm:[background-position-x:-11rem]  sm:bg-contain  sm:w-[29rem] ">
             <div className="ml-[3rem] sm:w-[37.8rem] sm:ml-[0rem]  ">
-              <Image src={keep_track} alt="keep_track"/>
+              <Image src={keep_track} alt="keep_track" />
             </div>
             <div className="flex flex-col w-[50.4rem] sm:w-[33rem] h-[37vh]  my-[8rem] md:my-[0rem] space-y-5">
               <h2 className="font-semibold text-[2.8rem] text-darkgreen ">
@@ -79,7 +75,6 @@ export default function Home() {
           </div>
 
           <div className="flex sm:flex-col-reverse mt-[10rem] h-[51rem] sm:h-[68rem] px-[15.2rem] md:px-[1rem] sm:px-[1rem] justify-between bg-[url('/assets/secondBlob.svg')] bg-right sm:bg-right bg-no-repeat [background-position-y:1rem]  sm:[background-position-y:-2rem] sm:[background-position-x:30rem]  ">
-            
             <div className="flex flex-col w-[50.4rem] sm:w-[33rem] h-[37vh]  my-[15rem] md:my-[0rem] space-y-5 ">
               <h3 className="font-semibold text-[2.8rem] text-darkgreen sm:mt-[5rem] md:mt-[7rem] ">
                 Designate beneficiaries
@@ -100,14 +95,13 @@ export default function Home() {
               </Link>
             </div>
             <div className="sm:w-[37.8rem] mt-[7.3rem]">
-              <Image src={designate} alt="designate"/>
+              <Image src={designate} alt="designate" />
             </div>
           </div>
 
-
           <div className="flex sm:flex-col mt-[10rem] sm:mt-[15rem] h-[51rem] sm:h-[68rem] px-[15.2rem] md:px-[1rem] sm:px-[1rem] justify-between bg-[url('/assets/thirdBlob.svg')] bg-no-repeat [background-position-y:8.4rem]  sm:[background-position-y:5rem] sm:[background-position-x:-9rem]  sm:bg-contain  sm:w-[25rem] ">
             <div className="ml-[3rem] sm:w-[37.8rem] sm:ml-[0rem]">
-              <Image src={plan} alt="plan"/>
+              <Image src={plan} alt="plan" />
             </div>
             <div className="flex flex-col w-[50.4rem] sm:w-[33rem]  h-[37vh]  my-[8rem] md:my-[0rem] space-y-5">
               <h4 className="font-semibold text-[2.8rem] text-darkgreen ">
@@ -192,7 +186,6 @@ export default function Home() {
               </Link>
             </div>
           </div>
-
         </main>
       </Container>
     </div>
