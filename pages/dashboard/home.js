@@ -9,9 +9,10 @@ import {
   Tooltip,
   Filler,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import HSBar from "react-horizontal-stacked-bar-chart";
+import { faker } from "@faker-js/faker";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
@@ -22,6 +23,8 @@ import { BiBitcoin } from "react-icons/bi";
 import { HiOutlineSelector } from "react-icons/hi";
 import SideNav from "../../components/SideNavigation";
 import Link from "next/link";
+import Image from "next/image";
+import Writer from "../../public/assets/will-writer.png";
 
 const assetTypes = [{ name: "₦ Naira Assets" }, { name: "$ Dollar Assets" }];
 
@@ -77,7 +80,6 @@ const topAssets = [
     ),
   },
 ];
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -89,47 +91,53 @@ ChartJS.register(
   Legend
 );
 
- const options = {
+const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top',
+      position: "top",
     },
     title: {
       display: false,
-      text: 'Asset Performace',
+      text: "Asset Performace",
     },
   },
 };
 
-const labels = ['January', 'March', 'May', 'June'];
+const labels = ["January", "March", "May", "June"];
 
 const data = {
   labels,
   datasets: [
     {
       fill: true,
-       label: '',
+      label: "",
       data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
-      borderColor: '#345C45',
-      backgroundColor: 'rgba(187, 241, 209, .6)',
+      borderColor: "#345C45",
+      backgroundColor: "rgba(187, 241, 209, .6)",
     },
   ],
 };
 
-
+const horizontalBarData = [
+  { value: 35, name: "Crypto", description: "35%", color: "#345C45" },
+  { value: 25, name: "Bank Accounts", description: "25%", color: "#F9B353" },
+  { value: 20, name: "Real Estate", description: "20%", color: "#97A92E" },
+  { value: 15, name: "Stocks", description: "15%", color: "#9452A1" },
+  { value: 5, name: "Others", description: "5%", color: "#BBF1D1" },
+];
 export default function Index() {
   const [isVisible, setIsVisible] = useState(false);
   const [selected, setSelected] = useState(assetTypes[0]);
   return (
-    <section className="main-content text-black bg-white w-[80%] h-[90vh] p-[3rem] right-0 absolute overflow-auto">
+    <section className="main-content text-black bg-white w-[80%] sm:w-[100%!important] md:w-[88%]   h-[90vh] p-[3rem] sm:px-[1.5rem] right-0 absolute overflow-auto">
       <h2 className="text-[2.8rem] font-bold">Hi Labake 👋🏼 </h2>
-      <div className="asset-figures flex justify-between items-center mt-[3.5rem]">
+      <div className="asset-figures flex justify-between sm:flex-col sm:mt-[1.8rem] items-center mt-[3.5rem]">
         <div>
           <h3 className="font-semibold text-[1.8rem]">Total Value</h3>
           <div className="flex items-center">
             <p className="text-[3rem] mr-2 font-normal">
-              &#8358;{isVisible ? "40203930.00" : "XXXXX.XX"}{" "}
+              &#8358;{isVisible ? "40203930.00" : "XXXXX.XX"}
             </p>
             <small
               className="text-[2.5rem] cursor-pointer"
@@ -197,8 +205,8 @@ export default function Index() {
           </Listbox>
         </div>
       </div>
-      <div className="flex sm:flex-col justify-between">
-        <div className="w-[44rem] sm:w-[100%]">
+      <div className="flex md:flex-col sm:flex-col justify-between">
+        <div className="w-[44rem] md:w-[100%]">
           <div className="flex justify-between sm:mt-[2rem]">
             <h2 className="font-bold text-[2rem]">Top Assets</h2>
             <Link href="/">
@@ -233,7 +241,7 @@ export default function Index() {
             </Link>
           </div>
         </div>
-        <div className="w-[55rem] sm:w-[100%]">
+        <div className="w-[55rem] md:w-[100%]">
           <div className="flex justify-between sm:flex-col sm:mt-[2rem]">
             <h2 className="text-[1.6rem] font-semibold">Net worth History</h2>
             <p className="font-semibold text-[1.6rem]">
@@ -244,6 +252,36 @@ export default function Index() {
             </p>
           </div>
           <Line options={options} data={data} />
+        </div>
+      </div>
+      <div className="mt-[4.4rem] sm:mt-[5rem]">
+        <h3 className="font-semibold text-[1.8rem]">Asset Distribution</h3>
+        <HSBar
+          showTextDown
+          showValueDown
+          height="7rem"
+          id="hsbar"
+          data={horizontalBarData}
+        />
+      </div>
+      <div className="mt-[4.4rem] sm:mt-[5rem]">
+        <h3 className="font-semibold text-[2.8rem]">Recomended Estate Plans</h3>
+        <div className="relative flex items-center overflow-x-auto space-x-8">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+            <div
+              key={num}
+              className=" w-[30rem] sm:w-[40rem] md:w-[60rem] h-[30.5rem] m-[1rem] bg-white flex-grow flex-shrink-0 flex-[25rem] rounded-[5px] shadow-lg transition-all duration-200 ease-in-out hover:shadow-md hover:translate-y-[-1px] overflow-hidden"
+            >
+              <Image src={Writer} alt="describe" />
+              <div className="p-[1.8rem]">
+                <h5 className="text-[2.4rem]">Simple Will</h5>
+                <p className="text-[1.4rem] font-normal">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                  vulputate libero et velit interdum, ac aliquet odio mattis.
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
