@@ -9,7 +9,6 @@ import { RiFileList3Line, RiQuestionMark } from "react-icons/ri";
 const SideNav = () => {
   const [isSideNavOpen, setIsSidNavOpen] = useState(false);
   const router = useRouter();
-  console.log(router.pathname);
 
   return (
     <nav

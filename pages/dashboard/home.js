@@ -16,7 +16,6 @@ import { faker } from "@faker-js/faker";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
-import { Listbox, Transition } from "@headlessui/react";
 import { AiOutlineBank, AiOutlineCar, AiOutlineStock } from "react-icons/ai";
 import { BsCheck2, BsHouse } from "react-icons/bs";
 import { BiBitcoin } from "react-icons/bi";
@@ -25,8 +24,9 @@ import SideNav from "../../components/SideNavigation";
 import Link from "next/link";
 import Image from "next/image";
 import Writer from "../../public/assets/will-writer.png";
+import { Select } from "@chakra-ui/react";
 
-const assetTypes = [{ name: "₦ Naira Assets" }, { name: "$ Dollar Assets" }];
+export const assetTypes = [{ name: "₦ Naira Assets" }, { name: "$ Dollar Assets" }];
 
 const topAssets = [
   {
@@ -147,62 +147,12 @@ export default function Index() {
             </small>
           </div>
         </div>
-        <div className="w-72 text-[1.5rem] sm:mt-[1rem]">
-          <Listbox value={selected} onChange={setSelected}>
-            <div className="relative mt-1">
-              <Listbox.Button className="relative w-full cursor-default  rounded-md border-2 border-black bg-white py-4 pl-3 text-left">
-                <span className="block truncate">{selected.name}</span>
-                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                  <HiOutlineSelector
-                    className="h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
-                </span>
-              </Listbox.Button>
-              <Transition
-                as={Fragment}
-                leave="transition ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-[1.5rem]">
-                  {assetTypes.map((assetType, assetTypeIdx) => (
-                    <Listbox.Option
-                      key={assetTypeIdx}
-                      className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active
-                            ? "bg-amber-100 text-amber-900"
-                            : "text-gray-900"
-                        }`
-                      }
-                      value={assetType}
-                    >
-                      {({ selected }) => (
-                        <>
-                          <span
-                            className={`block truncate ${
-                              selected ? "font-medium" : "font-normal"
-                            }`}
-                          >
-                            {assetType.name}
-                          </span>
-                          {selected ? (
-                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                              <BsCheck2
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </span>
-                          ) : null}
-                        </>
-                      )}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
-              </Transition>
-            </div>
-          </Listbox>
+        <div className=" text-[1.5rem] sm:mt-[1rem]">
+        <Select>
+          {assetTypes.map((assetType, index) =>(
+            <option key={index} value={assetType.name}>{assetType.name}</option>
+          ))}
+        </Select>
         </div>
       </div>
       <div className="flex md:flex-col sm:flex-col justify-between">

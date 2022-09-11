@@ -130,7 +130,7 @@ const MainHeader = () => {
           src={User}
           width="40px"
           height={"40px"}
-          className="rounded-full border-solid border-6 border-darkgreen bg-lightgreen"
+          className="rounded-full  border-solid border-6 border-darkgreen bg-lightgreen"
           alt="Johnson O."
         />
         <p className="">Labake J.</p>
