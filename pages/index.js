@@ -169,16 +169,16 @@ export default function Home() {
                 </div>
               </Link>
             </div>
-            <div className="flex flex-col w-[37rem] h-[62vh] p-[2rem] bg-lightgreen rounded-[1rem]  border-2 border-darkgreen shadow-lg">
+            <div className="flex flex-col w-[37rem] h-[62vh] p-[2rem] bg-lightgreen rounded-[1rem]  border-1 border-darkgreen shadow-lg">
               <Image
                 src={trackAssetImage}
                 alt="trackAssetImage"
                 className="rounded-[1em] "
               />
 
-              <div className="w-[323px] my-8 text-black text-[28px]">
+              <h2 className="w-[323px] my-8 text-black text-[2.8rem]">
                 Start tracking your assets and securing the future today.
-              </div>
+              </h2>
               <Link href="/assets">
                 <div className="text-white text-[1.6rem] w-[16.6rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] cursor-pointer mb-5">
                   Get Started
