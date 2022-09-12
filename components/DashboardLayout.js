@@ -8,22 +8,12 @@ const LayoutWrapper = styled.div`
     /* padding: 1rem 0; */
     font-family: inherit;
     font-size: 1.6rem;
-
-    /* .menu-btn {
-      display: none;
-    } */
-   
     .side-nav-item {
       height: 6rem;
       display: flex;
       align-items: center;
       padding-left: 2rem;
       cursor: pointer;
-    }
-
-    
-    .help-icon{
-      display: none;
     }
   }
   svg {
@@ -34,40 +24,16 @@ const LayoutWrapper = styled.div`
     margin-bottom: 1rem;
   }
 
-  @media screen and (max-width: 768px) {
-    .side-nav{
-        width: 12%;
-        .help-icon{
-      display: block;
-    }
-    }
-    .help-text{
-      display: none;
-}
-
-    /* .side-nav .menu-btn {
-      display: block;
-      padding-left: 2rem;
-      font-size: 4rem;
-    } */
+  @media screen and (max-width: 800px) {
     .side-nav-item a{
       display: none;
     }
-    .main-content{
-      width: 88%;
-    }
   }
   @media screen and (max-width: 414px) {
-    .side-nav {
-      display: none;
-    }
     .main-content{
-      width: 100%;
-      padding: 3rem 1.5rem;
+      /* width: 100%; */
       .asset-figures{
-        flex-direction: column;
         align-items: flex-start;
-        margin-top: 1.8rem;
       }
     }
   }
