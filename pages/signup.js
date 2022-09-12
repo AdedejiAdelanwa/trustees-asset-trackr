@@ -129,7 +129,7 @@ const Signup = () => {
             <Image src={logo} alt="MeristemLogo" />
           </div>
 
-          <div className="font-Poppins font-normal w-[45rem] ml-[6.2rem] mb-[5.3rem] md:block md:w-[20rem] md:ml-[4rem]">
+          <div className="font-Poppins font-normal w-[45rem] ml-[6.2rem] mb-[5.3rem] md:mb-[13.3rem] md:block md:w-[20rem] md:ml-[4rem]">
             <h1 className=" w-[45rem] h-[20rem] text-[4.8rem] mb-[1.7rem] text-[#345C45] md:w-[31rem] md:h-[14.3rem] md:text-[3.5rem] ">
               Keep track of all your assets on a single dashboard
             </h1>
@@ -141,24 +141,10 @@ const Signup = () => {
             </p>
           </div>
 
-          <div className="flex justify-between place-items-end border">
-            <div className="w-[13rem] h-[8rem] border">
-              <Image src={Bigblock} alt="Bigblock" />
-            </div>
-            <div className="w-[15rem] h-[13rem] border">
-              <Image
-                className="min-w-{4rem} w-[5rem] h-[2rem]"
-                src={Biggerblock}
-                alt="Biggerblock"
-              />
-            </div>
-            <div className=" w-[18rem] h-[20rem] border">
-              <Image
-                className="object-cover	w-[5rem] h-[2rem]"
-                src={Biggstblock}
-                alt="Biggstblock"
-              />
-            </div>
+          <div className="flex justify-between place-items-end ">
+            <div className=" bg-[#345C45] w-[13rem] md:w-[8rem] rounded-tr-3xl h-[8rem] "></div>
+            <div className="bg-[#345C45] w-[15rem] md:w-[10rem] rounded-tr-3xl rounded-tl-3xl h-[13rem]"></div>
+            <div className="bg-[#345C45] w-[18rem] md:w-[11rem] rounded-tl-3xl h-[20rem]"></div>
           </div>
         </div>
 
@@ -303,7 +289,7 @@ const Signup = () => {
                   </button>
                 </div>
               ) : progressTrack === 1 ? (
-                <div id="ConfirmEmail" className="">
+                <div id="ConfirmEmail" className="w-[40.1rem] md:w-[33rem] sm:w-[30rem]">
                   <label className="text-[1.4rem] w-[95px]">
                     Confirm Email{" "}
                   </label>
@@ -317,7 +303,7 @@ const Signup = () => {
                       </span>
                     )}
                   </span>
-                  <div className=" w-[37rem] h-[4.8rem] mb-[3.6rem] sm:w-[33rem] md:w-[37.1rem]">
+                  <div className="w-[37rem] h-[4.8rem] mb-[3.6rem] sm:w-[29rem] md:w-[32rem]">
                     <input
                       onChange={(e) =>
                         validateConfirmEmail(e.target.value.trim())
