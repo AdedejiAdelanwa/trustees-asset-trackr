@@ -30,7 +30,7 @@ export default function Home() {
         <main className="flex w-[100%] flex-col  font-Poppins">
           <div className=" w-full h-[100vh] sm:h-fit px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between sm:px-[1rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain">
             <div className="w-1/2 sm:w-full mt-[11rem] sm:mt-[3rem]  ">
-              <h1 className="w-[46rem] sm:w-[37rem] text-[4.8rem] text-darkgreen">
+              <h1 className="w-[46rem] sm:w-[37rem] text-[4.8rem] sm:text-[3.5rem] text-darkgreen">
                 Let’s help you <br /> track and organise your wealth
               </h1>
               <p className="w-[37rem] sm:w-[30rem]  text-black text-[1.6rem] ">
