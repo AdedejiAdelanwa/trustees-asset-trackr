@@ -5,9 +5,9 @@ import Image from "next/image";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import validator from "validator";
 import logo from "../assets/images/Logo.png";
-// import Bigblock from "../assets/images/Bigblock.png";
-// import Biggerblock from "../assets/images/Biggerblock.png";
-// import Biggstblock from "../assets/images/Biggstblock.png";
+import Bigblock from "../assets/images/Bigblock.png";
+import Biggerblock from "../assets/images/Biggerblock.png";
+import Biggstblock from "../assets/images/Biggstblock.png";
 
 const Signup = () => {
   const [progressTrack, setProgressTrack] = useState(0);
@@ -17,20 +17,20 @@ const Signup = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [issubmission, setIsSubmission] = useState(false);
-  const [isPassword, setIsPassword] = useState(true);
-  const [isConfirmPassword, setIsConfirmPassword] = useState(true);
-  const [isFirstNameShort, setisFirstNameShort] = useState(false);
-  const [isLastNameShort, setisLastNameShort] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isFirstNameValidated, setisFirstNameValidated] = useState(true);
+  const [isLastNameValidated, setisLastNameValidated] = useState(false);
   const [isEmailPattern, setisEmailPattern] = useState(true);
   const [isConfirmEmailValidated, setisConfirmEmailValidated] = useState(true);
-  const [isPasswordValidated, setisPasswordValidated] = useState(true);
-  const [isConfirmPasswordValidated, setisConfirmPasswordValidated] = useState(true);
-
-
+  const [isPasswordValidated, setIsPasswordValidated] = useState(false);
+  const [isConfirmPasswordValidated, setIsConfirmPasswordValidated] =
+    useState(false);
+  const [eyePasswordCheck, setEyePasswordCheck] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('i got here')
+    console.log("i got here");
     setIsSubmission(true);
   };
 
@@ -42,60 +42,80 @@ const Signup = () => {
   //   setFirstName(fname);
   //   setisFirstNameShort(false);
   // };
+  const validatePasswordByMe = (pwd) => {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{5,}$/.test(pwd)
+      ? true
+      : false;
+  };
 
-  const validateFirstName = (fname) =>{
-    const isFirstNameShort = validate.isLength(fname ,[{min:3, max: undefined}])
+  const validateFirstName = (fname) => {
+    const isFirstNameValidated = validator.isLength(fname, {
+      min: 3,
+      max: undefined,
+    });
+    console.log(isFirstNameValidated);
     setFirstName(fname);
-    isFirstNameShort ? setisFirstNameShort(true) : setisFirstNameShort(false)
-  }
+    isFirstNameValidated
+      ? setisFirstNameValidated(true)
+      : setisFirstNameValidated(false);
+  };
 
   const validateLastName = (lname) => {
-    if (lname.length < 3) {
-      setisLastNameShort(true);
-      return
-    }
+    const isLastNameValidated = validator.isLength(lname, [
+      { min: 3, max: undefined },
+    ]);
+    console.log(isLastNameValidated);
     setLastName(lname);
-    setisLastNameShort(false);
+    isLastNameValidated
+      ? setisLastNameValidated(true)
+      : setisLastNameValidated(false);
   };
 
   const validateEmail = (email) => {
     const isEmailValidated = validator.isEmail(email);
     console.log(isEmailValidated);
-    setEmail(email)
-    isEmailValidated ? setisEmailPattern(true) : setisEmailPattern(false)
+    setEmail(email);
+    isEmailValidated ? setisEmailPattern(true) : setisEmailPattern(false);
   };
 
   const validateConfirmEmail = (ConfirmEmail) => {
     const isConfirmEmailValidated = validator.isEmail(ConfirmEmail);
     console.log(isConfirmEmailValidated);
-    setConfirmEmail(ConfirmEmail)
-    isConfirmEmailValidated ? setisConfirmEmailValidated(true) : setisConfirmEmailValidated(false)
-  }
-
-  // const validatePassword = (pass) => {
-  //   if (pass.length < 8) {
-  //     setisPasswordValidated(true)
-  //     return
-  //   }
-  //   setisPasswordValidated(false)
-  // }
-
-  const validatePassword = (pass) =>{
-    const isPasswordValidated = validator.isStrongPassword(pass ,[{ minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1, 
-                              returnScore: false, pointsPerUnique: 1, pointsPerRepeat: 0.5, pointsForContainingLower: 10, 
-                              pointsForContainingUpper: 10, pointsForContainingNumber: 10, pointsForContainingSymbol: 10 }]);
-    console.log(isPasswordValidated);
-    isPasswordValidated ? setisPasswordValidated(true) : setisPasswordValidated(false);
+    setConfirmEmail(ConfirmEmail);
+    isConfirmEmailValidated
+      ? setisConfirmEmailValidated(true)
+      : setisConfirmEmailValidated(false);
   };
 
-  const validateConfirmPassword = (confirmPassword) => { 
-    isConfirmPasswordValidated === isPasswordValidated ? setisConfirmPasswordValidated(true) 
-    : setisConfirmPasswordValidated(false);
-  }
+  const validatePassword = (pass) => {
+    const passwordValidation = validatePasswordByMe(pass);
+    console.log(pass);
 
-  
+    if (passwordValidation) {
+      setIsPasswordValidated(false);
+    } else {
+      setIsPasswordValidated(true);
+    }
 
-  
+    setPassword(pass);
+
+    if (password === confirmPassword) {
+      setIsConfirmPasswordValidated(false);
+    } else {
+      setIsConfirmPasswordValidated(true);
+    }
+  };
+
+  const validateConfirmPassword = (confpassword) => {
+    console.log(password, confpassword);
+    if (confpassword === password) {
+      setIsConfirmPasswordValidated(false);
+    } else {
+      setIsConfirmPasswordValidated(true);
+    }
+
+    setConfirmPassword(confpassword);
+  };
   return (
     <div>
       <Head>
@@ -109,23 +129,37 @@ const Signup = () => {
             <Image src={logo} alt="MeristemLogo" />
           </div>
 
-          <div className="font-Poppins font-normal w-[28rem] ml-[6.2rem] md:block md:w-[20rem] md:ml-[4rem]">
-              <h1 className=" w-[47.9rem] h-[20rem] text-[4.8rem] mb-[1.7rem] text-[#345C45] md:w-[31rem] md:h-[14.3rem] md:text-[3.5rem] ">
-                Keep track of all your assets on a single dashboard
-              </h1>
+          <div className="font-Poppins font-normal w-[45rem] ml-[6.2rem] mb-[5.3rem] md:block md:w-[20rem] md:ml-[4rem]">
+            <h1 className=" w-[45rem] h-[20rem] text-[4.8rem] mb-[1.7rem] text-[#345C45] md:w-[31rem] md:h-[14.3rem] md:text-[3.5rem] ">
+              Keep track of all your assets on a single dashboard
+            </h1>
 
-              <p className="w-[41.4rem] h-[7.2rem] text-[1.6rem] sm:hidden md:w-[31rem] md:h-[7.2rem] md:text-[1.3rem]">
-                Sign up now to easily keep track of your assets, designated
-                beneficiaries and receive estate planning products tailored to
-                your assets.
-              </p>
+            <p className="w-[41.4rem] h-[7.2rem] text-[1.6rem] sm:hidden md:w-[31rem] md:h-[7.2rem] md:text-[1.3rem]">
+              Sign up now to easily keep track of your assets, designated
+              beneficiaries and receive estate planning products tailored to
+              your assets.
+            </p>
           </div>
 
-          {/* <div className="flex-wrap justify-between h-[15.4rem] border">
-              <Image className="" src={Bigblock} alt="Bigblock" important/>
-              <Image className="" src={Biggerblock} alt="Biggerblock" important />
-              <Image className="" src={Biggstblock} alt="Biggstblock" important/>
-            </div> */}
+          <div className="flex justify-between place-items-end border">
+            <div className="w-[13rem] h-[8rem] border">
+              <Image src={Bigblock} alt="Bigblock" />
+            </div>
+            <div className="w-[15rem] h-[13rem] border">
+              <Image
+                className="min-w-{4rem} w-[5rem] h-[2rem]"
+                src={Biggerblock}
+                alt="Biggerblock"
+              />
+            </div>
+            <div className=" w-[18rem] h-[20rem] border">
+              <Image
+                className="object-cover	w-[5rem] h-[2rem]"
+                src={Biggstblock}
+                alt="Biggstblock"
+              />
+            </div>
+          </div>
         </div>
 
         <div className="flex justify-center px-[3rem] bg-white w-1/2 h-[69.5rem] md:block md:w-1/2 md:h-[69.4rem] ">
@@ -137,7 +171,7 @@ const Signup = () => {
             <h2 className="mb-6 text-[3.2rem] sm:text-[3.2rem] md:text-[3.2rem] text-[#345C45] ">
               Sign Up
             </h2>
-            <div className="flex  mb-10 w-[32.1rem] h-[2.4rem]">
+            <div className="flex mb-10 w-[32.1rem] h-[2.4rem]">
               <p className="text-[1.6rem]">Already have an account?</p>
               <span className="ml-3 w-[5.7rem] h-[2.4rem] text-[#345C45] text-[1.8rem] ">
                 <b>
@@ -157,12 +191,12 @@ const Signup = () => {
                   </label>
                   <br />
                   <span>
-                    {isFirstNameShort ? (
+                    {isFirstNameValidated ? (
+                      ""
+                    ) : (
                       <span className=" text-[red]">
                         This is a required field with at least 3 character
                       </span>
-                    ) : (
-                      ""
                     )}
                   </span>
                   <div className=" w-[37.1rem] h-[4.8rem] mb-[1.6rem] sm:w-[33rem] md:w-[37.1rem]">
@@ -180,12 +214,10 @@ const Signup = () => {
                     />
                   </div>
 
-                  <label className="text-[1.4rem] w-[95px]">
-                    Last Name
-                  </label>
+                  <label className="text-[1.4rem] w-[95px]">Last Name</label>
                   <br />
                   <span>
-                    {isLastNameShort ? (
+                    {isLastNameValidated ? (
                       <span className=" text-[red]">
                         This is a required field with at least 3 character
                       </span>
@@ -207,20 +239,17 @@ const Signup = () => {
                     />
                   </div>
 
-                  
-                    <label className="text-[1.4rem] w-[95px] ">
-                      Email
-                    </label>
-                    <br />
-                    <span>
-                      {isEmailPattern ? (
-                        ""
-                      ) : (
-                        <span className="text-[red]">
+                  <label className="text-[1.4rem] w-[95px] ">Email</label>
+                  <br />
+                  <span>
+                    {isEmailPattern ? (
+                      ""
+                    ) : (
+                      <span className="text-[red]">
                         Invalid Email.Please match the email pattern
-                        </span>
-                      )}
-                    </span>
+                      </span>
+                    )}
+                  </span>
                   <div className=" w-[37.1rem] h-[4.8rem] mb-[1.6rem] sm:w-[33rem] md:w-[37.1rem]">
                     <input
                       onChange={(e) => validateEmail(e.target.value.trim())}
@@ -234,10 +263,8 @@ const Signup = () => {
                     />
                   </div>
 
-                  <label className="text-[1.4rem] w-[95px]">
-                      Phone Number
-                    </label>
-                    <br />
+                  <label className="text-[1.4rem] w-[95px]">Phone Number</label>
+                  <br />
                   <div className=" w-[37.1rem] h-[4.8rem] mb-[1.6rem] sm:w-[33rem] md:w-[37.1rem]">
                     <div className="flex">
                       <select
@@ -277,23 +304,24 @@ const Signup = () => {
                 </div>
               ) : progressTrack === 1 ? (
                 <div id="ConfirmEmail" className="">
-                  
                   <label className="text-[1.4rem] w-[95px]">
-                      Confirm Email{" "}
+                    Confirm Email{" "}
                   </label>
                   <br />
                   <span>
-                      {isConfirmEmailValidated ? (
-                        ""
-                      ) : (
-                        <span className="text-[red]">
+                    {isConfirmEmailValidated ? (
+                      ""
+                    ) : (
+                      <span className="text-[red]">
                         Invalid Email.Please match the email pattern
-                        </span>
-                      )}
-                    </span>
+                      </span>
+                    )}
+                  </span>
                   <div className=" w-[37rem] h-[4.8rem] mb-[3.6rem] sm:w-[33rem] md:w-[37.1rem]">
                     <input
-                      onChange={(e) => validateConfirmEmail(e.target.value.trim())}
+                      onChange={(e) =>
+                        validateConfirmEmail(e.target.value.trim())
+                      }
                       type="email"
                       id="confirmEmail"
                       name="ConfirmEmail"
@@ -323,24 +351,23 @@ const Signup = () => {
                 </div>
               ) : progressTrack === 2 ? (
                 <div id="ConfirmEmail" className="md:w-[34rem]">
-                  <label className="text-[1.4rem] w-[95px]">
-                      Password
-                  </label>
+                  <label className="text-[1.4rem] w-[95px]">Password</label>
                   <br />
                   <span>
                     {isPasswordValidated ? (
-                      ""
-                    ) : (
                       <span className=" text-[red]">
-                        A minimum 8 characters password contains a combination of uppercase 
-                        and lowercase letter and number are required.
+                        A minimum 8 characters password contains a combination
+                        of uppercase and lowercase letter and number are
+                        required.
                       </span>
+                    ) : (
+                      ""
                     )}
                   </span>
                   <div className="flex bg-[#F3F3F3] w-[37rem] h-[4.8rem] mb-[1.6rem] sm:w-[31rem] sm:h-[4.3rem] md:w-[33rem] md:h-[4.8rem]">
                     <input
                       onChange={(e) => validatePassword(e.target.value.trim())}
-                      type={isPassword ? "password" : "text"}
+                      type={eyePasswordCheck ? "password" : "text"}
                       id="password"
                       name="password"
                       className="bg-[#F3F3F3] w-[33rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
@@ -350,11 +377,11 @@ const Signup = () => {
                     <span
                       id="toggle"
                       onClick={() => {
-                        setIsPassword(!isPassword);
+                        setEyePasswordCheck((prev) => !prev);
                       }}
                       className="bg-[#F3F3F3] mt-5"
                     >
-                      {isPassword ? (
+                      {password ? (
                         <BsEyeSlash style={{ width: "40px", height: "20px" }} />
                       ) : (
                         <BsEye style={{ width: "40px", height: "20px" }} />
@@ -363,22 +390,25 @@ const Signup = () => {
                   </div>
 
                   <label className="text-[1.4rem] w-[95px]">
-                      Confirm Password
+                    Confirm Password
                   </label>
                   <br />
                   <span>
-                    {isConfirmPasswordValidated === isPasswordValidated? (
-                      ""
+                    {isConfirmPasswordValidated ? (
+                      <span className=" text-[red]">Password mismatch !</span>
                     ) : (
-                      <span className=" text-[red]">
-                        Password mismatch !
-                      </span>
+                      ""
                     )}
                   </span>
-                  <div className="flex bg-[#F3F3F3] w-[37rem] h-[4.8rem] mb-[1.6rem] sm:w-[31rem] sm:h-[4.3rem] md:w-[33rem] md:h-[4.8rem]"> 
+                  <div className="flex bg-[#F3F3F3] w-[37rem] h-[4.8rem] mb-[1.6rem] sm:w-[31rem] sm:h-[4.3rem] md:w-[33rem] md:h-[4.8rem]">
                     <input
-                      onChange={(e) => validateConfirmPassword(e.target.value.trim())}
-                      type={isConfirmPassword ? "password" : "text"}
+                      onChange={(e) =>
+                        validateConfirmPassword(e.target.value.trim())
+                      }
+                      onBlur={(e) =>
+                        validateConfirmPassword(e.target.value.trim())
+                      }
+                      type={confirmPassword ? "password" : "text"}
                       id="confirmPassword"
                       name="confirmPassword"
                       className="bg-[#F3F3F3] w-[33rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:rounded-lg  "
@@ -389,13 +419,11 @@ const Signup = () => {
                     <div
                       id="toggle"
                       onClick={() => {
-                        setIsConfirmPassword(!isConfirmPassword);
+                        setConfirmPassword(!confirmPassword);
                       }}
                       className="bg-[#F3F3F3] mt-5"
-
-                      
                     >
-                      {isConfirmPassword ? (
+                      {confirmPassword ? (
                         <BsEyeSlash
                           className="passwordRevealed "
                           style={{ width: "40px", height: "20px" }}
