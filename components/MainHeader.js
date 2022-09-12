@@ -18,8 +18,7 @@ const HeaderWrapper = styled.header`
   font-family: inherit;
   font-size: 1.6rem;
   padding: 0 2.5rem;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 
   .logo-group {
     align-items: flex-end;
@@ -53,7 +52,6 @@ const HeaderWrapper = styled.header`
 
   @media screen and (max-width: 768px) {
     padding: 0 2rem;
-  
   }
   @media screen and (max-width: 414px) {
     padding: 0 1.5rem;
@@ -122,7 +120,7 @@ const MainHeader = () => {
           </Link>
         </nav>
 
-        <Link href="/" passHref={true}>
+        <Link href="/" passHref>
           <Image src={Logo} alt="Meristem logo" />
         </Link>
       </div>
@@ -132,7 +130,7 @@ const MainHeader = () => {
           src={User}
           width="40px"
           height={"40px"}
-          className="rounded-full border-solid border-6 border-darkgreen bg-lightgreen"
+          className="rounded-full  border-solid border-6 border-darkgreen bg-lightgreen"
           alt="Johnson O."
         />
         <p className="">Labake J.</p>
