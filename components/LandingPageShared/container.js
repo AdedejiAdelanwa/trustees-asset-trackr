@@ -1,11 +1,13 @@
 import Image from "next/dist/client/image";
 import Link from "next/dist/client/link";
 import Meristem_logo from "../../public/assets/Meristemlogo.png";
+import ExternalHeader from "../ExternalHeader";
 
 const Container = ({ children }) => {
   return (
     <>
-      <nav className="flex font-Poppins text-[18px] text-darkgreen bg-white h-[10vh] items-center justify-between px-[15.2rem]">
+    <ExternalHeader />
+      {/* <nav className="flex font-Poppins text-[18px] text-darkgreen bg-white h-[10vh] items-center justify-between px-[15.2rem]">
         <Link href="/" passHref={true}>
           <div className="mt-[2rem] cursor-pointer">
             <Image className="" src={Meristem_logo} alt="Meristem_logo" />
@@ -24,7 +26,7 @@ const Container = ({ children }) => {
             <Link href="/signup">Get Started</Link>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       {children}
 
