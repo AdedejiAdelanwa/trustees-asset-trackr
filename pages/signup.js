@@ -4,10 +4,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import validator from "validator";
-import logo from "../assets/images/Logo.png";
-import Bigblock from "../assets/images/Bigblock.png";
-import Biggerblock from "../assets/images/Biggerblock.png";
-import Biggstblock from "../assets/images/Biggstblock.png";
+import logo from "../public/assets/Logo.png";
+
 
 const Signup = () => {
   const [progressTrack, setProgressTrack] = useState(0);
@@ -61,12 +59,13 @@ const Signup = () => {
   };
 
   const validateLastName = (lname) => {
-    const isLastNameValidated = validator.isLength(lname, [
-      { min: 3, max: undefined },
-    ]);
-    console.log(isLastNameValidated);
+    const LastNameValidation = validator.isLength(lname, {
+      min: 3,
+      max: undefined 
+    });
+    console.log(LastNameValidation);
     setLastName(lname);
-    isLastNameValidated
+    LastNameValidation
       ? setisLastNameValidated(true)
       : setisLastNameValidated(false);
   };
