@@ -14,10 +14,6 @@ import designate from "../public/assets/designateImage.png";
 import plan from "../public/assets/planImage.png";
 
 export default function Home() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setshowSubmission(false)
-  };
 
   return (
     <div>
