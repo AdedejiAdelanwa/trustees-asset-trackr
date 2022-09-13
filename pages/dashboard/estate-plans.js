@@ -48,7 +48,7 @@ export default function EstatePlans() {
           <TabPanel>
             <Flex
               flexWrap="wrap"
-              justifyContent={"space-between"}
+              justifyContent={{base: "space-around", lg: "space-between"}}
               gap="2rem"
               mt={"5rem"}
             >
