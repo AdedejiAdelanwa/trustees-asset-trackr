@@ -2,6 +2,7 @@ import Image from "next/dist/client/image";
 import Link from "next/dist/client/link";
 import Meristem_logo from "../../public/assets/Meristemlogo.png";
 import ExternalHeader from "../ExternalHeader";
+import Footer from "../Footer";
 
 const Container = ({ children }) => {
   return (
@@ -30,10 +31,7 @@ const Container = ({ children }) => {
 
       {children}
 
-      <div className="flex w-full bg-[#F3F3F3] text-black text-[1.4rem] h-[10vh] sm:h-[6vh] sm:px-[1.5rem] px-[15.2rem] items-center ">
-        {/* <div className="w-[251px] h-[27px] ml-[149.78px] mt-[16px]"> */}©
-        2022 Copyright: Meristem
-      </div>
+     <Footer />
     </>
   );
 };
