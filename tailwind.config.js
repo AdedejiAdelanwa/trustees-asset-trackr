@@ -5,13 +5,17 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      md: {max: '800px'},
+      sm: {max: '414px'}
+    },
     colors: {
-      white: "#ffffff",
       darkgreen: "#345C45",
-      green: "#3ECA4C",
       lightgrey: "#F3F3F3",
+
       grey: "#E2DFDF",
       black: "#323232",
+
       lightgreen: "#BBF1D1",
       pitch: "#F9B353",
       lemongreen: "#97A92E",
@@ -22,10 +26,12 @@ module.exports = {
         Poppins: ["Poppins", "sans-serif"],
       },
     },
+
     screens: {
       sm: { max: "414px" },
       md: { max: "800px" },
     },
+
   },
   plugins: [],
 };
