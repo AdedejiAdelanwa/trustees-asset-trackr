@@ -6,7 +6,6 @@ import { BsEye, BsEyeSlash } from "react-icons/bs";
 import validator from "validator";
 import logo from "../public/assets/Logo.png";
 
-
 const Signup = () => {
   const [progressTrack, setProgressTrack] = useState(0);
   const [firstName, setFirstName] = useState("");
@@ -18,13 +17,14 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isFirstNameValidated, setisFirstNameValidated] = useState(true);
-  const [isLastNameValidated, setisLastNameValidated] = useState(false);
+  const [isLastNameValidated, setisLastNameValidated] = useState(true);
   const [isEmailPattern, setisEmailPattern] = useState(true);
   const [isConfirmEmailValidated, setisConfirmEmailValidated] = useState(true);
   const [isPasswordValidated, setIsPasswordValidated] = useState(false);
-  const [isConfirmPasswordValidated, setIsConfirmPasswordValidated] =
-    useState(false);
+  const [isConfirmPasswordValidated, setIsConfirmPasswordValidated] = useState(false);
   const [eyePasswordCheck, setEyePasswordCheck] = useState(true);
+  const [eyeConfirmPasswordCheck, setEyeConfirmPasswordCheck] = useState(true);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,28 +32,14 @@ const Signup = () => {
     setIsSubmission(true);
   };
 
-  // const validateFirstName = (fname) => {
-  //   if (fname.length < 3) {
-  //     setisFirstNameShort(true);
-  //     return
-  //   }
-  //   setFirstName(fname);
-  //   setisFirstNameShort(false);
-  // };
-  const validatePasswordByMe = (pwd) => {
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{5,}$/.test(pwd)
-      ? true
-      : false;
-  };
-
   const validateFirstName = (fname) => {
-    const isFirstNameValidated = validator.isLength(fname, {
+    const FirstNameValidation = validator.isLength(fname, {
       min: 3,
       max: undefined,
     });
-    console.log(isFirstNameValidated);
+    console.log(FirstNameValidation);
     setFirstName(fname);
-    isFirstNameValidated
+    FirstNameValidation
       ? setisFirstNameValidated(true)
       : setisFirstNameValidated(false);
   };
@@ -61,7 +47,7 @@ const Signup = () => {
   const validateLastName = (lname) => {
     const LastNameValidation = validator.isLength(lname, {
       min: 3,
-      max: undefined 
+      max: undefined,
     });
     console.log(LastNameValidation);
     setLastName(lname);
@@ -71,10 +57,19 @@ const Signup = () => {
   };
 
   const validateEmail = (email) => {
-    const isEmailValidated = validator.isEmail(email);
-    console.log(isEmailValidated);
+    const EmailValidation = validator.isEmail(email, {
+      allow_display_name: false,
+      require_display_name: false,
+      allow_utf8_local_part: true,
+      require_tld: true,
+      allow_ip_domain: false,
+      domain_specific_validation: false,
+      blacklisted_chars: "",
+      host_blacklist: [],
+    });
+    console.log(EmailValidation);
     setEmail(email);
-    isEmailValidated ? setisEmailPattern(true) : setisEmailPattern(false);
+    EmailValidation ? setisEmailPattern(true) : setisEmailPattern(false);
   };
 
   const validateConfirmEmail = (ConfirmEmail) => {
@@ -84,6 +79,12 @@ const Signup = () => {
     isConfirmEmailValidated
       ? setisConfirmEmailValidated(true)
       : setisConfirmEmailValidated(false);
+  };
+
+  const validatePasswordByMe = (pwd) => {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(\W|_)).{5,}$/.test(pwd)
+      ? true
+      : false;
   };
 
   const validatePassword = (pass) => {
@@ -115,6 +116,7 @@ const Signup = () => {
 
     setConfirmPassword(confpassword);
   };
+
   return (
     <div>
       <Head>
@@ -140,8 +142,8 @@ const Signup = () => {
             </p>
           </div>
 
-          <div className="flex justify-between place-items-end ">
-            <div className=" bg-[#345C45] w-[13rem] md:w-[8rem] rounded-tr-3xl h-[8rem] "></div>
+          <div className=" flex justify-between place-items-end ">
+            <div className=" bg-[#345C45] w-[13rem] md:w-[9rem] rounded-tr-3xl h-[8rem] "></div>
             <div className="bg-[#345C45] w-[15rem] md:w-[10rem] rounded-tr-3xl rounded-tl-3xl h-[13rem]"></div>
             <div className="bg-[#345C45] w-[18rem] md:w-[11rem] rounded-tl-3xl h-[20rem]"></div>
           </div>
@@ -203,11 +205,11 @@ const Signup = () => {
                   <br />
                   <span>
                     {isLastNameValidated ? (
+                      ""
+                    ) : (
                       <span className=" text-[red]">
                         This is a required field with at least 3 character
                       </span>
-                    ) : (
-                      ""
                     )}
                   </span>
                   <div className=" w-[37.1rem] h-[4.8rem] mb-[1.6rem] sm:w-[33rem] md:w-[37.1rem]">
@@ -288,7 +290,10 @@ const Signup = () => {
                   </button>
                 </div>
               ) : progressTrack === 1 ? (
-                <div id="ConfirmEmail" className="w-[40.1rem] md:w-[33rem] sm:w-[30rem]">
+                <div
+                  id="ConfirmEmail"
+                  className="w-[40.1rem] md:w-[33rem] sm:w-[30rem]"
+                >
                   <label className="text-[1.4rem] w-[95px]">
                     Confirm Email{" "}
                   </label>
@@ -305,6 +310,9 @@ const Signup = () => {
                   <div className="w-[37rem] h-[4.8rem] mb-[3.6rem] sm:w-[29rem] md:w-[32rem]">
                     <input
                       onChange={(e) =>
+                        validateConfirmEmail(e.target.value.trim())
+                      }
+                      onBlur={(e) =>
                         validateConfirmEmail(e.target.value.trim())
                       }
                       type="email"
@@ -366,7 +374,7 @@ const Signup = () => {
                       }}
                       className="bg-[#F3F3F3] mt-5"
                     >
-                      {password ? (
+                      {eyePasswordCheck ? (
                         <BsEyeSlash style={{ width: "40px", height: "20px" }} />
                       ) : (
                         <BsEye style={{ width: "40px", height: "20px" }} />
@@ -404,11 +412,11 @@ const Signup = () => {
                     <div
                       id="toggle"
                       onClick={() => {
-                        setConfirmPassword(!confirmPassword);
+                        setEyeConfirmPasswordCheck((prev) => !prev);
                       }}
                       className="bg-[#F3F3F3] mt-5"
                     >
-                      {confirmPassword ? (
+                      {eyeConfirmPasswordCheck ? (
                         <BsEyeSlash
                           className="passwordRevealed "
                           style={{ width: "40px", height: "20px" }}
