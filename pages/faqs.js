@@ -14,7 +14,7 @@ const FAQs = () => {
     {/* Banna end */}
 
     
-  <div className="border flex mt-[5rem] justify-between px-[10rem] sm:flex-col sm:px-[4rem] md:px-[5rem] md:flex-col">
+  <div className=" flex mt-[5rem] justify-between px-[10rem] sm:flex-col sm:px-[4rem] md:px-[5rem] md:flex-col">
     {/*First Section*/}
     <div className=" w-[33.5rem] h-[35rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
       <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
