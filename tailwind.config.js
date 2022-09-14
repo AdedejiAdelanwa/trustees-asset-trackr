@@ -27,11 +27,6 @@ module.exports = {
       },
     },
 
-    screens: {
-      sm: { max: "414px" },
-      md: { max: "800px" },
-    },
-
   },
   plugins: [],
 };
