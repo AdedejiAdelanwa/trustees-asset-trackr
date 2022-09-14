@@ -10,9 +10,9 @@ module.exports = {
       sm: {max: '414px'}
     },
     colors: {
+      white: "#FFFFFF",
       darkgreen: "#345C45",
       lightgrey: "#F3F3F3",
-
       grey: "#E2DFDF",
       black: "#323232",
 
