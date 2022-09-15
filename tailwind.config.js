@@ -5,10 +5,10 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    screens: {
-      md: {max: '800px'},
-      sm: {max: '414px'}
-    },
+    // screens: {
+    //   md: {max: '800px'},
+    //   sm: {max: '414px'}
+    // },
     colors: {
       white: "#FFFFFF",
       darkgreen: "#345C45",
@@ -29,10 +29,9 @@ module.exports = {
 
     screens: {
       md: { max: "800px" },
-      sm: { max: "414px" },
+      sm: { max: "414px" }
       
     },
-
   },
   plugins: [],
 };
