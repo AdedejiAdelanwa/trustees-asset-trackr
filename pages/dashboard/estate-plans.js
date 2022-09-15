@@ -10,6 +10,7 @@ import {
   Text,
   VStack,
   Box,
+  useDisclosure,
 } from "@chakra-ui/react";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
@@ -19,18 +20,30 @@ import { RiFileList3Line } from "react-icons/ri";
 import EstatePlanItem from "../../components/EstatePlanItem";
 import { BsPersonCircle } from "react-icons/bs";
 import SimpleWillCard from "../../components/SimpleWillCard";
+import EstatePlanDetailsModal from "../../components/EstatePlanDetailsModal";
+import { useState } from "react";
 
 const estateplanList = [
   { name: "simple will", status: "processing" },
   { name: "comprehensive will", status: "active" },
+
   { name: "mkat", status: "processing" },
   { name: "mfat", status: "active" },
 ];
-const beneficiaries = [
+export const beneficiaries = [
   { name: "Peterson Omoboriowo", relationship: "son" },
   { name: "Paula Omoboriowo", relationship: "daughter" },
+  { name: "Wale Scott", relationship: "nephew" },
+  { name: "Dammy  Walker", relationship: "cousin" },
 ];
 export default function EstatePlans() {
+  const estatePlanModal = useDisclosure();
+  const [estateItem, setEstateItem] = useState({ name: "", status: "" });
+
+  const handleSetItemToShow = (i) => {
+    setEstateItem(estateplanList[i]);
+    estatePlanModal.onOpen();
+  };
   return (
     <section className="main-content text-black bg-white w-[80%] sm:w-[100%!important] md:w-[88%]   h-[90vh] p-[3rem] sm:px-[1.5rem] right-0 absolute overflow-auto">
       <div className="flex items-center justify-between">
@@ -48,12 +61,12 @@ export default function EstatePlans() {
           <TabPanel>
             <Flex
               flexWrap="wrap"
-              justifyContent={{base: "space-around", lg: "space-between"}}
+              justifyContent={{ base: "space-around", lg: "space-between" }}
               gap="2rem"
               mt={"5rem"}
             >
               {estateplanList.map((item, i) => (
-                <EstatePlanItem key={i}>
+                <EstatePlanItem key={i} onOpen={() => handleSetItemToShow(i)}>
                   <RiFileList3Line fontSize={"2.5rem"} color="darkgreen" />
 
                   <Stack spacing={"0"}>
@@ -62,12 +75,17 @@ export default function EstatePlans() {
                   </Stack>
                 </EstatePlanItem>
               ))}
+              <EstatePlanDetailsModal
+                estateItem={estateItem}
+                isOpen={estatePlanModal.isOpen}
+                onClose={estatePlanModal.onClose}
+              />
             </Flex>
           </TabPanel>
           <TabPanel>
             <Flex
               flexWrap="wrap"
-              justifyContent={{base: "space-around", lg: "space-between"}}
+              justifyContent={{ base: "space-around", lg: "space-between" }}
               gap="2rem"
               mt={"5rem"}
             >
@@ -84,10 +102,10 @@ export default function EstatePlans() {
             </Flex>
           </TabPanel>
           <TabPanel>
-            <Heading >Recommended</Heading>
+            <Heading>Recommended</Heading>
             <Flex
               flexWrap="wrap"
-              justifyContent={{base: "space-around", lg: "space-between"}}
+              justifyContent={{ base: "space-around", lg: "space-between" }}
               gap="2rem"
               mt={"3rem"}
             >
