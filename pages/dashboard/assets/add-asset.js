@@ -36,8 +36,8 @@ const assetsLink = [
 
 const AddAssetModal = () => {
   return (
-    <Box fontFamily={"Poppins"}  bg="white" >
-    <MainHeader />
+    <Box fontFamily={"Poppins"} bg="white">
+      <MainHeader />
       <Flex fontSize={"1.4rem"} h="90vh">
         <VStack
           w={{ base: "100%", lg: "20%" }}
@@ -47,11 +47,18 @@ const AddAssetModal = () => {
           textAlign="left"
           alignItems={"flex-start"}
         >
-          <Heading fontSize={"2.8rem"} pl="2rem">
+          <Heading
+            fontSize={"2.8rem"}
+            pl="2rem"
+            mb="1.75rem"
+            fontFamily={"Poppins"}
+          >
             New Asset
           </Heading>
           <Flex alignItems={"center"} mb="1.5rem">
-            <Text mr={"1rem"}>Choose Category</Text>
+            <Text mr={"1rem"} pl="2rem">
+              Choose Category
+            </Text>
             <Tooltip
               hasArrow
               label="about categories"
@@ -63,7 +70,7 @@ const AddAssetModal = () => {
               </span>
             </Tooltip>
           </Flex>
-          <Stack pl={"1rem"} fontWeight="bold" spacing="1.5rem">
+          <Stack pl={"2rem"} fontWeight="bold" spacing="1.5rem">
             {assetsLink.map((assetLink) => (
               <Link
                 href="#"
@@ -87,10 +94,10 @@ const AddAssetModal = () => {
         <Stack
           w={{ base: "0", lg: "80%" }}
           display={{ base: "none", lg: "initial" }}
-          pl="4rem"
+          pl="2rem"
           pt="2rem"
         >
-        <Link href="/dashboard/assets">Back</Link>
+          <Link href="/dashboard/assets">Back</Link>
           <Stack pr="2rem" fontFamily={"Poppins"}>
             <Stack spacing={"1rem"} mb="3rem">
               <Flex alignItems={"center"} mb="rem">
