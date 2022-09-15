@@ -161,95 +161,89 @@ export default function Home() {
                   Frequently Asked Questions
                 </p>
               </div>
-              <div className="">
+              <Accordion className="mt-[9rem] sm:mt-[1rem] border-y-1 border-y-[#D0CDCD] " >
+
+                <AccordionItem >
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
                 
-
-          <Accordion className="mt-[9rem] sm:mt-[1rem]  ">
-
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
-                    What is the process for transfering assets to beneficiaries?
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
-                libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-              </AccordionPanel>
-            </AccordionItem>
-            
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
-                    What is the process for transfering assets to beneficiaries?
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
-                libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-              </AccordionPanel>
-            </AccordionItem>
-            
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
-                    What is the process for transfering assets to beneficiaries?
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
-                libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-              </AccordionPanel>
-            </AccordionItem>
-            
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
-                    What is the process for transfering assets to beneficiaries?
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
-                libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-              </AccordionPanel>
-            </AccordionItem>
-            
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
-                    What is the process for transfering assets to beneficiaries?
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
-                libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-              </AccordionPanel>
-            </AccordionItem>
-            
-          </Accordion>
-
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
                 
-              </div>
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
+                
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
+                
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
+                
+              </Accordion> 
               <Link href="/faqs">
                 <div className="w-[15.8rem] rounded-[0.4rem] border-2 border-darkgreen items-center py-[1rem] px-[3.7rem] absolute bottom-0 left-0 text-darkgreen  text-[1.6rem] cursor-pointer">
                   Open FAQ
