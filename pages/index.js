@@ -16,10 +16,6 @@ import Allaccordion from "../components/LandingPageShared/accordions";
 import {Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box,} from "@chakra-ui/react";
 
 export default function Home() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setshowSubmission(false)
-  };
 
   return (
     <div>
