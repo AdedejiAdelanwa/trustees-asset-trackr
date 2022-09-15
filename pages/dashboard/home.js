@@ -23,8 +23,9 @@ import { HiOutlineSelector } from "react-icons/hi";
 import SideNav from "../../components/SideNavigation";
 import Link from "next/link";
 import Image from "next/image";
-import Writer from "../../public/assets/will-writer.png";
+
 import { Select } from "@chakra-ui/react";
+import SimpleWillCard from "../../components/SimpleWillCard";
 
 export const assetTypes = [{ name: "₦ Naira Assets" }, { name: "$ Dollar Assets" }];
 
@@ -218,19 +219,7 @@ export default function Index() {
         <h3 className="font-semibold text-[2.8rem]">Recomended Estate Plans</h3>
         <div className="relative flex items-center overflow-x-auto space-x-8">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-            <div
-              key={num}
-              className=" w-[30rem] sm:w-[40rem] md:w-[60rem] h-[30.5rem] m-[1rem] bg-white flex-grow flex-shrink-0 flex-[25rem] rounded-[5px] shadow-lg transition-all duration-200 ease-in-out hover:shadow-md hover:translate-y-[-1px] overflow-hidden"
-            >
-              <Image src={Writer} alt="describe" />
-              <div className="p-[1.8rem]">
-                <h5 className="text-[2.4rem]">Simple Will</h5>
-                <p className="text-[1.4rem] font-normal">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                  vulputate libero et velit interdum, ac aliquet odio mattis.
-                </p>
-              </div>
-            </div>
+            <SimpleWillCard key={num}/>
           ))}
         </div>
       </div>

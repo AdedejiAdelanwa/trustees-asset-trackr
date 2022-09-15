@@ -113,7 +113,7 @@ const Login = () => {
             </div>
             <Link href="/dashboard/home">
               <button className="w-[38rem] bg-darkgreen font-medium text-[1.8rem] items-center text-white py-[1rem] px-[10rem] mt-[4rem] rounded-[0.5rem] ">
-                Sign In
+                Log in
               </button>
             </Link>
           </form>
