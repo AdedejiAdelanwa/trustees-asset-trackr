@@ -164,7 +164,7 @@ const Signup = () => {
                 <b>
                   <Link href="#">Log in</Link>
                 </b>
-              </span>
+              </span>{" "}
             </div>
 
             <form
