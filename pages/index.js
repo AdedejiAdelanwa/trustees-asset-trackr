@@ -12,7 +12,7 @@ import faqImage from "../public/assets/faqImage.png";
 import trackAssetImage from "../public/assets/trackAssetImage.png";
 import designate from "../public/assets/designateImage.png";
 import plan from "../public/assets/planImage.png";
-import Allaccordion from "../components/LandingPageShared/accordions";
+// import Allaccordion from "../components/LandingPageShared/accordions";
 import {
   Accordion,
   AccordionItem,
@@ -80,7 +80,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex sm:flex-col-reverse mt-[10rem] sm:mt-[3rem] h-[51rem] md:h-[40rem] sm:h-[68rem] px-[15.2rem] md:px-[2rem] sm:px-[1.5rem] justify-between bg-[url('/assets/secondBlob.svg')] bg-right sm:bg-right bg-no-repeat [background-position-y:1rem] md:[background-position-y:-6rem] md:[background-position-x:69rem] sm:[background-position-y:-2rem] sm:[background-position-x:30rem]  ">
+          <div className="flex sm:flex-col-reverse mt-[10rem] md:mt-[5rem] sm:mt-[3rem] h-[51rem] md:h-[40rem] sm:h-[68rem] px-[15.2rem] md:px-[2rem] sm:px-[1.5rem] justify-between bg-[url('/assets/secondBlob.svg')] bg-right sm:bg-right bg-no-repeat [background-position-y:1rem] md:[background-position-y:-6rem] md:[background-position-x:69rem] sm:[background-position-y:-2rem] sm:[background-position-x:30rem]  ">
             <div className="flex flex-col w-[50.4rem] md:w-[36rem] sm:w-[33rem] h-[37vh] md:h-fit sm:h-[37vh] my-[15rem] md:my-[7rem] sm:my-[0rem] space-y-5 ">
               <h3 className="font-semibold text-[2.8rem] md:text-[2rem] sm:text-[2.8rem] text-darkgreen sm:mt-[5rem] md:mt-[7rem] ">
                 Designate beneficiaries
@@ -159,7 +159,7 @@ export default function Home() {
           </div>
 
           <div className="flex sm:flex-col sm:items-center bg-white w-full justify-between px-[15.2rem] md:px-[2rem] my-[7rem] ">
-            <div className="w-[78rem] md:w-[39rem] sm:w-[36rem] h-[73vh] md:h-[61vh] sm:h-[73vh] flex flex-col relative">
+            <div className="w-[78rem] md:w-[39rem] sm:w-[36rem] h-[73vh] md:h-[64vh] sm:h-[85vh] flex flex-col relative">
               <div className="flex">
                 <div className="sm:hidden">
                   <Image src={faqImage} alt="faqImage" />
@@ -169,14 +169,14 @@ export default function Home() {
                 </p>
               </div>
 
-              <Accordion className="mt-[9rem] sm:mt-[1rem] border-y-1 border-y-[#D0CDCD]" allowToggle>
-                {[1, 2, 3, 4, 5, 6].map((num) => (
+              <Accordion className="mt-[3.5rem] md:mt-[7.5rem] sm:mt-[1rem] border-y-1 border-y-[#D0CDCD]" allowToggle>
+                {[1, 2, 3, 4, 5].map((num) => (
                   <AccordionItem key={num} py="1rem">
                     {({ isExpanded }) => (
                       <>
                         <h2>
                           <AccordionButton>
-                            <Box flex="1" textAlign="left">
+                            <Box flex="1" textAlign="left" className="font-semibold text-[2rem] md:text-[1.1rem] sm:text-[1.6rem]">
                               What is the process for transfering assets to
                               beneficiaries?
                             </Box>
@@ -187,7 +187,7 @@ export default function Home() {
                             )}
                           </AccordionButton>
                         </h2>
-                        <AccordionPanel pb={4}>
+                        <AccordionPanel pb={4} className="w-[70rem] md:w-[39rem] sm:w-[33rem] text-[1.6rem] md:text-[1rem] sm:text-[1rem]">
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit. Nunc vulputate libero et velit interdu, ac
                           aliquet odio mattis. Class aptent taciti sociosqu ad
@@ -206,7 +206,7 @@ export default function Home() {
                 </div>
               </Link>
             </div>
-            <div className="flex flex-col w-[37rem] md:w-[31rem] sm:w-[35rem] sm:mt-[8rem] h-[62vh] md:h-[55vh] sm:h-[62vh] p-[2rem] bg-lightgreen rounded-[1rem]  border-1 border-darkgreen shadow-lg">
+            <div className="flex flex-col w-[37rem] md:w-[31rem] sm:w-[35rem] sm:mt-[8rem] h-[62vh] md:h-[55vh] sm:h-[62vh] p-[2rem] bg-lightgreen rounded-[1rem] border-1 border-darkgreen shadow-lg">
               <Image
                 src={trackAssetImage}
                 alt="trackAssetImage"
