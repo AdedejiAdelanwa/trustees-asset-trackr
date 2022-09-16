@@ -22,8 +22,9 @@ import { BsPersonCircle } from "react-icons/bs";
 import SimpleWillCard from "../../components/SimpleWillCard";
 import EstatePlanDetailsModal from "../../components/EstatePlanDetailsModal";
 import { useState } from "react";
+import BeneficiaryDetailsModal from "../../components/BeneficiaryDetailsModal";
 
-const estateplanList = [
+export const estateplanList = [
   { name: "simple will", status: "processing" },
   { name: "comprehensive will", status: "active" },
 
@@ -31,18 +32,24 @@ const estateplanList = [
   { name: "mfat", status: "active" },
 ];
 export const beneficiaries = [
-  { name: "Peterson Omoboriowo", relationship: "son" },
-  { name: "Paula Omoboriowo", relationship: "daughter" },
-  { name: "Wale Scott", relationship: "nephew" },
-  { name: "Dammy  Walker", relationship: "cousin" },
+  { name: "Peterson Omoboriowo", relationship: "son" ,age: "19", account: "12345367"},
+  { name: "Paula Omoboriowo", relationship: "daughter" ,age: "19", account: "12345367"},
+  { name: "Wale Scott", relationship: "nephew" ,age: "19", account: "12345367"},
+  { name: "Dammy  Walker", relationship: "cousin" ,age: "19", account: "12345367"},
 ];
 export default function EstatePlans() {
   const estatePlanModal = useDisclosure();
+  const beneficiaryModal = useDisclosure();
   const [estateItem, setEstateItem] = useState({ name: "", status: "" });
+  const [beneficiaryItem, setBeneficiaryItem] = useState({ name: "", relationship: "", age: "", account: "" });
 
   const handleSetItemToShow = (i) => {
     setEstateItem(estateplanList[i]);
     estatePlanModal.onOpen();
+  };
+  const handleSetBeneficiaryToShow = (i) => {
+    setBeneficiaryItem(beneficiaries[i]);
+    beneficiaryModal.onOpen();
   };
   return (
     <section className="main-content text-black bg-white w-[80%] sm:w-[100%!important] md:w-[88%]   h-[90vh] p-[3rem] sm:px-[1.5rem] right-0 absolute overflow-auto">
@@ -90,7 +97,7 @@ export default function EstatePlans() {
               mt={"5rem"}
             >
               {beneficiaries.map((ben, i) => (
-                <EstatePlanItem key={i}>
+                <EstatePlanItem key={i} onOpen={()=> handleSetBeneficiaryToShow(i)}>
                   <BsPersonCircle fontSize={"4rem"} color="darkgreen" />
 
                   <Stack spacing={"0"}>
@@ -99,6 +106,11 @@ export default function EstatePlans() {
                   </Stack>
                 </EstatePlanItem>
               ))}
+              <BeneficiaryDetailsModal
+                isOpen={beneficiaryModal.isOpen}
+                onClose={beneficiaryModal.onClose}
+                beneficiaryItem = {beneficiaryItem}
+              />
             </Flex>
           </TabPanel>
           <TabPanel>

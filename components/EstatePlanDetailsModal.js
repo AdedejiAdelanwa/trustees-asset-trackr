@@ -15,16 +15,12 @@ import {
   Flex,
   Stack,
   Heading,
-  Box,
   Image,
-  VStack,
+
 } from "@chakra-ui/react";
 import EstatePlanItem from "./EstatePlanItem";
 import { BsPersonCircle } from "react-icons/bs";
 import { beneficiaries } from "../pages/dashboard/estate-plans";
-import SimpleWillCard from "./SimpleWillCard";
-//import Image from "next/image";
-import DocumentPreview from "../public/assets/preview-doc.png";
 import Link from "next/link";
 
 export default function EstatePlanDetailsModal({
