@@ -33,24 +33,28 @@ const Resetpassword = () => {
     <main className="flex font-Poppins">
 
       <Logocomponent/>
-      <div className="w-1/2  sm:hidden h-[100vh] bg-lightgreen ">
-                
-                
-        <h1 className=" text-[4.8rem] text-darkgreen mt-[13.4rem] md:mt-[13.8rem] mx-[6.3rem] md:mx-[1.3rem]">
+      <div className="w-1/2  sm:hidden h-[100vh] bg-lightgreen">
+          <h1 className=" text-[4.8rem] md:text-[4rem] text-darkgreen mt-[13.4rem] md:mt-[11rem] mx-[6.3rem] md:mx-[1.3rem]">
             Welcome Back
-        </h1>
-        <p className="  text-[1.6rem] text-black w-[41rem] md:w-[38rem] mt-[1.5rem] mx-[6.3rem] md:mx-[1.3rem]">
+          </h1>
+          <p className="  text-[1.6rem] text-black w-[41rem] md:w-[38rem] mt-[1.5rem] mx-[6.3rem] md:mx-[1.3rem]">
             Sign up now to easily keep track of your assets, designate
             beneficiaries and receive estate planning products tailored to your
             assets.
-        </p>
-        <div className="flex h-[46.4rem] md:h-[46rem]  justify-between  overflow-y-hidden md:overflow-y-hidden">
-            <div className="h-[10rem] md:h-[7rem] self-end"><Image src={block_one} alt="block_one"/></div>
-            <div className="h-[20rem] md:h-[14rem] self-end"><Image src={block_two} alt="block_two" /></div>
-            <div className="h-[30rem] md:h-[19rem] self-end"><Image src={block_three} alt="block_three" /></div>
-        </div> 
-      </div>
-      <div className="w-1/2 h-fit md:h-fit sm:w-full md:mx-[1rem] sm:mx-[2rem] bg-white mt-[12.5rem] sm:mt-[7rem] md:mt-[13.5rem] mt-[6rem] sm:my-[0rem] ml-[12rem]">
+          </p>
+          <div className="flex h-[46.4rem] md:h-[50rem]  justify-between  overflow-y-hidden md:overflow-y-hidden">
+            <div className="h-[10rem] md:h-[7rem] self-end">
+              <Image src={block_one} alt="block_one" />
+            </div>
+            <div className="h-[20rem] md:h-[14rem] self-end">
+              <Image src={block_two} alt="block_two" />
+            </div>
+            <div className="h-[30rem] md:h-[19rem] self-end">
+              <Image src={block_three} alt="block_three" />
+            </div>
+          </div>
+        </div>
+      <div className="w-1/2 md:h-fit sm:w-full md:mx-[1rem] sm:mx-[2rem] bg-white mt-[12.5rem] sm:mt-[14rem] md:mt-[10.5rem] mt-[6rem] sm:my-[0rem] ml-[12rem] ">
         
         <h1 className="text-darkgreen text-[3.2rem] ">Reset Password</h1>
         <p className="sm:w-[31rem] text-black text-[1.6rem] mt-[0.1rem]">
