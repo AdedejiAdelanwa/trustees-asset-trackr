@@ -59,9 +59,9 @@ export default function EstatePlans() {
       </div>
       <Tabs mt={"3rem"} fontSize="1.6rem">
         <TabList borderBottomColor={"grey"}>
-          <Tab fontSize="1.6rem">My Estate Plans</Tab>
-          <Tab fontSize="1.6rem">Beneficiaries</Tab>
-          <Tab fontSize="1.6rem">Add Estate Plan</Tab>
+          <Tab _selected={{color: "green", borderBottomColor: "green"}} fontSize="1.6rem">My Estate Plans</Tab>
+          <Tab _selected={{color: "green", borderBottomColor: "green"}} fontSize="1.6rem">Beneficiaries</Tab>
+          <Tab _selected={{color: "green", borderBottomColor: "green"}} fontSize="1.6rem">Add Estate Plan</Tab>
         </TabList>
 
         <TabPanels>
