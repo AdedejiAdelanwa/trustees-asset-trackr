@@ -12,6 +12,8 @@ import faqImage from "../public/assets/faqImage.png";
 import trackAssetImage from "../public/assets/trackAssetImage.png";
 import designate from "../public/assets/designateImage.png";
 import plan from "../public/assets/planImage.png";
+import Allaccordion from "../components/LandingPageShared/accordions";
+import {Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box,} from "@chakra-ui/react";
 
 export default function Home() {
 
@@ -24,7 +26,8 @@ export default function Home() {
       </Head>
       <Container>
         <main className="flex w-[100%] flex-col  font-Poppins">
-          <div className=" w-full h-[100vh] sm:h-fit px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between sm:px-[1rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain">
+          
+          <div className=" w-full h-[100vh] sm:h-fit px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between sm:px-[1.5rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain">
             <div className="w-1/2 sm:w-full mt-[11rem] sm:mt-[3rem]  ">
               <h1 className="w-[46rem] sm:w-[37rem] text-[4.8rem] sm:text-[3.5rem] text-darkgreen">
                 Let’s help you <br /> track and organise your wealth
@@ -44,8 +47,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex sm:flex-col mt-[10rem] h-[51rem] sm:h-[68rem] px-[15.2rem] md:px-[1rem] sm:px-[1rem] justify-between bg-[url('/assets/firstBlob.svg')] bg-no-repeat [background-position-y:8.4rem]  sm:[background-position-y:7rem] sm:[background-position-x:-11rem]  sm:bg-contain  sm:w-[29rem] ">
-            <div className="ml-[3rem] sm:w-[37.8rem] sm:ml-[0rem]  ">
+          <div className="flex sm:flex-col mt-[10rem] h-[51rem] sm:h-[68rem] px-[15.2rem] md:px-[1.5rem] sm:px-[1.5rem] justify-between bg-[url('/assets/firstBlob.svg')] bg-no-repeat [background-position-y:8.4rem]  sm:[background-position-y:7rem] sm:[background-position-x:-11rem]  sm:bg-contain  sm:w-[29rem] ">
+            <div className="ml-[3rem] sm:w-[36.5rem] sm:ml-[0rem]  ">
               <Image src={keep_track} alt="keep_track" />
             </div>
             <div className="flex flex-col w-[50.4rem] sm:w-[33rem] h-[37vh]  my-[8rem] md:my-[0rem] space-y-5">
@@ -70,7 +73,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex sm:flex-col-reverse mt-[10rem] h-[51rem] sm:h-[68rem] px-[15.2rem] md:px-[1rem] sm:px-[1rem] justify-between bg-[url('/assets/secondBlob.svg')] bg-right sm:bg-right bg-no-repeat [background-position-y:1rem]  sm:[background-position-y:-2rem] sm:[background-position-x:30rem]  ">
+          <div className="flex sm:flex-col-reverse mt-[10rem] sm:mt-[3rem] h-[51rem] sm:h-[68rem] px-[15.2rem] md:px-[1.5rem] sm:px-[1.5rem] justify-between bg-[url('/assets/secondBlob.svg')] bg-right sm:bg-right bg-no-repeat [background-position-y:1rem]  sm:[background-position-y:-2rem] sm:[background-position-x:30rem]  ">
             <div className="flex flex-col w-[50.4rem] sm:w-[33rem] h-[37vh]  my-[15rem] md:my-[0rem] space-y-5 ">
               <h3 className="font-semibold text-[2.8rem] text-darkgreen sm:mt-[5rem] md:mt-[7rem] ">
                 Designate beneficiaries
@@ -90,13 +93,13 @@ export default function Home() {
                 </div>
               </Link>
             </div>
-            <div className="sm:w-[37.8rem] mt-[7.3rem]">
+            <div className="sm:w-[36.5rem] mt-[7.3rem]">
               <Image src={designate} alt="designate" />
             </div>
           </div>
 
-          <div className="flex sm:flex-col mt-[10rem] sm:mt-[15rem] h-[51rem] sm:h-[68rem] px-[15.2rem] md:px-[1rem] sm:px-[1rem] justify-between bg-[url('/assets/thirdBlob.svg')] bg-no-repeat [background-position-y:8.4rem]  sm:[background-position-y:5rem] sm:[background-position-x:-9rem]  sm:bg-contain  sm:w-[25rem] ">
-            <div className="ml-[3rem] sm:w-[37.8rem] sm:ml-[0rem]">
+          <div className="flex sm:flex-col mt-[10rem] sm:mt-[15rem] h-[51rem] sm:h-[68rem] px-[15.2rem]  sm:px-[1.5rem] md:px-[1.5rem] justify-between bg-[url('/assets/thirdBlob.svg')] bg-no-repeat [background-position-y:8.4rem]  sm:[background-position-y:5rem] sm:[background-position-x:-9rem]  sm:bg-contain  sm:w-[25rem] ">
+            <div className="ml-[3rem] sm:w-[36.5rem] sm:ml-[0rem]">
               <Image src={plan} alt="plan" />
             </div>
             <div className="flex flex-col w-[50.4rem] sm:w-[33rem]  h-[37vh]  my-[8rem] md:my-[0rem] space-y-5">
@@ -149,30 +152,114 @@ export default function Home() {
           </div>
 
           <div className="flex sm:flex-col sm:items-center bg-white w-full justify-between px-[15.2rem] md:px-[2rem] my-[7rem] ">
-            <div className="w-[78rem] sm:w-[37rem] h-[73vh] flex flex-col">
+            <div className="w-[78rem] sm:w-[36rem] h-[73vh] flex flex-col relative">
               <div className="flex">
                 <div className="sm:hidden">
                   <Image src={faqImage} alt="faqImage" />
                 </div>
-                <p className="text-black font-semibold text-[2.8rem] lg:ml-[1rem]">
+                <p className="text-black font-semibold text-[2.8rem] ml-[1rem] sm:ml-[0rem]  ">
                   Frequently Asked Questions
                 </p>
               </div>
-              <div className="">1</div>
+
+              <Accordion className="mt-[9rem] sm:mt-[1rem] border-y-1 border-y-[#D0CDCD] " >
+
+                <AccordionItem >
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
+                
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
+                
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
+                
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
+                
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box flex="1" textAlign="left" className="font-semibold text-[2rem]  sm:text-[1.6rem] ">
+                        What is the process for transfering assets to beneficiaries?
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel  className="w-[70rem] text-[1.6rem] sm:text-[1rem]  ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate
+                    libero et velit interdu, ac aliquet odio mattis. Class aptent taciti
+                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                  </AccordionPanel>
+                </AccordionItem>
+                
+              </Accordion> 
+              
               <Link href="/faqs">
-                <div className="w-[15.8rem] rounded-[0.4rem] border-2 border-darkgreen items-center py-[1rem] px-[3.7rem] mt-[20rem] text-darkgreen  text-[1.6rem] cursor-pointer">
+                <div className="w-[15.8rem] rounded-[0.4rem] border-2 border-darkgreen items-center py-[1rem] px-[3.7rem] absolute bottom-0 left-0 text-darkgreen  text-[1.6rem] cursor-pointer">
                   Open FAQ
                 </div>
               </Link>
             </div>
-            <div className="flex flex-col w-[37rem] h-[62vh] p-[2rem] bg-lightgreen rounded-[1rem]  border-1 border-darkgreen shadow-lg">
+            <div className="flex flex-col w-[37rem] sm:w-[35rem] sm:mt-[8rem] h-[62vh] p-[2rem] bg-lightgreen rounded-[1rem]  border-1 border-darkgreen shadow-lg">
               <Image
                 src={trackAssetImage}
                 alt="trackAssetImage"
                 className="rounded-[1em] "
               />
 
-              <h2 className="w-[323px] my-8 text-black text-[2.8rem]">
+              <h2 className="w-[32rem] sm:w-[29rem] my-8 text-black text-[2.8rem]">
                 Start tracking your assets and securing the future today.
               </h2>
               <Link href="/assets">
@@ -182,6 +269,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
+
         </main>
       </Container>
     </div>
