@@ -41,7 +41,7 @@ export default function Assets() {
   return (
     <section className="main-content text-black bg-white w-[80%] sm:w-[100%!important] md:w-[88%]   h-[90vh] p-[3rem] sm:px-[1.5rem] right-0 absolute overflow-auto">
       <Flex alignItems={"center"} justifyContent="space-between">
-        <Heading>Assets</Heading>
+        <Heading fontFamily={"Poppins"} fontSize="2.8rem">Assets</Heading>
         <Link href={"/dashboard/assets/add-asset"}>
         <Button
           bg={"darkgreen"}
