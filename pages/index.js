@@ -201,7 +201,7 @@ export default function Home() {
               </Accordion>
 
               <Link href="/faqs">
-                <div className="text-darkgreen text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] border-2 border-darkgreen items-center py-[1rem] px-[3.7rem] absolute bottom-0 left-0 text-darkgreen  text-[1.6rem] cursor-pointer">
+                <div className="text-darkgreen text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] border-2 border-darkgreen items-center py-[1rem] px-[3.7rem] absolute bottom-0 left-0 cursor-pointer">
                   Open FAQ
                 </div>
               </Link>

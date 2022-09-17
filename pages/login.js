@@ -61,7 +61,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/2 md:h-fit sm:w-full md:mx-[1rem] sm:mx-[2rem] bg-white mt-[12.5rem] sm:mt-[14rem] md:mt-[10.5rem]  mt-[6rem] sm:my-[0rem] ml-[12rem] ">
+        <div className="w-1/2 md:h-fit sm:w-full md:mx-[1rem] sm:mx-[2rem] bg-white mt-[12.5rem] sm:mt-[14rem] md:mt-[10.5rem]   sm:my-[0rem] ml-[12rem] ">
           <h1 className="text-darkgreen text-[3.2rem] ">Log In</h1>
           <p className="text-black text-[1.6rem] mt-[0.1rem]">
             Don’t have an account?
