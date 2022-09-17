@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import ExternalHeader from "../components/ExternalHeader";
 import Footer from "../components/Footer";
 
@@ -13,12 +13,14 @@ const FAQs = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="font-Poppins text-[1.8rem]">
+        <ExternalHeader />
         <div className="w-full h-[182px] px-[10rem] sm:px-[4rem] md:px-[5rem] p-5 bg-[#BBF1D1] ">
           <h1 className="w-[50rem] text-[4.8rem] text-[#345C45] sm:w-[32rem] sm:h-[10rem] sm:text-[3rem] sm:mt-[2rem] md:w-[40rem] md:h-[16rem] md:text-[4rem] ">
             Got a question?We’ve got answers
           </h1>
         </div>
         <div className="flex mt-[5rem] justify-between px-[10rem] sm:flex-col sm:px-[4rem] md:px-[5rem] md:flex-col">
+
           <div className=" w-[33.5rem] h-[35rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
             <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
               <h2 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
@@ -64,6 +66,7 @@ const FAQs = () => {
                   </Link>
                 </u>
               </p>
+
             </div>
           </div>
 
@@ -186,7 +189,6 @@ const FAQs = () => {
             </div>
           </div>
         </div>
-
         <Footer />
       </main>
     </div>
