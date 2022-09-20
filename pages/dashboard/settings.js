@@ -45,7 +45,7 @@ const FormWrapper = styled.form`
 
 export default function Settings() {
   return (
-    <section className="main-content text-black bg-white w-[80%] sm:w-[100%!important] md:w-[88%]   h-[90vh] p-[3rem] sm:px-[1.5rem] right-0 absolute overflow-auto">
+    <section className="main-content">
       <h2 className="text-[2.8rem] font-bold">Settings</h2>
       <Tabs mt={"3rem"} fontSize="1.6rem">
         <TabList borderBottomColor={"grey"}>

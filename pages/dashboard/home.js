@@ -27,6 +27,8 @@ import Image from "next/image";
 import { Select } from "@chakra-ui/react";
 import SimpleWillCard from "../../components/SimpleWillCard";
 
+
+
 export const assetTypes = [{ name: "₦ Naira Assets" }, { name: "$ Dollar Assets" }];
 
 const topAssets = [
@@ -131,7 +133,7 @@ export default function Index() {
   const [isVisible, setIsVisible] = useState(false);
   const [selected, setSelected] = useState(assetTypes[0]);
   return (
-    <section className="main-content text-black bg-white w-[80%] sm:w-[100%!important] md:w-[88%]   h-[90vh] p-[3rem] sm:px-[1.5rem] right-0 absolute overflow-auto">
+    <section className="main-content">
       <h2 className="text-[2.8rem] font-bold">Hi Labake 👋🏼 </h2>
       <div className="asset-figures flex justify-between sm:flex-col sm:mt-[1.8rem] items-center mt-[3.5rem]">
         <div>

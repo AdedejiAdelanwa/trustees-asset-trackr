@@ -52,7 +52,7 @@ export default function EstatePlans() {
     beneficiaryModal.onOpen();
   };
   return (
-    <section className="main-content text-black bg-white w-[80%] sm:w-[100%!important] md:w-[88%]   h-[90vh] p-[3rem] sm:px-[1.5rem] right-0 absolute overflow-auto">
+    <section className="main-content">
       <div className="flex items-center justify-between">
         <h2 className="text-[2.8rem] font-bold">My Estate Plans </h2>
         <BiSearchAlt2 fontSize={"2rem"} className="cursor-pointer" />
