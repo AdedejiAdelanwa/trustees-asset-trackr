@@ -52,6 +52,7 @@ export default function EstatePlans() {
     beneficiaryModal.onOpen();
   };
   return (
+
     <section className="main-content">
       <div className="flex items-center justify-between">
         <h2 className="text-[2.8rem] font-bold">My Estate Plans </h2>
