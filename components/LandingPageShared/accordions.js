@@ -13,7 +13,7 @@ import {
       <AccordionItem>
         <h2>
           <AccordionButton>
-            <Box flex="1" textAlign="left">
+            <Box flex="1" textAlign="left">   
               What is the process for transfering assets to beneficiaries?
             </Box>
             <AccordionIcon />
