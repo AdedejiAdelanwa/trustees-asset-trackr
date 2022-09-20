@@ -70,7 +70,7 @@ const FAQs = () => {
             </div>
           </div>
 
-          <div className="w-[33.5rem] sm:flex-col sm:w-[32rem] sm:mb-3 sm:px-[3rem] md:flex md:w-[70rem]">
+          <div className=" w-[33.5rem] sm:flex-col sm:w-[32rem] sm:mb-3 sm:px-[3rem] md:flex md:w-[70rem]">
             <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
               <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] md:text-[2.9rem]">
                 Assets{" "}
@@ -141,7 +141,7 @@ const FAQs = () => {
             </div>
           </div>
 
-          <div className="w-[33.5rem] h-[37rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
+          <div className=" w-[33.5rem] h-[37rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
             <div className="w-[33.5rem] mb-7 sm:w-[25rem] ">
               <h1 className=" mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:text-[2.9rem] md:mb-2">
                 Trust
