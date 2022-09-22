@@ -8,6 +8,7 @@ import hidden from "../public/assets/Hiddenpassword.svg";
 import show from "../public/assets/Showpassword.svg";
 import validator from "validator";
 import Logocomponent from "../components/LandingPageShared/logocomponent";
+import Head from "next/head";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +39,14 @@ const Login = () => {
   };
   return (
     <>
+     <Head>
+      <title>Asset Tracker | Meristem Trustees</title>
+      <meta
+        name="Meristem Trustees Asset Tracker"
+        content="Easily keep track of your assets, designate beneficiaries and receive estate planning products tailored to your assets."
+      />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
       <main className="flex font-Poppins">
         <Logocomponent />
         <div className="w-1/2  sm:hidden h-[100vh] bg-lightgreen">
