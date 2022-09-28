@@ -19,7 +19,8 @@ const FAQs = () => {
             Got a question?We’ve got answers
           </h1>
         </div>
-        <div className=" flex mt-[5rem] justify-between px-[10rem] sm:flex-col sm:px-[4rem] md:px-[5rem] md:flex-col">
+        <div className="flex mt-[5rem] justify-between px-[10rem] sm:flex-col sm:px-[4rem] md:px-[5rem] md:flex-col">
+
           <div className=" w-[33.5rem] h-[35rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
             <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
               <h2 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
@@ -65,86 +66,11 @@ const FAQs = () => {
                   </Link>
                 </u>
               </p>
-            </div>
-          </div>
-        </div>
-        <div className="w-[33.5rem] sm:flex-col sm:w-[32rem] sm:mb-3 sm:px-[3rem] md:flex md:w-[70rem]">
-          <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
-            <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] md:text-[2.9rem]">
-              Assets{" "}
-            </h1>
-            <p>
-              <u>
-                <Link href="#">What is a trust?</Link>
-              </u>
-            </p>
-            <p>
-              <u>
-                <Link href="#">Who is a trustee?</Link>
-              </u>
-            </p>
-            <p>
-              <u>
-                <Link href="#">
-                  What is the process for transfering assets to beneficiaries?
-                </Link>
-              </u>
-            </p>
-          </div>
 
-          <div className="flex mt-[5rem] justify-between px-[10rem] sm:flex-col sm:px-[4rem] md:px-[5rem] md:flex-col">
-            <div className=" w-[33.5rem] h-[35rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
-              <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
-                <h2 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
-                  Estate Plans
-                </h2>
-                <p>
-                  <u>
-                    <Link href="#">What is a trust?</Link>
-                  </u>
-                </p>
-                <p>
-                  <u>
-                    <Link href="#">Who is a trustee?</Link>
-                  </u>
-                </p>
-                <p>
-                  <u>
-                    <Link href="#">
-                      What is the process for transfering assets to
-                      beneficiaries?
-                    </Link>
-                  </u>
-                </p>
-              </div>
-
-              <div className="w-[335px] sm:w-[25rem]">
-                <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
-                  Real Estate
-                </h1>
-                <p>
-                  <u>
-                    <Link href="#">What is a trust?</Link>
-                  </u>
-                </p>
-                <p>
-                  <u>
-                    <Link href="#">Who is a trustee?</Link>
-                  </u>
-                </p>
-                <p>
-                  <u>
-                    <Link href="#">
-                      What is the process for transfering assets to
-                      beneficiaries?
-                    </Link>
-                  </u>
-                </p>
-              </div>
             </div>
           </div>
 
-          <div className="w-[33.5rem] sm:flex-col sm:w-[32rem] sm:mb-3 sm:px-[3rem] md:flex md:w-[70rem]">
+          <div className=" w-[33.5rem] sm:flex-col sm:w-[32rem] sm:mb-3 sm:px-[3rem] md:flex md:w-[70rem]">
             <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
               <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] md:text-[2.9rem]">
                 Assets{" "}
@@ -215,7 +141,7 @@ const FAQs = () => {
             </div>
           </div>
 
-          <div className="w-[33.5rem] h-[37rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
+          <div className=" w-[33.5rem] h-[37rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
             <div className="w-[33.5rem] mb-7 sm:w-[25rem] ">
               <h1 className=" mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:text-[2.9rem] md:mb-2">
                 Trust

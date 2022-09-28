@@ -5,6 +5,9 @@ import Image from "next/image";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import validator from "validator";
 import logo from "../public/assets/Logo.png";
+import bigBlock from "../public/assets/bigBlock.png";
+import biggerBlock from "../public/assets/biggerBlock.png";
+import biggestBlock from "../public/assets/biggestBlock.png";
 
 const Signup = () => {
   const [progressTrack, setProgressTrack] = useState(0);
@@ -21,14 +24,14 @@ const Signup = () => {
   const [isEmailPattern, setisEmailPattern] = useState(true);
   const [isConfirmEmailValidated, setisConfirmEmailValidated] = useState(true);
   const [isPasswordValidated, setIsPasswordValidated] = useState(false);
-  const [isConfirmPasswordValidated, setIsConfirmPasswordValidated] = useState(false);
+  const [isConfirmPasswordValidated, setIsConfirmPasswordValidated] =
+    useState(false);
+  const [isPhoneNumberValidated, setIsPhoneNumberValidated] = useState(true);
   const [eyePasswordCheck, setEyePasswordCheck] = useState(true);
   const [eyeConfirmPasswordCheck, setEyeConfirmPasswordCheck] = useState(true);
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("i got here");
     setIsSubmission(true);
   };
 
@@ -37,7 +40,6 @@ const Signup = () => {
       min: 3,
       max: undefined,
     });
-    console.log(FirstNameValidation);
     setFirstName(fname);
     FirstNameValidation
       ? setisFirstNameValidated(true)
@@ -49,7 +51,6 @@ const Signup = () => {
       min: 3,
       max: undefined,
     });
-    console.log(LastNameValidation);
     setLastName(lname);
     LastNameValidation
       ? setisLastNameValidated(true)
@@ -67,14 +68,26 @@ const Signup = () => {
       blacklisted_chars: "",
       host_blacklist: [],
     });
-    console.log(EmailValidation);
     setEmail(email);
     EmailValidation ? setisEmailPattern(true) : setisEmailPattern(false);
   };
 
+  const ValidatePhoneNumberByMe = (phone) => {
+    return /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(phone) ? true : false;
+  };
+
+  const ValidatePhoneNumber = (phoneNumber) => {
+    const phoneNumberValidation = ValidatePhoneNumberByMe(phoneNumber);
+    if (phoneNumberValidation) {
+      setIsPhoneNumberValidated(false);
+    } else {
+      setIsPhoneNumberValidated(true);
+    }
+    setPhoneNumber(phoneNumber);
+  };
+
   const validateConfirmEmail = (ConfirmEmail) => {
     const isConfirmEmailValidated = validator.isEmail(ConfirmEmail);
-    console.log(isConfirmEmailValidated);
     setConfirmEmail(ConfirmEmail);
     isConfirmEmailValidated
       ? setisConfirmEmailValidated(true)
@@ -89,14 +102,11 @@ const Signup = () => {
 
   const validatePassword = (pass) => {
     const passwordValidation = validatePasswordByMe(pass);
-    console.log(pass);
-
     if (passwordValidation) {
       setIsPasswordValidated(false);
     } else {
       setIsPasswordValidated(true);
     }
-
     setPassword(pass);
 
     if (password === confirmPassword) {
@@ -107,14 +117,91 @@ const Signup = () => {
   };
 
   const validateConfirmPassword = (confpassword) => {
-    console.log(password, confpassword);
     if (confpassword === password) {
       setIsConfirmPasswordValidated(false);
     } else {
       setIsConfirmPasswordValidated(true);
     }
-
     setConfirmPassword(confpassword);
+  };
+
+  const NextButton = () => {
+    if (firstName && lastName && email && phoneNumber) {
+      return (
+        <button
+          type="button"
+          onClick={() => setProgressTrack(1)}
+          className="bg-[#345C45] w-[37.1rem] h-[4.8rem] mt-7 text-[1.8rem] text-center sm:w-[28rem] sm:h-[48px] md:w-[31rem] md:h-[4.8rem] rounded-md"
+          style={{ color: "white" }}
+        >
+          Next
+        </button>
+      );
+    } else {
+      return (
+        <button
+          type="button"
+          onClick={() => setProgressTrack(1)}
+          disabled
+          className="bg-[#363d39] w-[37.1rem] h-[4.8rem] mt-7 text-[1.8rem] text-center sm:w-[28rem] sm:h-[48px] md:w-[31rem] md:h-[4.8rem] rounded-md"
+          style={{ color: "white" }}
+        >
+          Next
+        </button>
+      );
+    }
+  };
+
+  const SignUpButton = () => {
+    if (password && confirmPassword) {
+      return (
+        <button
+          className="bg-[#345C45] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
+          type="submit"
+          style={{ color: "white" }}
+        >
+          Sign Up
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="bg-[#363d39] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
+          type="submit"
+          disabled
+          style={{ color: "white" }}
+        >
+          Sign Up
+        </button>
+      );
+    }
+  };
+
+  const ConfirmEmailButton = () => {
+    if (confirmEmail) {
+      return (
+        <button
+          onClick={() => setProgressTrack(2)}
+          type="button"
+          className="bg-[#345C45] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
+          style={{ color: "white" }}
+        >
+          Next
+        </button>
+      );
+    } else {
+      return (
+        <button
+          onClick={() => setProgressTrack(2)}
+          type="button"
+          disabled
+          className="bg-[#363d39] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
+          style={{ color: "white" }}
+        >
+          Next
+        </button>
+      );
+    }
   };
 
   return (
@@ -124,14 +211,16 @@ const Signup = () => {
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex">
-        <div className="bg-[#BBF1D1] w-1/2 h-[69.5rem] sm:hidden md:w-1/2 md:h-[69.2rem] ">
-          <div className="mt-[4rem] w-[15rem] ml-[6.2rem] mb-[7rem] md:block md:mt-[2rem] md:w-[13.8rem] md:ml-[4rem] md:h-[34.33px]  ">
-            <Image src={logo} alt="MeristemLogo" />
+      <main className="flex font-Poppins">
+        <div className="bg-[#BBF1D1] w-1/2 h-{100vh} sm:hidden md:w-1/2 md:h-{80vh}">
+          <div className="mt-[4rem] w-[15rem] ml-[6.2rem] mb-[7rem] md:block md:mt-[2rem] md:w-[13.8rem] md:ml-[4rem] md:h-fit cursor-pointer ">
+            <Link href="/">
+              <Image src={logo} alt="MeristemLogo" />
+            </Link>
           </div>
 
-          <div className="font-Poppins font-normal w-[45rem] ml-[6.2rem] mb-[5.3rem] md:mb-[13.3rem] md:block md:w-[20rem] md:ml-[4rem]">
-            <h1 className=" w-[45rem] h-[20rem] text-[4.8rem] mb-[1.7rem] text-[#345C45] md:w-[31rem] md:h-[14.3rem] md:text-[3.5rem] ">
+          <div className="font-normal w-[45rem] ml-[6.2rem] mb-[5.3rem] md:mb-[13.3rem] md:block md:w-[20rem] md:ml-[4rem]">
+            <h1 className="w-[45rem] h-[20rem] text-[4.8rem] mb-[1.7rem] text-[#345C45] md:w-[31rem] md:h-[14.3rem] md:text-[3.5rem] ">
               Keep track of all your assets on a single dashboard
             </h1>
 
@@ -142,19 +231,25 @@ const Signup = () => {
             </p>
           </div>
 
-          <div className=" flex justify-between place-items-end ">
-            <div className=" bg-[#345C45] w-[13rem] md:w-[9rem] rounded-tr-3xl h-[8rem] "></div>
-            <div className="bg-[#345C45] w-[15rem] md:w-[10rem] rounded-tr-3xl rounded-tl-3xl h-[13rem]"></div>
-            <div className="bg-[#345C45] w-[18rem] md:w-[11rem] rounded-tl-3xl h-[20rem]"></div>
+          <div className="flex h-[46.4rem] md:h-[22rem] justify-between place-items-end overflow-y-hidden md:overflow-y-hidden">
+            <div className="h-[9.8rem] md:h-[6.9rem] ">
+              <Image src={bigBlock} alt="bigBlock" />
+            </div>
+            <div className="h-[18.8rem] md:h-[13.3rem] ">
+              <Image src={biggerBlock} alt="biggerBlock" />
+            </div>
+            <div className="h-[25.6rem] md:h-[18rem] ">
+              <Image src={biggestBlock} alt="biggestBlock" />
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-center px-[3rem] bg-white w-1/2 h-[69.5rem] md:block md:w-1/2 md:h-[69.4rem] ">
-          <div className="w-[10rem] h-[2rem] hidden sm:block sm:mt-7">
+        <div className="flex justify-center px-[3rem] bg-white w-1/2 h-{100vh} md:block md:w-1/2 md:h-{80vh}">
+          <div className="w-[10rem] h-[2rem] hidden sm:block sm:mt-7 md:hidden">
             <Image src={logo} alt="MeristemLogo" />
           </div>
 
-          <div className="font-Poppins w-[42rem] h-[55rem] mt-[10rem] sm:w-[20rem] sm:mt-[7rem] md:w-[35rem] md:h-[52rem] md:mt-[6rem] ">
+          <div className=" w-[42rem] h-[55rem] mt-[10rem] sm:w-[20rem] sm:mt-[7rem] md:w-[35rem] md:h-[52rem] md:mt-[6rem] ">
             <h2 className="mb-6 text-[3.2rem] sm:text-[3.2rem] md:text-[3.2rem] text-[#345C45] ">
               Sign Up
             </h2>
@@ -162,9 +257,9 @@ const Signup = () => {
               <p className="text-[1.6rem]">Already have an account?</p>
               <span className="ml-3 w-[5.7rem] h-[2.4rem] text-[#345C45] text-[1.8rem] ">
                 <b>
-                  <Link href="#">Log in</Link>
+                  <Link href="/login">Log in</Link>
                 </b>
-              </span>
+              </span>{" "}
             </div>
 
             <form
@@ -193,7 +288,7 @@ const Signup = () => {
                       type="text"
                       id="fname"
                       name="firstName"
-                      defaultValue={(e) => e.target.value}
+                      value={firstName}
                       className="bg-[#F3F3F3] w-[37.1rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
                       placeholder="firstName"
                       style={{ border: "none", outline: "none" }}
@@ -207,7 +302,7 @@ const Signup = () => {
                     {isLastNameValidated ? (
                       ""
                     ) : (
-                      <span className=" text-[red]">
+                      <span className="text-[red]">
                         This is a required field with at least 3 character
                       </span>
                     )}
@@ -219,6 +314,7 @@ const Signup = () => {
                       type="text"
                       id="lname"
                       name="lastName"
+                      value={lastName}
                       className="bg-[#F3F3F3] w-[37.1rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
                       placeholder="lastName"
                       style={{ border: "none", outline: "none" }}
@@ -243,6 +339,7 @@ const Signup = () => {
                       type="email"
                       id="Email"
                       name="email"
+                      value={email}
                       className="bg-[#F3F3F3] w-[37.1rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
                       placeholder="Faruq@gmail.com"
                       style={{ border: "none", outline: "none" }}
@@ -252,11 +349,21 @@ const Signup = () => {
 
                   <label className="text-[1.4rem] w-[95px]">Phone Number</label>
                   <br />
+                  <span>
+                    {isPhoneNumberValidated ? (
+                      ""
+                    ) : (
+                      <span className="text-[red]">
+                        Please phone number in the following format: (+123)
+                        ***-****-***
+                      </span>
+                    )}
+                  </span>
                   <div className=" w-[37.1rem] h-[4.8rem] mb-[1.6rem] sm:w-[33rem] md:w-[37.1rem]">
                     <div className="flex">
                       <select
                         name="format"
-                        id="Num-format"
+                        id="NumFormat"
                         className="bg-[#F3F3F3] h-[48px] text-[1.4rem] md:h-[4.4rem] rounded-bl-xl rounded-tl-xl border"
                         style={{ border: "none", outline: "none" }}
                       >
@@ -268,26 +375,20 @@ const Signup = () => {
                         <option value="+910">+910</option>
                       </select>
                       <input
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        onChange={(e) => ValidatePhoneNumber(e.target.value)}
+                        onBlur={(e) => ValidatePhoneNumber(e.target.value)}
                         id="phone"
                         type="tel"
                         name="phone"
+                        value={phoneNumber}
                         className="bg-[#F3F3F3] text-[1.4rem] w-[32rem] h-[4.8rem] sm:w-[22.5rem] sm:h-[4.4rem] sm:text-[1.3rem] p-2 md:text-[1.4rem] md:w-[25.5rem] md:h-[4.4rem] rounded-br-xl rounded-tr-xl"
-                        placeholder="+234810910xxx"
+                        placeholder="+234810xxxxxx"
                         style={{ border: "none", outline: "none" }}
                         required
                       />
                     </div>
                   </div>
-
-                  <button
-                    type="button"
-                    onClick={() => setProgressTrack(1)}
-                    className="bg-[#345C45] w-[37.1rem] h-[4.8rem] mt-7 text-[1.8rem] text-center sm:w-[28rem] sm:h-[48px] md:w-[31rem] md:h-[4.8rem] rounded-md"
-                    style={{ color: "white" }}
-                  >
-                    Next
-                  </button>
+                  <NextButton />
                 </div>
               ) : progressTrack === 1 ? (
                 <div
@@ -318,6 +419,7 @@ const Signup = () => {
                       type="email"
                       id="confirmEmail"
                       name="ConfirmEmail"
+                      value={confirmEmail}
                       className="bg-[#F3F3F3] w-[37.1rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
                       placeholder="faruq@gmail.com"
                       style={{ border: "none", outline: "none" }}
@@ -332,18 +434,11 @@ const Signup = () => {
                     >
                       Back
                     </button>
-                    <button
-                      onClick={() => setProgressTrack(2)}
-                      type="button"
-                      className="bg-[#345C45] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
-                      style={{ color: "white" }}
-                    >
-                      Next
-                    </button>
+                    <ConfirmEmailButton />
                   </div>
                 </div>
               ) : progressTrack === 2 ? (
-                <div id="ConfirmEmail" className="md:w-[34rem]">
+                <div className="md:w-[34rem]">
                   <label className="text-[1.4rem] w-[95px]">Password</label>
                   <br />
                   <span>
@@ -401,15 +496,14 @@ const Signup = () => {
                       onBlur={(e) =>
                         validateConfirmPassword(e.target.value.trim())
                       }
-                      type={confirmPassword ? "password" : "text"}
+                      type={eyeConfirmPasswordCheck ? "password" : "text"}
                       id="confirmPassword"
                       name="confirmPassword"
-                      className="bg-[#F3F3F3] w-[33rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:rounded-lg  "
+                      className="bg-[#F3F3F3] w-[33rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
                       placeholder="**********"
                       style={{ border: "none", outline: "none" }}
                     />
-
-                    <div
+                    <span
                       id="toggle"
                       onClick={() => {
                         setEyeConfirmPasswordCheck((prev) => !prev);
@@ -417,17 +511,11 @@ const Signup = () => {
                       className="bg-[#F3F3F3] mt-5"
                     >
                       {eyeConfirmPasswordCheck ? (
-                        <BsEyeSlash
-                          className="passwordRevealed "
-                          style={{ width: "40px", height: "20px" }}
-                        />
+                        <BsEyeSlash style={{ width: "40px", height: "20px" }} />
                       ) : (
-                        <BsEye
-                          className="passwordRevealed"
-                          style={{ width: "40px", height: "20px" }}
-                        />
+                        <BsEye style={{ width: "40px", height: "20px" }} />
                       )}
-                    </div>
+                    </span>
                   </div>
 
                   <div className="flex justify-between w-[37rem] mt-7 mb-7 sm:w-[28rem] md:w-[33rem] ">
@@ -437,13 +525,7 @@ const Signup = () => {
                     >
                       Back
                     </button>
-                    <button
-                      className="bg-[#345C45] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
-                      type="submit"
-                      style={{ color: "white" }}
-                    >
-                      Sign Up
-                    </button>
+                    <SignUpButton />
                   </div>
 
                   <div className="w-[36.6rem] sm:w-[30rem] md:w-[34rem] ">

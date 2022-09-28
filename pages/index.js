@@ -51,7 +51,7 @@ export default function Home() {
       <Container>
         <main className="flex w-[100%] flex-col  font-Poppins">
           
-          <div className=" w-full h-[100vh] sm:h-fit md:h-[50vh] px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between md:px-[1.5rem] sm:px-[1.5rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain ">
+          <div className=" w-full h-[100vh] sm:h-fit md:h-[50vh] px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between  sm:px-[1.5rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain ">
             <div className="w-1/2 sm:w-full mt-[11rem] md:mt-[2rem] md:ml-[3rem] sm:ml-[0rem] sm:mt-[3rem]  ">
               <h1 className="w-[46rem] md:w-[37rem] sm:w-[35rem] text-[4.8rem] md:text-[3rem] sm:text-[3.5rem] text-darkgreen">
                 Let’s help you <br /> track and organise your wealth
@@ -206,6 +206,7 @@ export default function Home() {
 
               <Link href="/faqs">
                 <div className="text-darkgreen text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] border-2 border-darkgreen py-[1rem] px-[3.7rem] absolute bottom-0 left-0 text-darkgreen text-[1.6rem] cursor-pointer">
+
                   Open FAQ
                 </div>
               </Link>

@@ -39,7 +39,7 @@ export default function Assets() {
   const [isVisible, setIsVisible] = useState(false);
  
   return (
-    <section className="main-content text-black bg-white w-[80%] sm:w-[100%!important] md:w-[88%]   h-[90vh] p-[3rem] sm:px-[1.5rem] right-0 absolute overflow-auto">
+    <section className="main-content">
       <Flex alignItems={"center"} justifyContent="space-between">
         <Heading fontFamily={"Poppins"} fontSize="2.8rem">Assets</Heading>
         <Link href={"/dashboard/assets/add-asset"}>
@@ -59,7 +59,7 @@ export default function Assets() {
 
       <Flex fontSize={"1.4rem"} mt="3.5rem">
         <HStack w={"85%"}>
-          <HStack overflowX={"clip"} spacing="1.5rem">
+          {/* <HStack overflowX={"clip"} spacing="1.5rem">
             {assetClassList.map((assetClass, index) => (
               <Button
                 key={index}
@@ -73,7 +73,7 @@ export default function Assets() {
                 {assetClass}
               </Button>
             ))}
-          </HStack>
+          </HStack> */}
 
           <Select width={"7rem"} fontSize="1.4rem">
             {assetClassList.map((assetClass, index) => (
