@@ -84,7 +84,7 @@ export default function Home() {
                 asset tracker, and we’ll help you keep track of their details
                 and how they’re growing.
               </p>
-              <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]">
+              <p className="text-[1.6rem]  md:text-[1.1rem] sm:text-[1.6rem]">
                 Upload any other assets that cannot be tracked automatically
                 such as Real Estate and you can easy organise and track your
                 wealth in one place.
