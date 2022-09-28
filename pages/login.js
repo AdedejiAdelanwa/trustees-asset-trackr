@@ -45,7 +45,7 @@ const Login = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex font-Poppins relative">
-        {/* <Logocomponent />
+        <Logocomponent />
         <div className="w-1/2 flex items-end h-[100vh] sm:hidden bg-lightgreen">
           <div className="w-full">
             <h1 className="w-[41rem] md:w-[37.7rem] text-[4.8rem] md:text-[4rem] text-darkgreen mx-[6.3rem] md:mx-[1.3rem] ">
@@ -133,12 +133,12 @@ const Login = () => {
               </div>
             </Link>
           </div>
-        </div> */}
+        </div>
 
         {/* Remove later */}
 
         
-            <Logocomponent/>
+            {/* <Logocomponent/>
        <div className="w-1/2 flex items-end h-[100vh] sm:hidden bg-lightgreen">
           <div className="w-full">
             <h1 className="w-[41rem] md:w-[37.7rem] text-[4.8rem] md:text-[4rem] text-darkgreen mx-[6.3rem] md:mx-[1.3rem] ">
@@ -192,7 +192,7 @@ const Login = () => {
                       </div>
                   </Link>
                 </div>
-            </div>
+            </div> */}
       </main>
     </>
   );
