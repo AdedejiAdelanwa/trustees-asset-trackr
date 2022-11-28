@@ -12,18 +12,35 @@ import faqImage from "../public/assets/faqImage.png";
 import trackAssetImage from "../public/assets/trackAssetImage.png";
 import designate from "../public/assets/designateImage.png";
 import plan from "../public/assets/planImage.png";
-// import Allaccordion from "../components/LandingPageShared/accordions";
 import {
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  AccordionIcon,
   Box,
 } from "@chakra-ui/react";
 import { FiMinus, FiPlus } from "react-icons/fi";
 
 export default function Home() {
+
+  const datas = [
+    {
+      picture: peaceIcon,
+      word:"Peace of mind",
+      instruction:"Set your affairs in order and you can sit back, assured that things are taken care of."
+    },
+    {
+      picture: securityIcon,
+      word:"Security and Privacy",
+      instruction:"All your data will be secured by powerful encryptions to ensure they stay private and secure."
+    },
+    {
+      picture: builtInIcon,
+      word:"Built for you",
+      instruction:"The app is flexible and allows you to track differentassets easily as well as suggesting tailored plans for you."
+    }
+  ]
+
   return (
     <div>
       <Head>
@@ -67,7 +84,7 @@ export default function Home() {
                 asset tracker, and we’ll help you keep track of their details
                 and how they’re growing.
               </p>
-              <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]">
+              <p className="text-[1.6rem]  md:text-[1.1rem] sm:text-[1.6rem]">
                 Upload any other assets that cannot be tracked automatically
                 such as Real Estate and you can easy organise and track your
                 wealth in one place.
@@ -132,24 +149,11 @@ export default function Home() {
 
           <div className="flex flex-col w-full sm:items-center bg-lightgreen mt-[10rem] sm:mt-[15rem] ">
             <div className="flex sm:flex-col md:mx-[1rem] justify-center gap-x-[8rem] md:gap-x-[2.5rem] ">
-              <Cards
-                picture={peaceIcon}
-                word="Peace of mind"
-                instruction="Set your affairs in order and you can sit back, 
-                                assured that things are taken care of."
-              />
-              <Cards
-                picture={securityIcon}
-                word="Security and Privacy"
-                instruction="All your data will be secured by powerful encryptions 
-                                to ensure they stay private and secure."
-              />
-              <Cards
-                picture={builtInIcon}
-                word="Built for you"
-                instruction="The app is flexible and allows you to track different 
-                                assets easily as well as suggesting tailored plans for you."
-              />
+              
+              {
+                datas.map((data, i) => ( <Cards key={i} picture={data.picture} word={data.word} instruction={data.instruction} />
+                ))
+              }
             </div>
             <Link href="/signup">
               <div className="text-white  text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] mx-auto my-[4rem] cursor-pointer">
@@ -170,7 +174,7 @@ export default function Home() {
               </div>
 
               <Accordion className="mt-[3.5rem] md:mt-[7.5rem] sm:mt-[1rem] border-y-1 border-y-[#D0CDCD]" allowToggle>
-                {[1, 2, 3, 4, 5].map((num) => (
+                {[...Array(5)].map((num) => (
                   <AccordionItem key={num} py="1rem">
                     {({ isExpanded }) => (
                       <>
@@ -201,7 +205,8 @@ export default function Home() {
               </Accordion>
 
               <Link href="/faqs">
-                <div className="text-darkgreen text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] border-2 border-darkgreen items-center py-[1rem] px-[3.7rem] absolute bottom-0 left-0 cursor-pointer">
+                <div className="text-darkgreen text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] border-2 border-darkgreen py-[1rem] px-[3.7rem] absolute bottom-0 left-0 text-darkgreen text-[1.6rem] cursor-pointer">
+
                   Open FAQ
                 </div>
               </Link>
