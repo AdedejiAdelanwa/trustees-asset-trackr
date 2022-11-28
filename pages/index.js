@@ -22,24 +22,26 @@ import {
 import { FiMinus, FiPlus } from "react-icons/fi";
 
 export default function Home() {
-
   const datas = [
     {
       picture: peaceIcon,
-      word:"Peace of mind",
-      instruction:"Set your affairs in order and you can sit back, assured that things are taken care of."
+      word: "Peace of mind",
+      instruction:
+        "Set your affairs in order and you can sit back, assured that things are taken care of.",
     },
     {
       picture: securityIcon,
-      word:"Security and Privacy",
-      instruction:"All your data will be secured by powerful encryptions to ensure they stay private and secure."
+      word: "Security and Privacy",
+      instruction:
+        "All your data will be secured by powerful encryptions to ensure they stay private and secure.",
     },
     {
       picture: builtInIcon,
-      word:"Built for you",
-      instruction:"The app is flexible and allows you to track differentassets easily as well as suggesting tailored plans for you."
-    }
-  ]
+      word: "Built for you",
+      instruction:
+        "The app is flexible and allows you to track differentassets easily as well as suggesting tailored plans for you.",
+    },
+  ];
 
   return (
     <div>
@@ -50,7 +52,6 @@ export default function Home() {
       </Head>
       <Container>
         <main className="flex w-[100%] flex-col  font-Poppins">
-          
           <div className=" w-full h-[100vh] sm:h-fit md:h-[50vh] px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between  sm:px-[1.5rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain ">
             <div className="w-1/2 sm:w-full mt-[11rem] md:mt-[2rem] md:ml-[3rem] sm:ml-[0rem] sm:mt-[3rem]  ">
               <h1 className="w-[46rem] md:w-[37rem] sm:w-[35rem] text-[4.8rem] md:text-[3rem] sm:text-[3.5rem] text-darkgreen">
@@ -149,11 +150,14 @@ export default function Home() {
 
           <div className="flex flex-col w-full sm:items-center bg-lightgreen mt-[10rem] sm:mt-[15rem] ">
             <div className="flex sm:flex-col md:mx-[1rem] justify-center gap-x-[8rem] md:gap-x-[2.5rem] ">
-              
-              {
-                datas.map((data, i) => ( <Cards key={i} picture={data.picture} word={data.word} instruction={data.instruction} />
-                ))
-              }
+              {datas.map((data, i) => (
+                <Cards
+                  key={i}
+                  picture={data.picture}
+                  word={data.word}
+                  instruction={data.instruction}
+                />
+              ))}
             </div>
             <Link href="/signup">
               <div className="text-white  text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] mx-auto my-[4rem] cursor-pointer">
@@ -173,14 +177,21 @@ export default function Home() {
                 </p>
               </div>
 
-              <Accordion className="mt-[3.5rem] md:mt-[7.5rem] sm:mt-[1rem] border-y-1 border-y-[#D0CDCD]" allowToggle>
-                {[...Array(5)].map((num) => (
-                  <AccordionItem key={num} py="1rem">
+              <Accordion
+                className="mt-[3.5rem] md:mt-[7.5rem] sm:mt-[1rem] border-y-1 border-y-[#D0CDCD]"
+                allowToggle
+              >
+                {[...Array(5)].map((num, i) => (
+                  <AccordionItem key={i} py="1rem">
                     {({ isExpanded }) => (
                       <>
                         <h2>
                           <AccordionButton>
-                            <Box flex="1" textAlign="left" className="font-semibold text-[2rem] md:text-[1.1rem] sm:text-[1.6rem]">
+                            <Box
+                              flex="1"
+                              textAlign="left"
+                              className="font-semibold text-[2rem] md:text-[1.1rem] sm:text-[1.6rem]"
+                            >
                               What is the process for transfering assets to
                               beneficiaries?
                             </Box>
@@ -191,7 +202,10 @@ export default function Home() {
                             )}
                           </AccordionButton>
                         </h2>
-                        <AccordionPanel pb={4} className="w-[70rem] md:w-[39rem] sm:w-[33rem] text-[1.6rem] md:text-[1rem] sm:text-[1rem]">
+                        <AccordionPanel
+                          pb={4}
+                          className="w-[70rem] md:w-[39rem] sm:w-[33rem] text-[1.6rem] md:text-[1rem] sm:text-[1rem]"
+                        >
                           Lorem ipsum dolor sit amet, consectetur adipiscing
                           elit. Nunc vulputate libero et velit interdu, ac
                           aliquet odio mattis. Class aptent taciti sociosqu ad
@@ -206,7 +220,6 @@ export default function Home() {
 
               <Link href="/faqs">
                 <div className="text-darkgreen text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] border-2 border-darkgreen py-[1rem] px-[3.7rem] absolute bottom-0 left-0 text-darkgreen text-[1.6rem] cursor-pointer">
-
                   Open FAQ
                 </div>
               </Link>
