@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { signupUser } from "../redux/user/userActions";
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
+
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import validator from "validator";
 import logo from "../public/assets/Logo.png";
@@ -30,10 +33,10 @@ const Signup = () => {
   const [eyePasswordCheck, setEyePasswordCheck] = useState(true);
   const [eyeConfirmPasswordCheck, setEyeConfirmPasswordCheck] = useState(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmission(true);
-  };
+  const { loading, userInfo, error, success } = useSelector(state => state.user);
+  const dispatch = useDispatch()
+
+ 
 
   const validateFirstName = (fname) => {
     const FirstNameValidation = validator.isLength(fname, {
@@ -124,6 +127,13 @@ const Signup = () => {
     }
     setConfirmPassword(confpassword);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmission(true);
+    console.table(lastName,firstName,email,password,phoneNumber);
+    dispatch(signupUser({surname: lastName, othernames: firstName, email, phone: phoneNumber, password}))
+
+  };
 
   const NextButton = () => {
     if (firstName && lastName && email && phoneNumber) {
@@ -203,7 +213,9 @@ const Signup = () => {
       );
     }
   };
+// useEffect(()=>{
 
+// },[userInfo, success])
   return (
     <div>
       <Head>
@@ -396,7 +408,7 @@ const Signup = () => {
                   className="w-[40.1rem] md:w-[33rem] sm:w-[30rem]"
                 >
                   <label className="text-[1.4rem] w-[95px]">
-                    Confirm Email{" "}
+                    Confirm Email
                   </label>
                   <br />
                   <span>
@@ -458,6 +470,8 @@ const Signup = () => {
                       type={eyePasswordCheck ? "password" : "text"}
                       id="password"
                       name="password"
+                      value={password}
+                      autoComplete="new-password"
                       className="bg-[#F3F3F3] w-[33rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
                       placeholder="**********"
                       style={{ border: "none", outline: "none" }}
@@ -499,6 +513,8 @@ const Signup = () => {
                       type={eyeConfirmPasswordCheck ? "password" : "text"}
                       id="confirmPassword"
                       name="confirmPassword"
+                      autoComplete="new-password"
+                      value={confirmPassword}
                       className="bg-[#F3F3F3] w-[33rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
                       placeholder="**********"
                       style={{ border: "none", outline: "none" }}
