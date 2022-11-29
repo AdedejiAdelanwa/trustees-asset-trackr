@@ -3,7 +3,10 @@ import axios from "axios";
 import { baseUrl } from "../../util";
 export const signupUser = createAsyncThunk(
   "user/signup",
-  async ({ surname, othernames, email, phone, password },{ rejectWithValue }) => {
+  async (
+    { surname, othernames, email, phone_number, password },
+    { rejectWithValue }
+  ) => {
     try {
       const config = {
         headers: {
@@ -13,7 +16,7 @@ export const signupUser = createAsyncThunk(
 
       await axios.post(
         `${baseUrl}/user/create`,
-        { surname, othernames, email, phone, password },
+        { surname, othernames, email, phone_number, password },
         config
       );
     } catch (error) {

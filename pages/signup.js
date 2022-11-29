@@ -33,10 +33,10 @@ const Signup = () => {
   const [eyePasswordCheck, setEyePasswordCheck] = useState(true);
   const [eyeConfirmPasswordCheck, setEyeConfirmPasswordCheck] = useState(true);
 
-  const { loading, userInfo, error, success } = useSelector(state => state.user);
-  const dispatch = useDispatch()
-
- 
+  const { loading, userInfo, error, success } = useSelector(
+    (state) => state.user
+  );
+  const dispatch = useDispatch();
 
   const validateFirstName = (fname) => {
     const FirstNameValidation = validator.isLength(fname, {
@@ -130,9 +130,16 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmission(true);
-    console.table(lastName,firstName,email,password,phoneNumber);
-    dispatch(signupUser({surname: lastName, othernames: firstName, email, phone: phoneNumber, password}))
-
+    console.table(lastName, firstName, email, password, phoneNumber);
+    dispatch(
+      signupUser({
+        surname: lastName,
+        othernames: firstName,
+        email,
+        phone_number: phoneNumber,
+        password,
+      })
+    );
   };
 
   const NextButton = () => {
@@ -213,9 +220,9 @@ const Signup = () => {
       );
     }
   };
-// useEffect(()=>{
+  // useEffect(()=>{
 
-// },[userInfo, success])
+  // },[userInfo, success])
   return (
     <div>
       <Head>
