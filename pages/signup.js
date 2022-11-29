@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "../redux/user/userActions";
+import { baseUrl } from "../util";
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
@@ -11,6 +13,17 @@ import logo from "../public/assets/Logo.png";
 import bigBlock from "../public/assets/bigBlock.png";
 import biggerBlock from "../public/assets/biggerBlock.png";
 import biggestBlock from "../public/assets/biggestBlock.png";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 const Signup = () => {
   const [progressTrack, setProgressTrack] = useState(0);
@@ -32,6 +45,11 @@ const Signup = () => {
   const [isPhoneNumberValidated, setIsPhoneNumberValidated] = useState(true);
   const [eyePasswordCheck, setEyePasswordCheck] = useState(true);
   const [eyeConfirmPasswordCheck, setEyeConfirmPasswordCheck] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
+  const [otp, setOtp] = useState("");
+  const [verificationMessage, setVerificationMessage] = useState("");
 
   const { loading, userInfo, error, success } = useSelector(
     (state) => state.user
@@ -127,7 +145,7 @@ const Signup = () => {
     }
     setConfirmPassword(confpassword);
   };
-  const handleSubmit = (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
     setIsSubmission(true);
     console.table(lastName, firstName, email, password, phoneNumber);
@@ -140,6 +158,19 @@ const Signup = () => {
         password,
       })
     );
+  };
+
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    try {
+      const { data, status } = await axios.get(
+        `${baseUrl}/user/verify-otp/oluwadamiloladada@meristemng.com/1234`
+      );
+      console.log(data, status);
+      if (status === "200") navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const NextButton = () => {
@@ -248,6 +279,7 @@ const Signup = () => {
               beneficiaries and receive estate planning products tailored to
               your assets.
             </p>
+            <Button onClick={onOpen}>Open Modal</Button>
           </div>
 
           <div className="flex h-[46.4rem] md:h-[22rem] justify-between place-items-end overflow-y-hidden md:overflow-y-hidden">
@@ -282,7 +314,7 @@ const Signup = () => {
             </div>
 
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleSignUp}
               className="flex sm:w-[28rem] md:w-[33.8rem] "
             >
               {progressTrack === 0 ? (
@@ -568,6 +600,55 @@ const Signup = () => {
             </form>
           </div>
         </div>
+        <Modal
+          initialFocusRef={initialRef}
+          finalFocusRef={finalRef}
+          size="xl"
+          isOpen={isOpen}
+          onClose={onClose}
+          isCentered
+        >
+          <ModalOverlay
+            bg="none"
+            backdropFilter="auto"
+            backdropInvert="80%"
+            backdropBlur="2px"
+          />
+          <ModalContent bg="white" fontSize="1.4rem" color="black">
+            <ModalHeader textAlign="center">Verify Email</ModalHeader>
+            <ModalCloseButton color="black" />
+            <ModalBody pb="1.5rem">
+              <Text>Kindly enter the Otp sent to your email</Text>
+              <form className=" text-black" onSubmit={handleVerifyOtp}>
+                <div className="flex flex-col mb-5 mt-[3rem]">
+                  <label className=" text-[1.4rem]">Otp</label>
+                  <input
+                    ref={finalRef}
+                    onChange={(e) => setOtp(e.target.value)}
+                    value={otp}
+                    className="bg-[#F3F3F3] py-[0.8rem] px-[1.2rem]  rounded-[0.5rem]"
+                    id="verification-otp"
+                    type="number"
+                    required
+                  />
+                </div>
+
+                <button
+                  onClick={handleVerifyOtp}
+                  className=" w-full bg-darkgreen font-medium text-[1.8rem] items-center text-white py-[0.8rem] px-[1.2rem]  rounded-[0.5rem] "
+                >
+                  Verify Email
+                </button>
+              </form>
+              <Text>
+                Did not receive an Otp?{" "}
+                <span className="text-[darkgreen] cursor-pointer">
+                  Resend Otp
+                </span>
+              </Text>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </main>
     </div>
   );
