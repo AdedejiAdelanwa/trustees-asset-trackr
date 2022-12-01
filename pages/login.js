@@ -9,7 +9,6 @@ import hidden from "../public/assets/Hiddenpassword.svg";
 import show from "../public/assets/Showpassword.svg";
 import validator from "validator";
 import Logocomponent from "../components/LandingPageShared/logocomponent";
-import Head from "next/head";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,16 +39,15 @@ const Login = () => {
   };
   return (
     <>
-     <Head>
-      <title>Asset Tracker | Meristem Trustees</title>
-      <meta
-        name="Meristem Trustees Asset Tracker"
-        content="Easily keep track of your assets, designate beneficiaries and receive estate planning products tailored to your assets."
-      />
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+      <Head>
+        <title>Asset Tracker | Meristem Trustees</title>
+        <meta
+          name="Meristem Trustees Asset Tracker"
+          content="Easily keep track of your assets, designate beneficiaries and receive estate planning products tailored to your assets."
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <main className="flex font-Poppins">
-
         <Logocomponent />
         <div className="w-1/2 flex items-end h-[100vh] sm:hidden bg-lightgreen">
           <div className="w-full">
@@ -58,22 +56,22 @@ const Login = () => {
             </h1>
             <p className="w-[41rem] md:w-[37.7rem] text-[1.6rem] text-black mx-[6.3rem] md:mx-[1.3rem] ">
               Sign up now to easily keep track of your assets, designate
-              beneficiaries and receive estate planning products tailored to your
-              assets.
+              beneficiaries and receive estate planning products tailored to
+              your assets.
             </p>
-          
-          <div className="flex h-[45rem]  justify-between overflow-y-hidden md:overflow-y-hidden">
-            <div className="h-[10rem] md:h-[7rem] self-end">
-              <Image src={block_one} alt="block_one" />
-            </div>
-            <div className="h-[20rem] md:h-[14rem] self-end">
-              <Image src={block_two} alt="block_two" />
-            </div>
-            <div className="h-[30rem] md:h-[19rem] self-end">
-              <Image src={block_three} alt="block_three" />
+
+            <div className="flex h-[45rem]  justify-between overflow-y-hidden md:overflow-y-hidden">
+              <div className="h-[10rem] md:h-[7rem] self-end">
+                <Image src={block_one} alt="block_one" />
+              </div>
+              <div className="h-[20rem] md:h-[14rem] self-end">
+                <Image src={block_two} alt="block_two" />
+              </div>
+              <div className="h-[30rem] md:h-[19rem] self-end">
+                <Image src={block_three} alt="block_three" />
+              </div>
             </div>
           </div>
-        </div>
         </div>
         <div className="w-1/2 sm:w-full flex justify-center items-center sm:pt-[10rem] bg-white ">
           <div>
@@ -142,8 +140,7 @@ const Login = () => {
 
         {/* Remove later */}
 
-        
-            {/* <Logocomponent/>
+        {/* <Logocomponent/>
        <div className="w-1/2 flex items-end h-[100vh] sm:hidden bg-lightgreen">
           <div className="w-full">
             <h1 className="w-[41rem] md:w-[37.7rem] text-[4.8rem] md:text-[4rem] text-darkgreen mx-[6.3rem] md:mx-[1.3rem] ">
