@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { signupUser } from "../redux/user/userActions";
+import { useRouter } from "next/router";
+//import { useDispatch, useSelector } from "react-redux";
+//import { signupUser } from "../redux/user/userActions";
 import { baseUrl } from "../util";
 import Link from "next/link";
 import Head from "next/head";
@@ -21,6 +22,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -45,16 +47,23 @@ const Signup = () => {
   const [isPhoneNumberValidated, setIsPhoneNumberValidated] = useState(true);
   const [eyePasswordCheck, setEyePasswordCheck] = useState(true);
   const [eyeConfirmPasswordCheck, setEyeConfirmPasswordCheck] = useState(true);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOtpModalOpen,
+    onOpen: onOtpModalOpen,
+    onClose: onOtpModalClose,
+  } = useDisclosure();
+  const {
+    isOpen: isErrorModalOpen,
+    onOpen: onErrorModalOpen,
+    onClose: onErrorModalClose,
+  } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
   const [otp, setOtp] = useState("");
-  const [verificationMessage, setVerificationMessage] = useState("");
-
-  const { loading, userInfo, error, success } = useSelector(
-    (state) => state.user
-  );
-  const dispatch = useDispatch();
+  const [signupErrorMessage, setSignupErrorMessage] = useState("");
+  const router = useRouter();
+  const [isVerifying, setIsVerifying] = useState(false);
+  // const [verificationMessage, setVerificationMessage] = useState("");
 
   const validateFirstName = (fname) => {
     const FirstNameValidation = validator.isLength(fname, {
@@ -145,31 +154,55 @@ const Signup = () => {
     }
     setConfirmPassword(confpassword);
   };
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     setIsSubmission(true);
-    console.table(lastName, firstName, email, password, phoneNumber);
-    dispatch(
-      signupUser({
-        surname: lastName,
-        othernames: firstName,
-        email,
-        phone_number: phoneNumber,
-        password,
-      })
-    );
+
+    try {
+      await axios({
+        method: "post",
+        url: `${baseUrl}/user/create`,
+        data: {
+          surname: lastName,
+          othernames: firstName,
+          email,
+          phone_number: phoneNumber,
+          password,
+        },
+      });
+      setIsSubmission(false);
+      onOtpModalOpen();
+      setFirstName("");
+      setLastName("");
+      setPhoneNumber("");
+      setPassword("");
+      setConfirmEmail("");
+      setConfirmPassword("");
+    } catch (error) {
+      setIsSubmission(false);
+      if (error.response && error.response.data.message) {
+        setSignupErrorMessage(error.response.data.message);
+        onErrorModalOpen();
+      }
+      setSignupErrorMessage(error.response.data.message);
+      onErrorModalOpen();
+    }
   };
 
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
+    setIsVerifying(true);
     try {
-      const { data, status } = await axios.get(
-        `${baseUrl}/user/verify-otp/oluwadamiloladada@meristemng.com/1234`
-      );
-      console.log(data, status);
-      if (status === "200") navigate("/login");
+      await axios.get(`${baseUrl}/user/verify-otp/${email}/${otp}`);
+
+      setIsVerifying(false);
+      setEmail("");
+      setOtp("");
+      onOtpModalClose();
+      router.push("/login");
     } catch (error) {
-      console.log(error);
+      setIsVerifying(false);
+      alert(error);
     }
   };
 
@@ -195,31 +228,6 @@ const Signup = () => {
           style={{ color: "white" }}
         >
           Next
-        </button>
-      );
-    }
-  };
-
-  const SignUpButton = () => {
-    if (password && confirmPassword) {
-      return (
-        <button
-          className="bg-[#345C45] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
-          type="submit"
-          style={{ color: "white" }}
-        >
-          Sign Up
-        </button>
-      );
-    } else {
-      return (
-        <button
-          className="bg-[#363d39] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
-          type="submit"
-          disabled
-          style={{ color: "white" }}
-        >
-          Sign Up
         </button>
       );
     }
@@ -279,7 +287,7 @@ const Signup = () => {
               beneficiaries and receive estate planning products tailored to
               your assets.
             </p>
-            <Button onClick={onOpen}>Open Modal</Button>
+            <Button onClick={onOtpModalOpen}>Open Modal</Button>
           </div>
 
           <div className="flex h-[46.4rem] md:h-[22rem] justify-between place-items-end overflow-y-hidden md:overflow-y-hidden">
@@ -310,7 +318,7 @@ const Signup = () => {
                 <b>
                   <Link href="/login">Log in</Link>
                 </b>
-              </span>{" "}
+              </span>
             </div>
 
             <form
@@ -580,7 +588,19 @@ const Signup = () => {
                     >
                       Back
                     </button>
-                    <SignUpButton />
+
+                    <button
+                      className={`${
+                        password && confirmPassword
+                          ? "bg-[#345C45]"
+                          : "bg-[#363d39]"
+                      } w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md`}
+                      type="submit"
+                      disabled={!password && confirmPassword}
+                      style={{ color: "white" }}
+                    >
+                      {issubmission ? <Spinner /> : " Sign Up"}
+                    </button>
                   </div>
 
                   <div className="w-[36.6rem] sm:w-[30rem] md:w-[34rem] ">
@@ -604,8 +624,8 @@ const Signup = () => {
           initialFocusRef={initialRef}
           finalFocusRef={finalRef}
           size="xl"
-          isOpen={isOpen}
-          onClose={onClose}
+          isOpen={isOtpModalOpen}
+          onClose={onOtpModalClose}
           isCentered
         >
           <ModalOverlay
@@ -615,18 +635,22 @@ const Signup = () => {
             backdropBlur="2px"
           />
           <ModalContent bg="white" fontSize="1.4rem" color="black">
-            <ModalHeader textAlign="center">Verify Email</ModalHeader>
+            <ModalHeader textAlign="center" fontSize="2.3rem">
+              Signup successful 🎉🎉
+            </ModalHeader>
             <ModalCloseButton color="black" />
             <ModalBody pb="1.5rem">
-              <Text>Kindly enter the Otp sent to your email</Text>
               <form className=" text-black" onSubmit={handleVerifyOtp}>
-                <div className="flex flex-col mb-5 mt-[3rem]">
-                  <label className=" text-[1.4rem]">Otp</label>
+                <Text textAlign="center">
+                  Kindly enter the otp sent to your email to verify your account
+                </Text>
+                <div className="flex flex-col mb-5 mt-[1rem]">
+                  <label className=" text-[1.4rem] mb-[1rem]">Otp</label>
                   <input
                     ref={finalRef}
                     onChange={(e) => setOtp(e.target.value)}
                     value={otp}
-                    className="bg-[#F3F3F3] py-[0.8rem] px-[1.2rem]  rounded-[0.5rem]"
+                    className="bg-[#F3F3F3] py-[0.8rem] px-[1.2rem]   rounded-[0.5rem]"
                     id="verification-otp"
                     type="number"
                     required
@@ -637,7 +661,7 @@ const Signup = () => {
                   onClick={handleVerifyOtp}
                   className=" w-full bg-darkgreen font-medium text-[1.8rem] items-center text-white py-[0.8rem] px-[1.2rem]  rounded-[0.5rem] "
                 >
-                  Verify Email
+                  {isVerifying ? <Spinner /> : "Verify Email"}
                 </button>
               </form>
               <Text>
@@ -646,6 +670,35 @@ const Signup = () => {
                   Resend Otp
                 </span>
               </Text>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+        <Modal
+          size="xl"
+          isOpen={isErrorModalOpen}
+          onClose={onErrorModalClose}
+          isCentered
+        >
+          <ModalOverlay
+            bg="none"
+            backdropFilter="auto"
+            backdropInvert="80%"
+            backdropBlur="2px"
+          />
+          <ModalContent bg="white" fontSize="1.4rem" color="black">
+            <ModalHeader textAlign="center" fontSize="2.3rem">
+              An error occured
+            </ModalHeader>
+            <ModalCloseButton color="black" />
+            <ModalBody pb="1.5rem">
+              <Text textAlign="center">{signupErrorMessage}</Text>
+
+              <button
+                onClick={onErrorModalClose}
+                className=" w-full bg-darkgreen font-medium text-[1.8rem] items-center text-white py-[0.6rem] px-[1rem]  rounded-[0.5rem] "
+              >
+                Close
+              </button>
             </ModalBody>
           </ModalContent>
         </Modal>
