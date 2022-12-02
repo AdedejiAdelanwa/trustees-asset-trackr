@@ -63,6 +63,8 @@ const Signup = () => {
   const [signupErrorMessage, setSignupErrorMessage] = useState("");
   const router = useRouter();
   const [isVerifying, setIsVerifying] = useState(false);
+  const [isResendingOtp, setIsResendingOtp] = useState(false);
+  const [isOtpResent, setIsOtpResent] = useState(false);
   // const [verificationMessage, setVerificationMessage] = useState("");
 
   const validateFirstName = (fname) => {
@@ -194,15 +196,27 @@ const Signup = () => {
     setIsVerifying(true);
     try {
       await axios.get(`${baseUrl}/user/verify-otp/${email}/${otp}`);
-
       setIsVerifying(false);
-      setEmail("");
       setOtp("");
       onOtpModalClose();
       router.push("/login");
     } catch (error) {
       setIsVerifying(false);
       alert(error);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    setIsResendingOtp(true);
+    try {
+      await axios.get(`${baseUrl}/user/resend-otp/${email}`);
+      setIsOtpResent(true);
+      setIsResendingOtp(false);
+      setTimeout(() => {
+        setIsOtpResent(false);
+      }, 5000);
+    } catch (error) {
+      setIsResendingOtp(false);
     }
   };
 
@@ -664,11 +678,20 @@ const Signup = () => {
                   {isVerifying ? <Spinner /> : "Verify Email"}
                 </button>
               </form>
-              <Text>
+              <Text mt="1.5rem">
                 Did not receive an Otp?{" "}
-                <span className="text-[darkgreen] cursor-pointer">
+                <span
+                  onClick={handleResendOtp}
+                  className="text-[darkgreen] cursor-pointer mr-[1rem]"
+                >
                   Resend Otp
                 </span>
+                {isResendingOtp && <Spinner />}
+                {isOtpResent && (
+                  <span className="bg-lightgreen color-black ml-[1rem] py-[0.2rem] px-[0.8rem] rounded">
+                    Otp Resent
+                  </span>
+                )}
               </Text>
             </ModalBody>
           </ModalContent>
