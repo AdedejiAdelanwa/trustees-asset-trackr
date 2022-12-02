@@ -46,6 +46,10 @@ const Login = () => {
           content="Easily keep track of your assets, designate beneficiaries and receive estate planning products tailored to your assets."
         />
         <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="viewport"
+          content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"
+        />
       </Head>
       <main className="flex font-Poppins">
         <Logocomponent />
