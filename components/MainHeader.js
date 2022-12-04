@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Logo from "../public/assets/Logo.svg";
 import User from "../public/assets/user-icon.png";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const HeaderWrapper = styled.header`
   width: 100vw;
@@ -30,7 +31,7 @@ const HeaderWrapper = styled.header`
       padding-left: 2rem;
       font-size: 4rem;
     }
-  
+
     .list-item {
       height: 6rem;
       display: flex;
@@ -73,6 +74,7 @@ const HeaderWrapper = styled.header`
 
 const MainHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { userDetails } = useSelector((state) => state.user);
   return (
     <HeaderWrapper className="relative text-black bg-white">
       <div className="logo-group  w-2/3 flex">
@@ -133,7 +135,9 @@ const MainHeader = () => {
           className="rounded-full  border-solid border-6 border-darkgreen bg-lightgreen"
           alt="Johnson O."
         />
-        <p className="">Labake J.</p>
+        <p className="">
+          {userDetails.othernames} {userDetails.surname[0]}.
+        </p>
       </div>
     </HeaderWrapper>
   );

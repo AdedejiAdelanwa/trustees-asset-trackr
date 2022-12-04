@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
+
 import block_one from "../public/assets/blockOne.png";
 import block_two from "../public/assets/blockTwo.png";
 import block_three from "../public/assets/blockThree.png";
@@ -9,34 +11,47 @@ import hidden from "../public/assets/Hiddenpassword.svg";
 import show from "../public/assets/Showpassword.svg";
 import validator from "validator";
 import Logocomponent from "../components/LandingPageShared/logocomponent";
+import { Spinner } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../redux/user/userActions";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState("");
-  const [validatePassword, setvalidatePassword] = useState("");
-  const [handleSunmit, sethandleSunmit] = useState(false);
+  const { loading, userDetails, error } = useSelector((state) => state.user);
+  // const [validatePassword, setvalidatePassword] = useState("");
+  const dispatch = useDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
-  const submitHandle = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-
-    sethandleSunmit(true);
+    setIsSubmitting(true);
+    try {
+      // const response = await axios.post(`${baseUrl}/login`, {
+      //   email,
+      //   password,
+      // });
+      dispatch(userLogin({ email, password }));
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const validateEmail = (e) => {
     const validEmail = validator.isEmail(e.target.value);
     validEmail ? setIsEmailValid("") : setIsEmailValid("Enter valid Email!");
   };
-
-  const validate = (e) => {
-    const Val = validator.isStrongPassword(e, {
-      minLength: 8,
-      minLowercase: 1,
-      minUppercase: 1,
-      minNumbers: 1,
-      minSymbols: 1,
-    });
-    Val ? setvalidatePassword("") : setvalidatePassword("Not strong");
-  };
+  useEffect(() => {
+    if (userDetails) {
+      router.push("/dashboard/home");
+    }
+  }, [router, userDetails]);
   return (
     <>
       <Head>
@@ -48,7 +63,7 @@ const Login = () => {
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="viewport"
-          content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"
+          content="width=device-width, height=device-height,initial-scale=1.0, user-scalable=no,user-scalable=0"
         />
       </Head>
       <main className="flex font-Poppins">
@@ -86,14 +101,18 @@ const Login = () => {
                 <Link href="/signup"> Sign Up</Link>
               </span>
             </p>
-            <form className=" text-black" onSubmit={submitHandle}>
+            <form className=" text-black" onSubmit={handleLogin}>
               <div className="flex flex-col mb-5 mt-[3rem]">
                 <label className=" text-[1.4rem]">Email</label>
                 <input
-                  onChange={validateEmail}
+                  onChange={(e) => {
+                    validateEmail;
+                    setEmail(e.target.value);
+                  }}
                   className="bg-[#F3F3F3] w-[38rem] pt-[1.6rem] pr-[1.2rem] pb-[1.4rem] pl-[1.4rem] mt-[0.4rem]  rounded-[0.5rem]"
                   id="grid-Email-Address"
                   type="email"
+                  value={email}
                   placeholder="jobori@gmail.com"
                   required
                 />
@@ -105,9 +124,10 @@ const Login = () => {
                 <label className="text-[1.4rem] ">Password</label>
                 <div className="flex bg-[#F3F3F3] w-[38rem] pt-[1.4rem] pr-[1.2rem] pb-[1.2rem] pl-[1.4rem] mt-[0.4rem] rounded-[0.5rem]">
                   <input
-                    onChange={(e) => validate(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value.trim())}
                     className="w-[33rem] bg-[#F3F3F3] text-1.6rem"
                     type={showPassword ? "text" : "password"}
+                    value={password}
                     placeholder="*******"
                     required
                   />
@@ -122,15 +142,18 @@ const Login = () => {
                     )}
                   </span>
                 </div>
-                {validatePassword === "" ? null : (
+                {/* {validatePassword === "" ? null : (
                   <div className="mt-[1rem] font-bold text-[#FF0000] text-[1.4rem]">
                     {validatePassword}
                   </div>
-                )}
+                )} */}
               </div>
               <Link href="/dashboard/home">
-                <button className="w-[38rem] bg-darkgreen font-medium text-[1.8rem] items-center text-white py-[1rem] px-[10rem] mt-[4rem] rounded-[0.5rem] ">
-                  Log in
+                <button
+                  onClick={handleLogin}
+                  className="w-[38rem] bg-darkgreen font-medium text-[1.8rem] items-center text-white py-[1rem] px-[10rem] mt-[4rem] rounded-[0.5rem] "
+                >
+                  {loading ? <Spinner /> : "Log in"}
                 </button>
               </Link>
             </form>
