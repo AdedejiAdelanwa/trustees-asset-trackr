@@ -187,7 +187,7 @@ export default function Home() {
                 allowToggle
               >
                 {[...Array(5)].map((num) => (
-                  <AccordionItem key={num} py="1rem">
+                  <AccordionItem key={`accord-${num}`} py="1rem">
                     {({ isExpanded }) => (
                       <>
                         <h2>

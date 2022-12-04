@@ -305,7 +305,6 @@ const Signup = () => {
               beneficiaries and receive estate planning products tailored to
               your assets.
             </p>
-            <Button onClick={onOtpModalOpen}>Open Modal</Button>
           </div>
 
           <div className="flex h-[46.4rem] md:h-[22rem] justify-between place-items-end overflow-y-hidden md:overflow-y-hidden">
