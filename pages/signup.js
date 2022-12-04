@@ -305,7 +305,6 @@ const Signup = () => {
               beneficiaries and receive estate planning products tailored to
               your assets.
             </p>
-            <Button onClick={onOtpModalOpen}>Open Modal</Button>
           </div>
 
           <div className="flex h-[46.4rem] md:h-[22rem] justify-between place-items-end overflow-y-hidden md:overflow-y-hidden">
@@ -659,7 +658,7 @@ const Signup = () => {
             <ModalCloseButton color="black" />
             <ModalBody pb="1.5rem">
               <form className=" text-black" onSubmit={handleVerifyOtp}>
-                <Text textAlign="center">
+                <Text textAlign="center" mb="1.5rem">
                   Kindly enter the otp sent to your email to verify your account
                 </Text>
                 <div className="flex flex-col mb-5 mt-[1rem]">
@@ -718,7 +717,9 @@ const Signup = () => {
             </ModalHeader>
             <ModalCloseButton color="black" />
             <ModalBody pb="1.5rem">
-              <Text textAlign="center">{signupErrorMessage}</Text>
+              <Text textAlign="center" mb="1.5rem">
+                {signupErrorMessage}
+              </Text>
 
               <button
                 onClick={onErrorModalClose}

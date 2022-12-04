@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../util";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import Head from "next/head";
 import block_one from "../public/assets/blockOne.png";
 import block_two from "../public/assets/blockTwo.png";
 import block_three from "../public/assets/blockThree.png";
 import Logocomponent from "../components/LandingPageShared/logocomponent";
-import validator from "validator";
+//import validator from "validator";
 
 import {
   Modal,
@@ -32,13 +34,13 @@ const NewPassword = () => {
     useState(false);
 
   const [isRequesting, setIsRequesting] = useState(false);
+
   const {
     isOpen: isOtpModalOpen,
     onOpen: onOtpModalOpen,
     onClose: onOtpModalClose,
   } = useDisclosure();
   const router = useRouter();
-
   const tokenquery = router.query.token;
 
   const handleSetNewPassword = async (e) => {
@@ -61,11 +63,24 @@ const NewPassword = () => {
         onOtpModalClose();
       }, 3000);
     } catch (error) {
+      let notify;
       setIsRequesting(false);
-      console.log(error);
+      if (error.response && error.response.data.message) {
+        notify = () => {
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        };
+      } else {
+        notify = () => {
+          toast.error(error.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        };
+      }
+      notify();
     }
   };
-
   return (
     <>
       <Head>
@@ -199,6 +214,7 @@ const NewPassword = () => {
             </ModalBody>
           </ModalContent>
         </Modal>
+        <ToastContainer />
       </main>
     </>
   );

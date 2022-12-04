@@ -19,7 +19,14 @@ const initialState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state, action) => {
+      state.userDetails = null;
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("userDetails");
+      }
+    },
+  },
   extraReducers: {
     [userLogin.pending]: (state) => {
       state.loading = true;
@@ -35,5 +42,5 @@ const userSlice = createSlice({
     },
   },
 });
-
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;
