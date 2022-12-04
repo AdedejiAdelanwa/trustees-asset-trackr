@@ -95,7 +95,6 @@ const Login = () => {
         <div className="w-1/2 sm:w-full flex justify-center items-center sm:pt-[10rem] bg-white ">
           <div>
             <h1 className="text-darkgreen text-[3.2rem] ">Log In</h1>
-            <button onClick={notify}>Notify</button>;
             <p className="text-black text-[1.6rem] mt-[0.1rem]">
               Don’t have an account?
               <span className=" font-bold text-[1.8rem] text-darkgreen">
