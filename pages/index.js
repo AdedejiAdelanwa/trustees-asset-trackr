@@ -1,5 +1,6 @@
 import Image from "next/dist/client/image";
 import Link from "next/dist/client/link";
+import { useSelector } from "react-redux";
 import Head from "next/head";
 import Container from "../components/LandingPageShared/container";
 import heroImage from "../public/assets/Hero-Image.png";
@@ -21,8 +22,11 @@ import {
 } from "@chakra-ui/react";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const { userDetails } = useSelector((state) => state.user);
+  const router = useRouter();
   const datas = [
     {
       picture: peaceIcon,
@@ -45,8 +49,10 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    localStorage.removeItem("userDetails");
-  }, []);
+    if (userDetails) {
+      router.push("/dashboard/home");
+    }
+  }, [router, userDetails]);
 
   return (
     <div>
