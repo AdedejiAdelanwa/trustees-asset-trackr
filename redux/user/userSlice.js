@@ -1,34 +1,39 @@
-// import { createSlice } from "@reduxjs/toolkit";
-// import { signupUser } from "./userActions";
+import { createSlice } from "@reduxjs/toolkit";
+import { userLogin } from "./userActions";
+let userDetails;
+if (typeof window !== "undefined") {
+  userDetails = JSON.parse(
+    localStorage.getItem("userDetails")
+      ? localStorage.getItem("userDetails")
+      : null
+  );
+}
 
-// const initialState = {
-//   loading: false,
-//   userInfo: {},
-//   userToken: null,
-//   error: null,
-//   success: false,
-// };
+const initialState = {
+  loading: false,
+  userDetails,
+  userToken: null,
+  error: null,
+  success: false,
+};
+const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [userLogin.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    [userLogin.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.userDetails = payload;
+    },
+    [userLogin.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+  },
+});
 
-// const userSlice = createSlice({
-//   name: "user",
-//   initialState,
-//   reducers: {},
-//   extraReducers: (builder) => {
-//     builder.addCase(signupUser.pending, (state, { payload }) => {
-//       state.loading = true;
-//       state.error = null;
-//     });
-//     builder.addCase(signupUser.fulfilled, (state) => {
-//       state.loading = false;
-//       state.error = null;
-//       state.success = true;
-//     });
-//     builder.addCase(signupUser.rejected, (state, { payload }) => {
-//       state.loading = false;
-//       state.error = payload;
-//     });
-//   },
-
-// });
-
-// export default userSlice.reducer;
+export default userSlice.reducer;
