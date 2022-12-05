@@ -21,8 +21,10 @@ import EstatePlanItem from "../../components/EstatePlanItem";
 import { BsPersonCircle } from "react-icons/bs";
 import SimpleWillCard from "../../components/SimpleWillCard";
 import EstatePlanDetailsModal from "../../components/EstatePlanDetailsModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BeneficiaryDetailsModal from "../../components/BeneficiaryDetailsModal";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 export const estateplanList = [
   { name: "simple will", status: "processing" },
@@ -32,16 +34,41 @@ export const estateplanList = [
   { name: "mfat", status: "active" },
 ];
 export const beneficiaries = [
-  { name: "Peterson Omoboriowo", relationship: "son" ,age: "19", account: "12345367"},
-  { name: "Paula Omoboriowo", relationship: "daughter" ,age: "19", account: "12345367"},
-  { name: "Wale Scott", relationship: "nephew" ,age: "19", account: "12345367"},
-  { name: "Dammy  Walker", relationship: "cousin" ,age: "19", account: "12345367"},
+  {
+    name: "Peterson Omoboriowo",
+    relationship: "son",
+    age: "19",
+    account: "12345367",
+  },
+  {
+    name: "Paula Omoboriowo",
+    relationship: "daughter",
+    age: "19",
+    account: "12345367",
+  },
+  {
+    name: "Wale Scott",
+    relationship: "nephew",
+    age: "19",
+    account: "12345367",
+  },
+  {
+    name: "Dammy  Walker",
+    relationship: "cousin",
+    age: "19",
+    account: "12345367",
+  },
 ];
 export default function EstatePlans() {
   const estatePlanModal = useDisclosure();
   const beneficiaryModal = useDisclosure();
   const [estateItem, setEstateItem] = useState({ name: "", status: "" });
-  const [beneficiaryItem, setBeneficiaryItem] = useState({ name: "", relationship: "", age: "", account: "" });
+  const [beneficiaryItem, setBeneficiaryItem] = useState({
+    name: "",
+    relationship: "",
+    age: "",
+    account: "",
+  });
 
   const handleSetItemToShow = (i) => {
     setEstateItem(estateplanList[i]);
@@ -51,8 +78,16 @@ export default function EstatePlans() {
     setBeneficiaryItem(beneficiaries[i]);
     beneficiaryModal.onOpen();
   };
-  return (
 
+  const { userDetails } = useSelector((state) => state.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!userDetails) {
+      router.push("/login");
+    }
+  }, [router, userDetails]);
+  return (
     <section className="main-content">
       <div className="flex items-center justify-between">
         <h2 className="text-[2.8rem] font-bold">My Estate Plans </h2>
@@ -60,9 +95,24 @@ export default function EstatePlans() {
       </div>
       <Tabs mt={"3rem"} fontSize="1.6rem">
         <TabList borderBottomColor={"grey"}>
-          <Tab _selected={{color: "green", borderBottomColor: "green"}} fontSize="1.6rem">My Estate Plans</Tab>
-          <Tab _selected={{color: "green", borderBottomColor: "green"}} fontSize="1.6rem">Beneficiaries</Tab>
-          <Tab _selected={{color: "green", borderBottomColor: "green"}} fontSize="1.6rem">Add Estate Plan</Tab>
+          <Tab
+            _selected={{ color: "green", borderBottomColor: "green" }}
+            fontSize="1.6rem"
+          >
+            My Estate Plans
+          </Tab>
+          <Tab
+            _selected={{ color: "green", borderBottomColor: "green" }}
+            fontSize="1.6rem"
+          >
+            Beneficiaries
+          </Tab>
+          <Tab
+            _selected={{ color: "green", borderBottomColor: "green" }}
+            fontSize="1.6rem"
+          >
+            Add Estate Plan
+          </Tab>
         </TabList>
 
         <TabPanels>
@@ -98,7 +148,10 @@ export default function EstatePlans() {
               mt={"5rem"}
             >
               {beneficiaries.map((ben, i) => (
-                <EstatePlanItem key={i} onOpen={()=> handleSetBeneficiaryToShow(i)}>
+                <EstatePlanItem
+                  key={i}
+                  onOpen={() => handleSetBeneficiaryToShow(i)}
+                >
                   <BsPersonCircle fontSize={"4rem"} color="darkgreen" />
 
                   <Stack spacing={"0"}>
@@ -110,7 +163,7 @@ export default function EstatePlans() {
               <BeneficiaryDetailsModal
                 isOpen={beneficiaryModal.isOpen}
                 onClose={beneficiaryModal.onClose}
-                beneficiaryItem = {beneficiaryItem}
+                beneficiaryItem={beneficiaryItem}
               />
             </Flex>
           </TabPanel>

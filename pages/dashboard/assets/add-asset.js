@@ -16,9 +16,12 @@ import {
   Box,
   Container,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { AiOutlineBank, AiOutlineQuestionCircle } from "react-icons/ai";
 import { BiCaretLeft } from "react-icons/bi";
 import { MdOutlineEditNote } from "react-icons/md";
+import { useSelector } from "react-redux";
 import MainHeader from "../../../components/MainHeader";
 
 const assetsLink = [
@@ -35,6 +38,14 @@ const assetsLink = [
 ];
 
 const AddAssetModal = () => {
+  const { userDetails } = useSelector((state) => state.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!userDetails) {
+      router.push("/login");
+    }
+  }, [router, userDetails]);
   return (
     <Box fontFamily={"Poppins"} bg="white">
       <MainHeader />

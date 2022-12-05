@@ -23,6 +23,9 @@ import MainHeader from "../../components/MainHeader";
 import SideNav from "../../components/SideNavigation";
 import Lego from "../../public/assets/user-icon.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const FormWrapper = styled.form`
   label {
@@ -44,6 +47,14 @@ const FormWrapper = styled.form`
 `;
 
 export default function Settings() {
+  const { userDetails } = useSelector((state) => state.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!userDetails) {
+      router.push("/login");
+    }
+  }, [router, userDetails]);
   return (
     <section className="main-content">
       <h2 className="text-[2.8rem] font-bold">Settings</h2>
@@ -158,7 +169,6 @@ export default function Settings() {
                     bg={"grey"}
                     border="none"
                     py={"2rem"}
-                   
                   />
                 </FormControl>
                 <FormControl w={{ base: "100%", lg: "40rem" }}>
@@ -170,7 +180,6 @@ export default function Settings() {
                     bg={"grey"}
                     border="none"
                     py={"2rem"}
-                   
                   />
                 </FormControl>
                 <Button
@@ -213,8 +222,18 @@ export default function Settings() {
             </Box>
 
             <Box>
-              <Flex w={{ base: "100%", lg: "57rem" }}  justifyContent={{base: "space-around", lg: "space-between"}} alignItems={{base: "flex-start" ,lg: "flex-end"}} flexDirection={{base: "column", lg: "row"}} mt="3rem" >
-                <FormControl w={{ base: "100%", lg: "40rem" }} mr={{base:"0", lg: "1.5rem"}} mb={{base:"1.5rem", lg: "0"}}>
+              <Flex
+                w={{ base: "100%", lg: "57rem" }}
+                justifyContent={{ base: "space-around", lg: "space-between" }}
+                alignItems={{ base: "flex-start", lg: "flex-end" }}
+                flexDirection={{ base: "column", lg: "row" }}
+                mt="3rem"
+              >
+                <FormControl
+                  w={{ base: "100%", lg: "40rem" }}
+                  mr={{ base: "0", lg: "1.5rem" }}
+                  mb={{ base: "1.5rem", lg: "0" }}
+                >
                   <FormLabel fontSize={"1.6rem"}>Enter BVN</FormLabel>
                   <Input
                     type="number"
@@ -254,7 +273,6 @@ export default function Settings() {
                 px="2.5rem"
               >
                 Upload
-                
               </Button>
             </VStack>
           </TabPanel>

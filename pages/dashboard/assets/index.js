@@ -13,9 +13,11 @@ import {
   Select,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BsArrowDown, BsArrowUp } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 import DashBoardContainer from "../../../components/DashboardLayout";
 import MainHeader from "../../../components/MainHeader";
@@ -37,24 +39,32 @@ const assets = [
 ];
 export default function Assets() {
   const [isVisible, setIsVisible] = useState(false);
- 
+
+  const { userDetails } = useSelector((state) => state.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!userDetails) {
+      router.push("/login");
+    }
+  }, [router, userDetails]);
+
   return (
     <section className="main-content">
       <Flex alignItems={"center"} justifyContent="space-between">
-        <Heading fontFamily={"Poppins"} fontSize="2.8rem">Assets</Heading>
+        <Heading fontFamily={"Poppins"} fontSize="2.8rem">
+          Assets
+        </Heading>
         <Link href={"/dashboard/assets/add-asset"}>
-        <Button
-          bg={"darkgreen"}
-          colorScheme={"darkgreen"}
-          className="py-[1rem] px-[2rem]"
-          size="lg"
-        
-        >
-          Add Asset
-        </Button>
+          <Button
+            bg={"darkgreen"}
+            colorScheme={"darkgreen"}
+            className="py-[1rem] px-[2rem]"
+            size="lg"
+          >
+            Add Asset
+          </Button>
         </Link>
-        
-       
       </Flex>
 
       <Flex fontSize={"1.4rem"} mt="3.5rem">
