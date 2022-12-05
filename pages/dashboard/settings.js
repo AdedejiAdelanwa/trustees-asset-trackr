@@ -26,6 +26,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const FormWrapper = styled.form`
   label {
@@ -117,7 +118,8 @@ export default function Settings() {
                   <FormLabel fontSize={"1.6rem"}>First Name</FormLabel>
                   <Input
                     type="text"
-                    placeholder="Labake"
+                    value={userDetails.othernames}
+                    readOnly
                     fontSize={"1.6rem"}
                     bg={"grey"}
                     border="none"
@@ -129,7 +131,8 @@ export default function Settings() {
                   <FormLabel fontSize={"1.6rem"}>Last Name</FormLabel>
                   <Input
                     type="text"
-                    placeholder="Omoboriowo"
+                    value={userDetails.surname}
+                    readOnly
                     fontSize={"1.6rem"}
                     bg={"grey"}
                     border="none"
@@ -198,18 +201,20 @@ export default function Settings() {
               <Text>Reset your password.</Text>
             </Box>
             <VStack alignItems={"flex-start"} mt="2rem">
-              <Button
-                bg={"white"}
-                color="darkgreen"
-                fontSize={"1.6rem"}
-                borderWidth={"1px"}
-                borderColor={"darkgreen"}
-                py="2rem"
-                px="2rem"
-              >
-                Reset Password
-                <MdOutlineKeyboardArrowRight fontSize={"1.8rem"} />
-              </Button>
+              <Link href="/resetpassword">
+                <Button
+                  bg={"white"}
+                  color="darkgreen"
+                  fontSize={"1.6rem"}
+                  borderWidth={"1px"}
+                  borderColor={"darkgreen"}
+                  py="2rem"
+                  px="2rem"
+                >
+                  Reset Password
+                  <MdOutlineKeyboardArrowRight fontSize={"1.8rem"} />
+                </Button>
+              </Link>
             </VStack>
           </TabPanel>
           <TabPanel>
