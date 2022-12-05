@@ -88,101 +88,103 @@ export default function EstatePlans() {
     }
   }, [router, userDetails]);
   return (
-    <section className="main-content">
-      <div className="flex items-center justify-between">
-        <h2 className="text-[2.8rem] font-bold">My Estate Plans </h2>
-        <BiSearchAlt2 fontSize={"2rem"} className="cursor-pointer" />
-      </div>
-      <Tabs mt={"3rem"} fontSize="1.6rem">
-        <TabList borderBottomColor={"grey"}>
-          <Tab
-            _selected={{ color: "green", borderBottomColor: "green" }}
-            fontSize="1.6rem"
-          >
-            My Estate Plans
-          </Tab>
-          <Tab
-            _selected={{ color: "green", borderBottomColor: "green" }}
-            fontSize="1.6rem"
-          >
-            Beneficiaries
-          </Tab>
-          <Tab
-            _selected={{ color: "green", borderBottomColor: "green" }}
-            fontSize="1.6rem"
-          >
-            Add Estate Plan
-          </Tab>
-        </TabList>
-
-        <TabPanels>
-          <TabPanel>
-            <Flex
-              flexWrap="wrap"
-              justifyContent={{ base: "space-around", lg: "space-between" }}
-              gap="2rem"
-              mt={"5rem"}
+    userDetails && (
+      <section className="main-content">
+        <div className="flex items-center justify-between">
+          <h2 className="text-[2.8rem] font-bold">My Estate Plans </h2>
+          <BiSearchAlt2 fontSize={"2rem"} className="cursor-pointer" />
+        </div>
+        <Tabs mt={"3rem"} fontSize="1.6rem">
+          <TabList borderBottomColor={"grey"}>
+            <Tab
+              _selected={{ color: "green", borderBottomColor: "green" }}
+              fontSize="1.6rem"
             >
-              {estateplanList.map((item, i) => (
-                <EstatePlanItem key={i} onOpen={() => handleSetItemToShow(i)}>
-                  <RiFileList3Line fontSize={"2.5rem"} color="darkgreen" />
-
-                  <Stack spacing={"0"}>
-                    <Heading fontFamily={"Poppins"}>{item.name}</Heading>
-                    <Text color={"gray"}>{item.status}</Text>
-                  </Stack>
-                </EstatePlanItem>
-              ))}
-              <EstatePlanDetailsModal
-                estateItem={estateItem}
-                isOpen={estatePlanModal.isOpen}
-                onClose={estatePlanModal.onClose}
-              />
-            </Flex>
-          </TabPanel>
-          <TabPanel>
-            <Flex
-              flexWrap="wrap"
-              justifyContent={{ base: "space-around", lg: "space-between" }}
-              gap="2rem"
-              mt={"5rem"}
+              My Estate Plans
+            </Tab>
+            <Tab
+              _selected={{ color: "green", borderBottomColor: "green" }}
+              fontSize="1.6rem"
             >
-              {beneficiaries.map((ben, i) => (
-                <EstatePlanItem
-                  key={i}
-                  onOpen={() => handleSetBeneficiaryToShow(i)}
-                >
-                  <BsPersonCircle fontSize={"4rem"} color="darkgreen" />
-
-                  <Stack spacing={"0"}>
-                    <Heading fontFamily={"Poppins"}>{ben.name}</Heading>
-                    <Text color={"gray"}>{ben.relationship}</Text>
-                  </Stack>
-                </EstatePlanItem>
-              ))}
-              <BeneficiaryDetailsModal
-                isOpen={beneficiaryModal.isOpen}
-                onClose={beneficiaryModal.onClose}
-                beneficiaryItem={beneficiaryItem}
-              />
-            </Flex>
-          </TabPanel>
-          <TabPanel>
-            <Heading>Recommended</Heading>
-            <Flex
-              flexWrap="wrap"
-              justifyContent={{ base: "space-around", lg: "space-between" }}
-              gap="2rem"
-              mt={"3rem"}
+              Beneficiaries
+            </Tab>
+            <Tab
+              _selected={{ color: "green", borderBottomColor: "green" }}
+              fontSize="1.6rem"
             >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-                <SimpleWillCard key={i} />
-              ))}
-            </Flex>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </section>
+              Add Estate Plan
+            </Tab>
+          </TabList>
+
+          <TabPanels>
+            <TabPanel>
+              <Flex
+                flexWrap="wrap"
+                justifyContent={{ base: "space-around", lg: "space-between" }}
+                gap="2rem"
+                mt={"5rem"}
+              >
+                {estateplanList.map((item, i) => (
+                  <EstatePlanItem key={i} onOpen={() => handleSetItemToShow(i)}>
+                    <RiFileList3Line fontSize={"2.5rem"} color="darkgreen" />
+
+                    <Stack spacing={"0"}>
+                      <Heading fontFamily={"Poppins"}>{item.name}</Heading>
+                      <Text color={"gray"}>{item.status}</Text>
+                    </Stack>
+                  </EstatePlanItem>
+                ))}
+                <EstatePlanDetailsModal
+                  estateItem={estateItem}
+                  isOpen={estatePlanModal.isOpen}
+                  onClose={estatePlanModal.onClose}
+                />
+              </Flex>
+            </TabPanel>
+            <TabPanel>
+              <Flex
+                flexWrap="wrap"
+                justifyContent={{ base: "space-around", lg: "space-between" }}
+                gap="2rem"
+                mt={"5rem"}
+              >
+                {beneficiaries.map((ben, i) => (
+                  <EstatePlanItem
+                    key={i}
+                    onOpen={() => handleSetBeneficiaryToShow(i)}
+                  >
+                    <BsPersonCircle fontSize={"4rem"} color="darkgreen" />
+
+                    <Stack spacing={"0"}>
+                      <Heading fontFamily={"Poppins"}>{ben.name}</Heading>
+                      <Text color={"gray"}>{ben.relationship}</Text>
+                    </Stack>
+                  </EstatePlanItem>
+                ))}
+                <BeneficiaryDetailsModal
+                  isOpen={beneficiaryModal.isOpen}
+                  onClose={beneficiaryModal.onClose}
+                  beneficiaryItem={beneficiaryItem}
+                />
+              </Flex>
+            </TabPanel>
+            <TabPanel>
+              <Heading>Recommended</Heading>
+              <Flex
+                flexWrap="wrap"
+                justifyContent={{ base: "space-around", lg: "space-between" }}
+                gap="2rem"
+                mt={"3rem"}
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
+                  <SimpleWillCard key={i} />
+                ))}
+              </Flex>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </section>
+    )
   );
 }
 EstatePlans.getLayout = function getLayout(page) {

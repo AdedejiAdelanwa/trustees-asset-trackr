@@ -50,26 +50,27 @@ export default function Assets() {
   }, [router, userDetails]);
 
   return (
-    <section className="main-content">
-      <Flex alignItems={"center"} justifyContent="space-between">
-        <Heading fontFamily={"Poppins"} fontSize="2.8rem">
-          Assets
-        </Heading>
-        <Link href={"/dashboard/assets/add-asset"}>
-          <Button
-            bg={"darkgreen"}
-            colorScheme={"darkgreen"}
-            className="py-[1rem] px-[2rem]"
-            size="lg"
-          >
-            Add Asset
-          </Button>
-        </Link>
-      </Flex>
+    userDetails && (
+      <section className="main-content">
+        <Flex alignItems={"center"} justifyContent="space-between">
+          <Heading fontFamily={"Poppins"} fontSize="2.8rem">
+            Assets
+          </Heading>
+          <Link href={"/dashboard/assets/add-asset"}>
+            <Button
+              bg={"darkgreen"}
+              colorScheme={"darkgreen"}
+              className="py-[1rem] px-[2rem]"
+              size="lg"
+            >
+              Add Asset
+            </Button>
+          </Link>
+        </Flex>
 
-      <Flex fontSize={"1.4rem"} mt="3.5rem">
-        <HStack w={"85%"}>
-          {/* <HStack overflowX={"clip"} spacing="1.5rem">
+        <Flex fontSize={"1.4rem"} mt="3.5rem">
+          <HStack w={"85%"}>
+            {/* <HStack overflowX={"clip"} spacing="1.5rem">
             {assetClassList.map((assetClass, index) => (
               <Button
                 key={index}
@@ -85,101 +86,102 @@ export default function Assets() {
             ))}
           </HStack> */}
 
-          <Select width={"7rem"} fontSize="1.4rem">
-            {assetClassList.map((assetClass, index) => (
-              <option key={index}>{assetClass}</option>
-            ))}
-          </Select>
-        </HStack>
-      </Flex>
-      <Flex alignItems={"center"} mt="1.5rem">
-        <div className="flex items-center">
-          <p className="text-[3rem] mr-2 font-normal">
-            &#8358;{isVisible ? "40203930.00" : "XXXXX.XX"}
-          </p>
-          <small
-            className="text-[2.5rem] cursor-pointer"
-            onClick={() => setIsVisible(!isVisible)}
-          >
-            {!isVisible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-          </small>
-        </div>
-        <div className=" sm:mt-[1rem]">
-          <Select
-            fontSize={"1.5rem"}
-            py="1.5rem"
-            color="darkgreen"
-            borderColor={"darkgreen"}
-          >
-            {assetTypes.map((assetType, index) => (
-              <option key={index} value={assetType.name}>
-                {assetType.name}
-              </option>
-            ))}
-          </Select>
-        </div>
-      </Flex>
+            <Select width={"7rem"} fontSize="1.4rem">
+              {assetClassList.map((assetClass, index) => (
+                <option key={index}>{assetClass}</option>
+              ))}
+            </Select>
+          </HStack>
+        </Flex>
+        <Flex alignItems={"center"} mt="1.5rem">
+          <div className="flex items-center">
+            <p className="text-[3rem] mr-2 font-normal">
+              &#8358;{isVisible ? "40203930.00" : "XXXXX.XX"}
+            </p>
+            <small
+              className="text-[2.5rem] cursor-pointer"
+              onClick={() => setIsVisible(!isVisible)}
+            >
+              {!isVisible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+            </small>
+          </div>
+          <div className=" sm:mt-[1rem]">
+            <Select
+              fontSize={"1.5rem"}
+              py="1.5rem"
+              color="darkgreen"
+              borderColor={"darkgreen"}
+            >
+              {assetTypes.map((assetType, index) => (
+                <option key={index} value={assetType.name}>
+                  {assetType.name}
+                </option>
+              ))}
+            </Select>
+          </div>
+        </Flex>
 
-      <TableContainer mt={"2.5rem"}>
-        <Table
-          variant={"simple"}
-          textTransform="capitalize"
-          fontSize="1.5rem"
-          fontFamily={"Poppins"}
-        >
-          <Thead bg={"darkgreen"} color="white" fontSize="1.5rem">
-            <Tr py="2rem">
-              <Th>Asset</Th>
-              <Th>
-                <Select variant={"unstyled"}>
-                  {["Last 7 days", "3 months", "6 months", "1 year"].map(
-                    (item) => (
-                      <option key={item} value={item}>
-                        {item}
-                      </option>
-                    )
-                  )}
-                </Select>
-              </Th>
-              <Th>Value</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {assets.map(({ name, valueIncrese, value }) => (
-              <Tr
-                key={name}
-                borderBottomColor="#F3F3F3"
-                borderBottomWidth={"1.5px"}
-              >
-                <Td py="1.5rem">{name}</Td>
-                <Td
-                  py="1.5rem"
-                  display={"flex"}
-                  borderBottom={"none"}
-                  color={
-                    valueIncrese < 0
-                      ? "red"
-                      : valueIncrese > 0
-                      ? "green"
-                      : "#828282"
-                  }
-                >
-                  {valueIncrese}%
-                  {valueIncrese < 0 ? (
-                    <BsArrowDown />
-                  ) : valueIncrese > 0 ? (
-                    <BsArrowUp />
-                  ) : (
-                    ""
-                  )}
-                </Td>
-                <Td py="1.5rem">₦{value}</Td>
+        <TableContainer mt={"2.5rem"}>
+          <Table
+            variant={"simple"}
+            textTransform="capitalize"
+            fontSize="1.5rem"
+            fontFamily={"Poppins"}
+          >
+            <Thead bg={"darkgreen"} color="white" fontSize="1.5rem">
+              <Tr py="2rem">
+                <Th>Asset</Th>
+                <Th>
+                  <Select variant={"unstyled"}>
+                    {["Last 7 days", "3 months", "6 months", "1 year"].map(
+                      (item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      )
+                    )}
+                  </Select>
+                </Th>
+                <Th>Value</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </section>
+            </Thead>
+            <Tbody>
+              {assets.map(({ name, valueIncrese, value }) => (
+                <Tr
+                  key={name}
+                  borderBottomColor="#F3F3F3"
+                  borderBottomWidth={"1.5px"}
+                >
+                  <Td py="1.5rem">{name}</Td>
+                  <Td
+                    py="1.5rem"
+                    display={"flex"}
+                    borderBottom={"none"}
+                    color={
+                      valueIncrese < 0
+                        ? "red"
+                        : valueIncrese > 0
+                        ? "green"
+                        : "#828282"
+                    }
+                  >
+                    {valueIncrese}%
+                    {valueIncrese < 0 ? (
+                      <BsArrowDown />
+                    ) : valueIncrese > 0 ? (
+                      <BsArrowUp />
+                    ) : (
+                      ""
+                    )}
+                  </Td>
+                  <Td py="1.5rem">₦{value}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </section>
+    )
   );
 }
 Assets.getLayout = function getLayout(page) {
