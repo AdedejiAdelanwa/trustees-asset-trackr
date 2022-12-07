@@ -11,6 +11,7 @@ import {
   VStack,
   Box,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
@@ -60,6 +61,8 @@ export const beneficiaries = [
   },
 ];
 export default function EstatePlans() {
+  const { userDetails } = useSelector((state) => state.user);
+  const router = useRouter();
   const estatePlanModal = useDisclosure();
   const beneficiaryModal = useDisclosure();
   const [estateItem, setEstateItem] = useState({ name: "", status: "" });
@@ -78,9 +81,6 @@ export default function EstatePlans() {
     setBeneficiaryItem(beneficiaries[i]);
     beneficiaryModal.onOpen();
   };
-
-  const { userDetails } = useSelector((state) => state.user);
-  const router = useRouter();
 
   useEffect(() => {
     if (!userDetails) {
@@ -142,6 +142,15 @@ export default function EstatePlans() {
               </Flex>
             </TabPanel>
             <TabPanel>
+              <Button
+                bg={"darkgreen"}
+                colorScheme={"darkgreen"}
+                className="py-[1rem] px-[2rem]"
+                size="lg"
+                onClick={() => console.log("Add Beneficiary")}
+              >
+                Add Beneficiary
+              </Button>
               <Flex
                 flexWrap="wrap"
                 justifyContent={{ base: "space-around", lg: "space-between" }}

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { logout } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import { AiOutlineMenu } from "react-icons/ai";
+import { BiLogOut } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { GrDiamond, GrHomeRounded } from "react-icons/gr";
 import { RiFileList3Line, RiQuestionMark } from "react-icons/ri";
@@ -67,13 +68,14 @@ const SideNav = () => {
         </li>
       </ul>
       <button
-        className=" w-3/4 absolute bottom-[25%]  py-4 px-6  text-[red] text-center  rounded-md border-solid border-2 border-[red] hover:bg-[red] hover:text-[white] hover:shadow-md"
+        className=" w-3/4 absolute bottom-[25%]  py-4 px-6  text-[red] text-center  rounded-md border-solid border-2 md:border-0 border-[red] hover:bg-[red] hover:text-[white] hover:shadow-md"
         onClick={() => dispatch(logout())}
       >
-        logout
+        <p className="help-text md:hidden"> logout</p>
+        <BiLogOut className="help-icon hidden md:block" fontSize={"2.4rem"} />
       </button>
       <Link href="/help-and-support">
-        <button className=" w-3/4 absolute bottom-40  py-4 px-6  text-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen hover:bg-lightgreen hover:shadow-md">
+        <button className=" w-3/4 absolute bottom-40  py-4 px-6  text-darkgreen text-center  rounded-md border-solid border-2 md:border-0 border-darkgreen hover:bg-lightgreen hover:shadow-md">
           <p className="help-text md:hidden">Help & Support</p>
           <RiQuestionMark
             className="help-icon hidden md:block"

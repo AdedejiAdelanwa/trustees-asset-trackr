@@ -245,7 +245,7 @@ export default function Home() {
               <h2 className="w-[32rem] md:w-[27rem] sm:w-[29rem] my-8 text-black text-[2.8rem] md:text-[2.3rem] sm:text-[2.8rem] ">
                 Start tracking your assets and securing the future today.
               </h2>
-              <Link href="/assets">
+              <Link href="/signup">
                 <div className="text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] cursor-pointer mb-5">
                   Get Started
                 </div>
