@@ -74,9 +74,9 @@ const Login = () => {
               Welcome Back
             </h1>
             <p className="w-[41rem] md:w-[37.7rem] text-[1.6rem] text-black mx-[6.3rem] md:mx-[1.3rem] ">
-              Sign up now to easily keep track of your assets, designate
-              beneficiaries and receive estate planning products tailored to
-              your assets.
+              Log in to add more Assets, Beneficiaries and process an Estate
+              plan for the successful transfer of all your assets to your loved
+              ones.
             </p>
 
             <div className="flex h-[45rem]  justify-between overflow-y-hidden md:overflow-y-hidden">

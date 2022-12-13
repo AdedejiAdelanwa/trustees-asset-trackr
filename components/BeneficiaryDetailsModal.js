@@ -70,15 +70,19 @@ export default function BeneficiaryDetailsModal({
               flexWrap="wrap"
               justifyContent={{ base: "space-around", lg: "space-between" }}
               gap="2rem"
-            //   mt={"5rem"}
+              //   mt={"5rem"}
             >
-                   {estateplanList.map((item, i) => (
-                <EstatePlanItem key={i}  width="30rem">
+              {estateplanList.map((item, i) => (
+                <EstatePlanItem key={i} width="30rem">
                   <RiFileList3Line fontSize={"2.5rem"} color="darkgreen" />
 
                   <Stack spacing={"0"} ml="1rem">
-                    <Heading fontFamily={"Poppins"}  fontSize="2rem">{item.name}</Heading>
-                    <Text color={"gray"} fontSize="1.4rem">{item.status}</Text>
+                    <Heading fontFamily={"Poppins"} fontSize="2rem">
+                      {item.name}
+                    </Heading>
+                    <Text color={"gray"} fontSize="1.4rem">
+                      {item.status}
+                    </Text>
                   </Stack>
                 </EstatePlanItem>
               ))}

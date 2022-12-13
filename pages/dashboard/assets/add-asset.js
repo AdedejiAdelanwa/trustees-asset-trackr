@@ -1,12 +1,12 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
+  // Modal,
+  // ModalOverlay,
+  // ModalContent,
+  // ModalHeader,
+  // ModalBody,
+  // ModalCloseButton,
   Text,
-  Button,
+  //Button,
   Flex,
   Tooltip,
   VStack,
@@ -14,12 +14,11 @@ import {
   Link,
   Heading,
   Box,
-  Container,
+  //Container,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { AiOutlineBank, AiOutlineQuestionCircle } from "react-icons/ai";
-import { BiCaretLeft } from "react-icons/bi";
 import { MdOutlineEditNote } from "react-icons/md";
 import { useSelector } from "react-redux";
 import MainHeader from "../../../components/MainHeader";
