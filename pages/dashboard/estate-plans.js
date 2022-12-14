@@ -225,10 +225,9 @@ export default function EstatePlans() {
           size={"6xl"}
           onClose={addBeneficiary.onClose}
           isCentered
-          fontFamily={"Poppins"}
         >
           <ModalOverlay bg={`rgba(0,0,0,0.4)`} />
-          <ModalContent fontSize="1.6rem">
+          <ModalContent fontSize="1.6rem" fontFamily={"Poppins"}>
             <ModalHeader fontSize="1.8rem" textTransform={"capitalize"}>
               add beneficiary
             </ModalHeader>
