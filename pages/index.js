@@ -66,11 +66,11 @@ export default function Home() {
           <div className=" w-full h-[100vh] sm:h-fit md:h-[50vh] px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between  sm:px-[1.5rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain ">
             <div className="w-1/2 sm:w-full mt-[11rem] md:mt-[2rem] md:ml-[3rem] sm:ml-[0rem] sm:mt-[3rem]  ">
               <h1 className="w-[46rem] md:w-[37rem] sm:w-[35rem] text-[4.8rem] md:text-[3rem] sm:text-[3.5rem] text-darkgreen">
-                Let’s help you <br /> track and organise your wealth
+                Let’s help you <br /> track, organize, and transfer your wealth
               </h1>
               <p className="w-[37rem] sm:w-[30rem]  text-black text-[1.5rem] ">
                 Easily keep track of your assets, designate beneficiaries and
-                receive estate planning products tailored to your assets.
+                access estate planning products tailored to your assets.
               </p>
               <Link href="/signup">
                 <div className="text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[3rem] cursor-pointer">
@@ -120,8 +120,8 @@ export default function Home() {
                 beneficiaries.
               </p>
               <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]">
-                Allocate your wealth to appropriate benefriciaries and rest
-                assured that things will be taken care off when you’re gone.
+                Allocate your wealth to chosen beneficiaries and rest assured
+                that things will be taken care off in your absence.
               </p>
               <Link href="/signup">
                 <div className="sm:hidden text-white  text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer">
@@ -140,16 +140,17 @@ export default function Home() {
             </div>
             <div className="flex flex-col w-[50.4rem] md:w-[34.8rem] sm:w-[33rem] h-[37vh] md:h-fit sm:h-[37vh]  my-[8rem] md:my-[6rem] sm:my-[0rem] space-y-5">
               <h4 className="font-semibold text-[2.8rem] md:text-[2rem] sm:text-[2.8rem] text-darkgreen ">
-                Plan for when you’re gone
+                Plan for those you love
               </h4>
               <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]  ">
-                Who will get your wealth when you are gone? Who gets to cater
+                Who will get your wealth after your demise? Who gets to cater
                 for your loved ones when you are gone? These questions are best
                 answered when you’re here.
               </p>
               <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] ">
-                We can help you by referring you to estate planning products
-                tailored to you based on the assets we’re helping you track.
+                We can help you by providing you with the estate planning
+                products tailored to suit you based on the assets we’re helping
+                you track.
               </p>
               <Link href="/signup">
                 <div className="sm:self-center  text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer  ">
@@ -245,7 +246,7 @@ export default function Home() {
               <h2 className="w-[32rem] md:w-[27rem] sm:w-[29rem] my-8 text-black text-[2.8rem] md:text-[2.3rem] sm:text-[2.8rem] ">
                 Start tracking your assets and securing the future today.
               </h2>
-              <Link href="/assets">
+              <Link href="/signup">
                 <div className="text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] cursor-pointer mb-5">
                   Get Started
                 </div>

@@ -11,6 +11,18 @@ import {
   VStack,
   Box,
   useDisclosure,
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  FormErrorMessage,
+  Select,
 } from "@chakra-ui/react";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
@@ -25,6 +37,7 @@ import { useEffect, useState } from "react";
 import BeneficiaryDetailsModal from "../../components/BeneficiaryDetailsModal";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import { banks } from "../../util";
 
 export const estateplanList = [
   { name: "simple will", status: "processing" },
@@ -60,6 +73,8 @@ export const beneficiaries = [
   },
 ];
 export default function EstatePlans() {
+  const { userDetails } = useSelector((state) => state.user);
+  const router = useRouter();
   const estatePlanModal = useDisclosure();
   const beneficiaryModal = useDisclosure();
   const [estateItem, setEstateItem] = useState({ name: "", status: "" });
@@ -70,6 +85,22 @@ export default function EstatePlans() {
     account: "",
   });
 
+  const [newBeneficiary, setNewBeneficiary] = useState({
+    firstname: "",
+    surname: "",
+    email: "",
+    phone: "",
+    dob: "",
+    address: "",
+    beneficiary_relationship: "",
+    gender: "",
+    marital_status: "",
+    banker: "",
+    account_name: "",
+    account_number: "",
+  });
+
+  const addBeneficiary = useDisclosure();
   const handleSetItemToShow = (i) => {
     setEstateItem(estateplanList[i]);
     estatePlanModal.onOpen();
@@ -78,9 +109,6 @@ export default function EstatePlans() {
     setBeneficiaryItem(beneficiaries[i]);
     beneficiaryModal.onOpen();
   };
-
-  const { userDetails } = useSelector((state) => state.user);
-  const router = useRouter();
 
   useEffect(() => {
     if (!userDetails) {
@@ -142,6 +170,15 @@ export default function EstatePlans() {
               </Flex>
             </TabPanel>
             <TabPanel>
+              <Button
+                bg={"darkgreen"}
+                colorScheme={"darkgreen"}
+                className="py-[1rem] px-[2rem]"
+                size="lg"
+                onClick={addBeneficiary.onOpen}
+              >
+                Add Beneficiary
+              </Button>
               <Flex
                 flexWrap="wrap"
                 justifyContent={{ base: "space-around", lg: "space-between" }}
@@ -183,6 +220,186 @@ export default function EstatePlans() {
             </TabPanel>
           </TabPanels>
         </Tabs>
+        <Modal
+          isOpen={addBeneficiary.isOpen}
+          size={"6xl"}
+          onClose={addBeneficiary.onClose}
+          isCentered
+          fontFamily={"Poppins"}
+        >
+          <ModalOverlay bg={`rgba(0,0,0,0.4)`} />
+          <ModalContent fontSize="1.6rem">
+            <ModalHeader fontSize="1.8rem" textTransform={"capitalize"}>
+              add beneficiary
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <form className="text-[2rem] overflow-y-auto ">
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>First name</FormLabel>
+                  <input
+                    width="100%"
+                    type="text"
+                    name="firstname"
+                    value={newBeneficiary.firstname}
+                    className="border-solid border-[1px]  rounded"
+                  />
+
+                  <FormErrorMessage>
+                    Enter min. of 3 characters
+                  </FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Surname</FormLabel>
+                  <input
+                    width="100%"
+                    type="text"
+                    name="surname"
+                    value={newBeneficiary.surname}
+                    className="border-solid border-[1px]  rounded"
+                  />
+
+                  <FormErrorMessage>
+                    Enter min. of 3 characters
+                  </FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Email</FormLabel>
+                  <input
+                    width="100%"
+                    type="email"
+                    name="email"
+                    value={newBeneficiary.email}
+                    className="border-solid border-[1px]  rounded"
+                  />
+
+                  <FormErrorMessage>Enter a valid email</FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Phone number</FormLabel>
+                  <input
+                    width="100%"
+                    type="tel"
+                    name="phone"
+                    value={newBeneficiary.phone}
+                    className="border-solid border-[1px]  rounded"
+                  />
+
+                  <FormErrorMessage>
+                    Enter a valid phone number
+                  </FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Date of birth</FormLabel>
+                  <input
+                    width="100%"
+                    type="date"
+                    name="dob"
+                    value={newBeneficiary.dob}
+                    className="border-solid border-[1px]  rounded"
+                  />
+
+                  <FormErrorMessage>
+                    Enter a valid phone number
+                  </FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Address</FormLabel>
+                  <input
+                    width="100%"
+                    type="text"
+                    name="address"
+                    value={newBeneficiary.address}
+                    className="border-solid border-[1px]  rounded"
+                  />
+
+                  <FormErrorMessage>Enter a valid address</FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Beneficiary Relationship</FormLabel>
+                  <Select
+                    placeholder="Select option"
+                    value={newBeneficiary.beneficiary_relationship}
+                  >
+                    <option value="child">child</option>
+                    <option value="spouse">Spouse</option>
+                    <option value="parent">Parent</option>
+                    <option value="sibling">Sibling</option>
+                    <option value="nephew">Nephew</option>
+                    <option value="niece">Niece</option>
+                    <option value="cousin">Cousin</option>
+                    <option value="other">Other</option>
+                  </Select>
+                  <FormErrorMessage>Enter a valid address</FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Gender</FormLabel>
+                  <Select
+                    placeholder="Select a gender"
+                    value={newBeneficiary.gender}
+                  >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </Select>
+                  <FormErrorMessage>Enter a valid address</FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Marital status</FormLabel>
+                  <Select
+                    placeholder="Select an option"
+                    value={newBeneficiary.marital_status}
+                  >
+                    <option value="married">married</option>
+                    <option value="single">Single</option>
+                    <option value="divorced">Divorced</option>
+                  </Select>
+                  <FormErrorMessage>Enter a valid address</FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Bank name</FormLabel>
+                  <Select
+                    placeholder="Select an option"
+                    value={newBeneficiary.banker}
+                  >
+                    {banks.map((bank) => (
+                      <option key={bank.id} value={bank.name}>
+                        {bank.name}
+                      </option>
+                    ))}
+                  </Select>
+                  <FormErrorMessage>Enter a valid address</FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Account name</FormLabel>
+                  <input
+                    width="100%"
+                    type="text"
+                    name="account_name"
+                    value={newBeneficiary.account_name}
+                    className="border-solid border-[1px]  rounded"
+                  />
+
+                  <FormErrorMessage>Enter the account name</FormErrorMessage>
+                </FormControl>
+                <FormControl w={["100%", , "50%"]}>
+                  <FormLabel>Account number</FormLabel>
+                  <input
+                    width="100%"
+                    type="number"
+                    name="account_number"
+                    value={newBeneficiary.account_number}
+                    className="border-solid border-[1px]  rounded"
+                  />
+
+                  <FormErrorMessage>Enter 10 digits</FormErrorMessage>
+                </FormControl>
+                <button className="text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md">
+                  Add Beneficiary
+                </button>
+              </form>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </section>
     )
   );

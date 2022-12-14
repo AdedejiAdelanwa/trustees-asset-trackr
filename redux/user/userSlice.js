@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userLogin } from "./userActions";
 let userDetails;
+
 if (typeof window !== "undefined") {
-  userDetails = JSON.parse(
-    localStorage.getItem("userDetails")
-      ? localStorage.getItem("userDetails")
-      : null
-  );
+  userDetails =
+    localStorage.getItem("userDetails") !== null
+      ? JSON.parse(window.localStorage.getItem("userDetails"))
+      : null;
 }
 
 const initialState = {
