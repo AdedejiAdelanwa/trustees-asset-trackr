@@ -436,11 +436,9 @@ const Signup = () => {
                       type="number"
                       name="phone"
                       value={phoneNumber}
-                      className="bg-[#F3F3F3] text-[1.4rem] w-[32rem] h-[4.8rem] sm:w-[22.5rem] sm:h-[4.4rem] sm:text-[1.3rem] p-2 md:text-[1.4rem] md:w-[25.5rem] md:h-[4.4rem] rounded-br-xl rounded-tr-xl"
+                      className="bg-[#F3F3F3] text-[1.4rem] w-[37.1rem] h-[4.8rem] sm:w-[22.5rem] sm:h-[4.4rem] sm:text-[1.3rem] p-2 md:text-[1.4rem] md:w-[25.5rem] md:h-[4.4rem] rounded-br-xl rounded-tr-xl"
                       placeholder="+234810xxxxxx"
                       style={{ border: "none", outline: "none" }}
-                      maxLength={11}
-                      minLength={11}
                       required
                     />
                   </div>
