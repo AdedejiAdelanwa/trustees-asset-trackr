@@ -23,7 +23,8 @@ import {
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-
+import axios from "axios";
+import { baseUrl } from "../util";
 export default function Home() {
   const { userDetails } = useSelector((state) => state.user);
   const router = useRouter();
@@ -48,6 +49,29 @@ export default function Home() {
     },
   ];
 
+  // const loginTest = async () => {
+  //   try {
+  //     const config = {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     };
+  //     const response = await axios.post(
+  //       `${baseUrl}/login`,
+  //       { email: "adedejiadelanwa@gmail.com", password: "440Adasi$" },
+  //       config
+  //     );
+
+  //     console.table(response.headers);
+  //     console.table(response.data);
+  //   } catch (error) {
+  //     if (error.response && error.response.data.message) {
+  //       console.log(error.response.data.message);
+  //     } else {
+  //       console.log(error.message);
+  //     }
+  //   }
+  // };
   useEffect(() => {
     if (userDetails) {
       router.push("/dashboard/home");
@@ -64,6 +88,7 @@ export default function Home() {
       <Container>
         <main className="flex w-[100%] flex-col  font-Poppins">
           <div className=" w-full h-[100vh] sm:h-fit md:h-[50vh] px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between  sm:px-[1.5rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain ">
+            {/* <button onClick={loginTest}>Test Login</button> */}
             <div className="w-1/2 sm:w-full mt-[11rem] md:mt-[2rem] md:ml-[3rem] sm:ml-[0rem] sm:mt-[3rem]  ">
               <h1 className="w-[46rem] md:w-[37rem] sm:w-[35rem] text-[4.8rem] md:text-[3rem] sm:text-[3.5rem] text-darkgreen">
                 Let’s help you <br /> track, organize, and transfer your wealth
@@ -193,8 +218,8 @@ export default function Home() {
                 className="mt-[3.5rem] md:mt-[7.5rem] sm:mt-[1rem] border-y-1 border-y-[#D0CDCD]"
                 allowToggle
               >
-                {[...Array(5)].map((num) => (
-                  <AccordionItem key={`accord-${num}`} py="1rem">
+                {[...Array(5)].map((num, i) => (
+                  <AccordionItem key={`accord-${i}`} py="1rem">
                     {({ isExpanded }) => (
                       <>
                         <h2>

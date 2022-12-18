@@ -48,7 +48,9 @@ const Login = () => {
 
   useEffect(() => {
     if (userDetails) {
-      router.push("/dashboard/home");
+      setTimeout(() => {
+        router.push("/dashboard/home");
+      }, 3000);
     }
     notify();
   }, [notify, router, userDetails]);
