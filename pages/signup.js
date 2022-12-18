@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-//import { useDispatch, useSelector } from "react-redux";
-//import { signupUser } from "../redux/user/userActions";
 import { baseUrl } from "../util";
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
-
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import validator from "validator";
 import logo from "../public/assets/Logo.png";
@@ -213,33 +210,6 @@ const Signup = () => {
       }, 5000);
     } catch (error) {
       setIsResendingOtp(false);
-    }
-  };
-
-  const NextButton = () => {
-    if (firstName && lastName && email && phoneNumber) {
-      return (
-        <button
-          type="button"
-          onClick={() => setProgressTrack(1)}
-          className="bg-[#345C45] w-[37.1rem] h-[4.8rem] mt-7 text-[1.8rem] text-center sm:w-[28rem] sm:h-[48px] md:w-[31rem] md:h-[4.8rem] rounded-md"
-          style={{ color: "white" }}
-        >
-          Next
-        </button>
-      );
-    } else {
-      return (
-        <button
-          type="button"
-          onClick={() => setProgressTrack(1)}
-          disabled
-          className="bg-[#363d39] w-[37.1rem] h-[4.8rem] mt-7 text-[1.8rem] text-center sm:w-[28rem] sm:h-[48px] md:w-[31rem] md:h-[4.8rem] rounded-md"
-          style={{ color: "white" }}
-        >
-          Next
-        </button>
-      );
     }
   };
 

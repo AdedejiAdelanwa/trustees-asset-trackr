@@ -10,13 +10,16 @@ export const userLogin = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
+
       const {
+        headers: { token },
         data: {
           data: { userDetails },
         },
       } = await axios.post(`${baseUrl}/login`, { email, password }, config);
       localStorage.setItem("userDetails", JSON.stringify(userDetails));
-      return userDetails;
+      localStorage.setItem("userToken", JSON.stringify(token));
+      return { userDetails, token };
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
