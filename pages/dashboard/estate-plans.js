@@ -86,9 +86,9 @@ export default function EstatePlans() {
   });
   const handleFetchBeneficiaries = useCallback(() => {
     setTimeout(() => {
-      dispatch(fetchBeneficiaries());
+      dispatch(fetchBeneficiaries(userToken));
     }, 1500);
-  }, [dispatch]);
+  }, [dispatch, userToken]);
   const handleChange = (e) => {
     setNewBeneficiary({
       ...newBeneficiary,
