@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Logo from "../public/assets/Logo.svg";
 import User from "../public/assets/user-icon.png";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const HeaderWrapper = styled.header`
   width: 100vw;
@@ -30,7 +31,7 @@ const HeaderWrapper = styled.header`
       padding-left: 2rem;
       font-size: 4rem;
     }
-  
+
     .list-item {
       height: 6rem;
       display: flex;
@@ -73,69 +74,74 @@ const HeaderWrapper = styled.header`
 
 const MainHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { userDetails } = useSelector((state) => state.user);
   return (
-    <HeaderWrapper className="relative text-black bg-white">
-      <div className="logo-group  w-2/3 flex">
-        {!isOpen ? (
-          <AiOutlineMenu
-            fontSize={"2.4rem"}
-            className="cursor-pointer hover:text-darkgreen"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        ) : (
-          ""
-        )}
-        <nav
-          className={`mobile-nav text-black bg-lightgrey w-3/4 h-[90vh]  left-0 bottom-0 z-10 fixed ${
-            isOpen ? "translate-x-0" : "-translate-x-full"
-          } ease-in-out duration-300`}
-        >
-          <AiOutlineClose
-            fontSize={"3rem"}
-            className="close-btn cursor-pointer hover:text-darkgreen"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-          <ul className="menu-list">
-            <li className="list-item hover:bg-lightgreen">
-              <GrHomeRounded fontSize={"2.4rem"} />
-              <Link href="/dashboard/home">Home</Link>
-            </li>
-            <li className="list-item hover:bg-lightgreen">
-              <GrDiamond fontSize={"2.4rem"} />
-              <Link href="/dashboard/assets">Assets</Link>
-            </li>
-            <li className="list-item hover:bg-lightgreen">
-              <RiFileList3Line fontSize={"2.4rem"} />
-              <Link href="/dashboard/estate-plans">Estate plans</Link>
-            </li>
-            <li className="list-item hover:bg-lightgreen">
-              <FiSettings fontSize={"2.4rem"} />
-              <Link href="/dashboard/settings">Settings</Link>
-            </li>
-          </ul>
-          <Link href="/help-and-support">
-            <button className=" w-3/4 absolute bottom-40 ml-8 py-4 px-6 text-darkgreen  rounded-md border-solid border-2 border-darkgreen hover:bg-lightgreen hover:shadow-md">
-              Help & Support
-            </button>
+    userDetails && (
+      <HeaderWrapper className="relative text-black bg-white">
+        <div className="logo-group  w-2/3 flex">
+          {!isOpen ? (
+            <AiOutlineMenu
+              fontSize={"2.4rem"}
+              className="cursor-pointer hover:text-darkgreen"
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          ) : (
+            ""
+          )}
+          <nav
+            className={`mobile-nav text-black bg-lightgrey w-3/4 h-[90vh]  left-0 bottom-0 z-10 fixed ${
+              isOpen ? "translate-x-0" : "-translate-x-full"
+            } ease-in-out duration-300`}
+          >
+            <AiOutlineClose
+              fontSize={"3rem"}
+              className="close-btn cursor-pointer hover:text-darkgreen"
+              onClick={() => setIsOpen(!isOpen)}
+            />
+            <ul className="menu-list">
+              <li className="list-item hover:bg-lightgreen">
+                <GrHomeRounded fontSize={"2.4rem"} />
+                <Link href="/dashboard/home">Home</Link>
+              </li>
+              <li className="list-item hover:bg-lightgreen">
+                <GrDiamond fontSize={"2.4rem"} />
+                <Link href="/dashboard/assets">Assets</Link>
+              </li>
+              <li className="list-item hover:bg-lightgreen">
+                <RiFileList3Line fontSize={"2.4rem"} />
+                <Link href="/dashboard/estate-plans">Estate plans</Link>
+              </li>
+              <li className="list-item hover:bg-lightgreen">
+                <FiSettings fontSize={"2.4rem"} />
+                <Link href="/dashboard/settings">Settings</Link>
+              </li>
+            </ul>
+            <Link href="/help-and-support">
+              <button className=" w-3/4 absolute bottom-40 ml-8 py-4 px-6 text-darkgreen  rounded-md border-solid border-2 border-darkgreen hover:bg-lightgreen hover:shadow-md">
+                Help & Support
+              </button>
+            </Link>
+          </nav>
+
+          <Link href="/" passHref>
+            <Image src={Logo} alt="Meristem logo" />
           </Link>
-        </nav>
+        </div>
 
-        <Link href="/" passHref>
-          <Image src={Logo} alt="Meristem logo" />
-        </Link>
-      </div>
-
-      <div className=" user-box flex font-bold">
-        <Image
-          src={User}
-          width="40px"
-          height={"40px"}
-          className="rounded-full  border-solid border-6 border-darkgreen bg-lightgreen"
-          alt="Johnson O."
-        />
-        <p className="">Labake J.</p>
-      </div>
-    </HeaderWrapper>
+        <div className=" user-box flex font-bold">
+          <Image
+            src={User}
+            width="40px"
+            height={"40px"}
+            className="rounded-full  border-solid border-6 border-darkgreen bg-lightgreen"
+            alt="Johnson O."
+          />
+          <p className="">
+            {userDetails.othernames} {userDetails.surname[0]}.
+          </p>
+        </div>
+      </HeaderWrapper>
+    )
   );
 };
 export default MainHeader;

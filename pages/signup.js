@@ -1,16 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { signupUser } from "../redux/user/userActions";
+import React, { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { baseUrl } from "../util";
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
-
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import validator from "validator";
 import logo from "../public/assets/Logo.png";
 import bigBlock from "../public/assets/bigBlock.png";
 import biggerBlock from "../public/assets/biggerBlock.png";
 import biggestBlock from "../public/assets/biggestBlock.png";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Spinner,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 const Signup = () => {
   const [progressTrack, setProgressTrack] = useState(0);
@@ -25,18 +37,32 @@ const Signup = () => {
   const [isFirstNameValidated, setisFirstNameValidated] = useState(true);
   const [isLastNameValidated, setisLastNameValidated] = useState(true);
   const [isEmailPattern, setisEmailPattern] = useState(true);
-  const [isConfirmEmailValidated, setisConfirmEmailValidated] = useState(true);
   const [isPasswordValidated, setIsPasswordValidated] = useState(false);
   const [isConfirmPasswordValidated, setIsConfirmPasswordValidated] =
     useState(false);
   const [isPhoneNumberValidated, setIsPhoneNumberValidated] = useState(true);
   const [eyePasswordCheck, setEyePasswordCheck] = useState(true);
   const [eyeConfirmPasswordCheck, setEyeConfirmPasswordCheck] = useState(true);
-
-  const { loading, userInfo, error, success } = useSelector(state => state.user);
-  const dispatch = useDispatch()
-
- 
+  const [isTCAgreed, setIsTCAgreed] = useState(false);
+  const {
+    isOpen: isOtpModalOpen,
+    onOpen: onOtpModalOpen,
+    onClose: onOtpModalClose,
+  } = useDisclosure();
+  const {
+    isOpen: isErrorModalOpen,
+    onOpen: onErrorModalOpen,
+    onClose: onErrorModalClose,
+  } = useDisclosure();
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
+  const [otp, setOtp] = useState("");
+  const [signupErrorMessage, setSignupErrorMessage] = useState("");
+  const router = useRouter();
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [isResendingOtp, setIsResendingOtp] = useState(false);
+  const [isOtpResent, setIsOtpResent] = useState(false);
+  // const [verificationMessage, setVerificationMessage] = useState("");
 
   const validateFirstName = (fname) => {
     const FirstNameValidation = validator.isLength(fname, {
@@ -75,26 +101,22 @@ const Signup = () => {
     EmailValidation ? setisEmailPattern(true) : setisEmailPattern(false);
   };
 
-  const ValidatePhoneNumberByMe = (phone) => {
-    return /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(phone) ? true : false;
-  };
-
   const ValidatePhoneNumber = (phoneNumber) => {
-    const phoneNumberValidation = ValidatePhoneNumberByMe(phoneNumber);
+    const phoneNumberValidation = validator.isMobilePhone(
+      phoneNumber,
+      "en-NG",
+      {
+        minLength: 11,
+        maxLength: 11,
+      }
+    );
+
     if (phoneNumberValidation) {
-      setIsPhoneNumberValidated(false);
-    } else {
       setIsPhoneNumberValidated(true);
+    } else {
+      setIsPhoneNumberValidated(false);
     }
     setPhoneNumber(phoneNumber);
-  };
-
-  const validateConfirmEmail = (ConfirmEmail) => {
-    const isConfirmEmailValidated = validator.isEmail(ConfirmEmail);
-    setConfirmEmail(ConfirmEmail);
-    isConfirmEmailValidated
-      ? setisConfirmEmailValidated(true)
-      : setisConfirmEmailValidated(false);
   };
 
   const validatePasswordByMe = (pwd) => {
@@ -127,63 +149,67 @@ const Signup = () => {
     }
     setConfirmPassword(confpassword);
   };
-  const handleSubmit = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     setIsSubmission(true);
-    console.table(lastName,firstName,email,password,phoneNumber);
-    dispatch(signupUser({surname: lastName, othernames: firstName, email, phone: phoneNumber, password}))
 
-  };
-
-  const NextButton = () => {
-    if (firstName && lastName && email && phoneNumber) {
-      return (
-        <button
-          type="button"
-          onClick={() => setProgressTrack(1)}
-          className="bg-[#345C45] w-[37.1rem] h-[4.8rem] mt-7 text-[1.8rem] text-center sm:w-[28rem] sm:h-[48px] md:w-[31rem] md:h-[4.8rem] rounded-md"
-          style={{ color: "white" }}
-        >
-          Next
-        </button>
-      );
-    } else {
-      return (
-        <button
-          type="button"
-          onClick={() => setProgressTrack(1)}
-          disabled
-          className="bg-[#363d39] w-[37.1rem] h-[4.8rem] mt-7 text-[1.8rem] text-center sm:w-[28rem] sm:h-[48px] md:w-[31rem] md:h-[4.8rem] rounded-md"
-          style={{ color: "white" }}
-        >
-          Next
-        </button>
-      );
+    try {
+      await axios({
+        method: "post",
+        url: `${baseUrl}/user/create`,
+        data: {
+          surname: lastName,
+          othernames: firstName,
+          email,
+          phone_number: phoneNumber,
+          password,
+        },
+      });
+      setIsSubmission(false);
+      onOtpModalOpen();
+      setFirstName("");
+      setLastName("");
+      setPhoneNumber("");
+      setPassword("");
+      setConfirmEmail("");
+      setConfirmPassword("");
+    } catch (error) {
+      setIsSubmission(false);
+      if (error.response && error.response.data.message) {
+        setSignupErrorMessage(error.response.data.message);
+        onErrorModalOpen();
+      }
+      setSignupErrorMessage(error.response.data.message);
+      onErrorModalOpen();
     }
   };
 
-  const SignUpButton = () => {
-    if (password && confirmPassword) {
-      return (
-        <button
-          className="bg-[#345C45] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
-          type="submit"
-          style={{ color: "white" }}
-        >
-          Sign Up
-        </button>
-      );
-    } else {
-      return (
-        <button
-          className="bg-[#363d39] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
-          type="submit"
-          disabled
-          style={{ color: "white" }}
-        >
-          Sign Up
-        </button>
-      );
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setIsVerifying(true);
+    try {
+      await axios.get(`${baseUrl}/user/verify-otp/${email}/${otp}`);
+      setIsVerifying(false);
+      setOtp("");
+      onOtpModalClose();
+      router.push("/login");
+    } catch (error) {
+      setIsVerifying(false);
+      alert(error);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    setIsResendingOtp(true);
+    try {
+      await axios.get(`${baseUrl}/user/resend-otp/${email}`);
+      setIsOtpResent(true);
+      setIsResendingOtp(false);
+      setTimeout(() => {
+        setIsOtpResent(false);
+      }, 5000);
+    } catch (error) {
+      setIsResendingOtp(false);
     }
   };
 
@@ -213,17 +239,21 @@ const Signup = () => {
       );
     }
   };
-// useEffect(()=>{
+  // useEffect(()=>{
 
-// },[userInfo, success])
+  // },[userInfo, success])
   return (
     <div>
       <Head>
         <title>Asset Tracker | Meristem Trustees</title>
         <meta name="description" content="Generated by create next app" />
+        <meta
+          name="viewport"
+          content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no,user-scalable=0"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex font-Poppins">
+      <main className="flex font-Poppins text-black w-full h-[100vh] bg-white">
         <div className="bg-[#BBF1D1] w-1/2 h-{100vh} sm:hidden md:w-1/2 md:h-{80vh}">
           <div className="mt-[4rem] w-[15rem] ml-[6.2rem] mb-[7rem] md:block md:mt-[2rem] md:w-[13.8rem] md:ml-[4rem] md:h-fit cursor-pointer ">
             <Link href="/">
@@ -256,7 +286,7 @@ const Signup = () => {
           </div>
         </div>
 
-        <div className="flex justify-center px-[3rem] bg-white w-1/2 h-{100vh} md:block md:w-1/2 md:h-{80vh}">
+        <div className="flex justify-center px-[3rem]  bg-white w-1/2 h-{100vh} md:block md:w-1/2 md:h-{80vh}">
           <div className="w-[10rem] h-[2rem] hidden sm:block sm:mt-7 md:hidden">
             <Image src={logo} alt="MeristemLogo" />
           </div>
@@ -267,18 +297,16 @@ const Signup = () => {
             </h2>
             <div className="flex mb-10 w-[32.1rem] h-[2.4rem]">
               <p className="text-[1.6rem]">Already have an account?</p>
-              <span className="ml-3 w-[5.7rem] h-[2.4rem] text-[#345C45] text-[1.8rem] ">
-                <b>
-                  <Link href="/login">Log in</Link>
-                </b>
-              </span>{" "}
+              <span className="ml-3 w-[5.7rem] font-bold h-[2.4rem] text-[#345C45] text-[1.8rem] ">
+                <Link href="/login">Log in</Link>
+              </span>
             </div>
 
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleSignUp}
               className="flex sm:w-[28rem] md:w-[33.8rem] "
             >
-              {progressTrack === 0 ? (
+              {progressTrack === 0 && (
                 <div id="SignUp" className="mb-5 w-[39rem] ">
                   <label className="text-[1.4rem] w-[7.5rem] mb-2">
                     First Name
@@ -315,7 +343,7 @@ const Signup = () => {
                       ""
                     ) : (
                       <span className="text-[red]">
-                        This is a required field with at least 3 character
+                        Enter a name with min. 3 character
                       </span>
                     )}
                   </span>
@@ -341,7 +369,7 @@ const Signup = () => {
                       ""
                     ) : (
                       <span className="text-[red]">
-                        Invalid Email.Please match the email pattern
+                        Kindly enter a valid email
                       </span>
                     )}
                   </span>
@@ -366,90 +394,41 @@ const Signup = () => {
                       ""
                     ) : (
                       <span className="text-[red]">
-                        Please phone number in the following format: (+123)
-                        ***-****-***
+                        Kindly enter a valid phone number
                       </span>
                     )}
                   </span>
                   <div className=" w-[37.1rem] h-[4.8rem] mb-[1.6rem] sm:w-[33rem] md:w-[37.1rem]">
-                    <div className="flex">
-                      <select
-                        name="format"
-                        id="NumFormat"
-                        className="bg-[#F3F3F3] h-[48px] text-[1.4rem] md:h-[4.4rem] rounded-bl-xl rounded-tl-xl border"
-                        style={{ border: "none", outline: "none" }}
-                      >
-                        <option value="+234">+234</option>
-                        <option value="+1">+1</option>
-                        <option value="+997">+997</option>
-                        <option value="+01">+01</option>
-                        <option value="+233">+233</option>
-                        <option value="+910">+910</option>
-                      </select>
-                      <input
-                        onChange={(e) => ValidatePhoneNumber(e.target.value)}
-                        onBlur={(e) => ValidatePhoneNumber(e.target.value)}
-                        id="phone"
-                        type="tel"
-                        name="phone"
-                        value={phoneNumber}
-                        className="bg-[#F3F3F3] text-[1.4rem] w-[32rem] h-[4.8rem] sm:w-[22.5rem] sm:h-[4.4rem] sm:text-[1.3rem] p-2 md:text-[1.4rem] md:w-[25.5rem] md:h-[4.4rem] rounded-br-xl rounded-tr-xl"
-                        placeholder="+234810xxxxxx"
-                        style={{ border: "none", outline: "none" }}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <NextButton />
-                </div>
-              ) : progressTrack === 1 ? (
-                <div
-                  id="ConfirmEmail"
-                  className="w-[40.1rem] md:w-[33rem] sm:w-[30rem]"
-                >
-                  <label className="text-[1.4rem] w-[95px]">
-                    Confirm Email
-                  </label>
-                  <br />
-                  <span>
-                    {isConfirmEmailValidated ? (
-                      ""
-                    ) : (
-                      <span className="text-[red]">
-                        Invalid Email.Please match the email pattern
-                      </span>
-                    )}
-                  </span>
-                  <div className="w-[37rem] h-[4.8rem] mb-[3.6rem] sm:w-[29rem] md:w-[32rem]">
                     <input
-                      onChange={(e) =>
-                        validateConfirmEmail(e.target.value.trim())
-                      }
-                      onBlur={(e) =>
-                        validateConfirmEmail(e.target.value.trim())
-                      }
-                      type="email"
-                      id="confirmEmail"
-                      name="ConfirmEmail"
-                      value={confirmEmail}
-                      className="bg-[#F3F3F3] w-[37.1rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
-                      placeholder="faruq@gmail.com"
+                      onChange={(e) => ValidatePhoneNumber(e.target.value)}
+                      onBlur={(e) => ValidatePhoneNumber(e.target.value)}
+                      id="phone"
+                      type="number"
+                      name="phone"
+                      value={phoneNumber}
+                      className="bg-[#F3F3F3] text-[1.4rem] w-[37.1rem] h-[4.8rem] sm:w-[22.5rem] sm:h-[4.4rem] sm:text-[1.3rem] p-2 md:text-[1.4rem] md:w-[25.5rem] md:h-[4.4rem] rounded-br-xl rounded-tr-xl"
+                      placeholder="+234810xxxxxx"
                       style={{ border: "none", outline: "none" }}
+                      required
                     />
                   </div>
-
-                  <div className="flex justify-between w-[37rem] mt-7 mb-7 sm:w-[28rem] md:w-[31rem] ">
-                    <button
-                      onClick={() => setProgressTrack(0)}
-                      type="button"
-                      className="bg-tranparent text-[#345C45] text-[1.8rem] w-[14rem] h-[4rem] sm:w-[8rem] sm:h-[3rem] sm:text-[1.3rem] md:w-[10rem] md:h-[3.5rem] md:text-[1.5rem] border border-[#345C45] rounded-md"
-                    >
-                      Back
-                    </button>
-                    <ConfirmEmailButton />
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setProgressTrack(1)}
+                    className={`${
+                      firstName && lastName && email && phoneNumber
+                        ? "bg-[#345C45]"
+                        : "bg-[#363d39]"
+                    }  w-[37.1rem] h-[4.8rem] mt-7 text-[1.8rem] text-center sm:w-[28rem] sm:h-[48px] md:w-[31rem] md:h-[4.8rem] rounded-md`}
+                    style={{ color: "white" }}
+                    disabled={!firstName && !lastName && !email && !phoneNumber}
+                  >
+                    Next
+                  </button>
                 </div>
-              ) : progressTrack === 2 ? (
+              )}
+
+              {progressTrack === 1 && (
                 <div className="md:w-[34rem]">
                   <label className="text-[1.4rem] w-[95px]">Password</label>
                   <br />
@@ -536,12 +515,25 @@ const Signup = () => {
 
                   <div className="flex justify-between w-[37rem] mt-7 mb-7 sm:w-[28rem] md:w-[33rem] ">
                     <button
-                      onClick={() => setProgressTrack(1)}
+                      type="button"
+                      onClick={() => setProgressTrack(0)}
                       className="bg-tranparent text-[#345C45] text-[1.8rem] w-[14rem] h-[4rem] sm:w-[8rem] sm:h-[3rem] sm:text-[1.3rem] md:w-[10rem] md:h-[3.5rem] md:text-[1.5rem] border border-[#345C45] rounded-md"
                     >
                       Back
                     </button>
-                    <SignUpButton />
+
+                    <button
+                      className={`${
+                        password && confirmPassword && isTCAgreed
+                          ? "bg-[#345C45]"
+                          : "bg-[#363d39]"
+                      } w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md`}
+                      type="submit"
+                      disabled={!isTCAgreed || !password || !confirmPassword}
+                      style={{ color: "white" }}
+                    >
+                      {issubmission ? <Spinner /> : " Sign Up"}
+                    </button>
                   </div>
 
                   <div className="w-[36.6rem] sm:w-[30rem] md:w-[34rem] ">
@@ -549,6 +541,7 @@ const Signup = () => {
                       <input
                         id="checkbox"
                         type="checkbox"
+                        onClick={(e) => setIsTCAgreed(e.target.checked)}
                         className="w-[2rem] sm:w-[1rem] md:w-[1.5rem] border border-[#345C45]"
                       />
                       <h6 className="ml-3 text-[1.3rem] sm:text-[1rem] md:text-[1.2rem]">
@@ -557,10 +550,108 @@ const Signup = () => {
                     </div>
                   </div>
                 </div>
-              ) : null}
+              )}
             </form>
           </div>
         </div>
+        <Modal
+          initialFocusRef={initialRef}
+          finalFocusRef={finalRef}
+          size="xl"
+          isOpen={isOtpModalOpen}
+          onClose={onOtpModalClose}
+          isCentered
+        >
+          <ModalOverlay
+            bg="none"
+            backdropFilter="auto"
+            backdropInvert="80%"
+            backdropBlur="2px"
+          />
+          <ModalContent
+            bg="white"
+            fontSize="1.4rem"
+            color="black"
+            fontFamily="Poppins"
+          >
+            <ModalHeader textAlign="center" fontSize="2.3rem">
+              OTP Sent 🎉🎉
+            </ModalHeader>
+            <ModalCloseButton color="black" />
+            <ModalBody pb="1.5rem">
+              <form className=" text-black" onSubmit={handleVerifyOtp}>
+                <Text textAlign="center" mb="1.5rem">
+                  Kindly enter the otp sent to your email to verify your account
+                </Text>
+                <div className="flex flex-col mb-5 mt-[1rem]">
+                  <label className=" text-[1.4rem] mb-[1rem]">Otp</label>
+                  <input
+                    ref={finalRef}
+                    onChange={(e) => setOtp(e.target.value)}
+                    value={otp}
+                    className="bg-[#F3F3F3] py-[0.8rem] px-[1.2rem]   rounded-[0.5rem]"
+                    id="verification-otp"
+                    type="number"
+                    required
+                  />
+                </div>
+
+                <button
+                  onClick={handleVerifyOtp}
+                  className=" w-full bg-darkgreen font-medium text-[1.8rem] items-center text-white py-[0.8rem] px-[1.2rem]  rounded-[0.5rem] "
+                >
+                  {isVerifying ? <Spinner /> : "Verify Email"}
+                </button>
+              </form>
+              <Text mt="1.5rem">
+                Did not receive an Otp?{" "}
+                <span
+                  onClick={handleResendOtp}
+                  className="text-[darkgreen] cursor-pointer mr-[1rem]"
+                >
+                  Resend Otp
+                </span>
+                {isResendingOtp && <Spinner />}
+                {isOtpResent && (
+                  <span className="bg-lightgreen color-black ml-[1rem] py-[0.2rem] px-[0.8rem] rounded">
+                    Otp Resent
+                  </span>
+                )}
+              </Text>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+        <Modal
+          size="xl"
+          isOpen={isErrorModalOpen}
+          onClose={onErrorModalClose}
+          isCentered
+        >
+          <ModalOverlay
+            bg="none"
+            backdropFilter="auto"
+            backdropInvert="80%"
+            backdropBlur="2px"
+          />
+          <ModalContent bg="white" fontSize="1.4rem" color="black">
+            <ModalHeader textAlign="center" fontSize="2.3rem">
+              An error occured
+            </ModalHeader>
+            <ModalCloseButton color="black" />
+            <ModalBody pb="1.5rem">
+              <Text textAlign="center" mb="1.5rem">
+                {signupErrorMessage}
+              </Text>
+
+              <button
+                onClick={onErrorModalClose}
+                className=" w-full bg-darkgreen font-medium text-[1.8rem] items-center text-white py-[0.6rem] px-[1rem]  rounded-[0.5rem] "
+              >
+                Close
+              </button>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </main>
     </div>
   );

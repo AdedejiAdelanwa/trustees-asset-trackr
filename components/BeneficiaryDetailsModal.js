@@ -23,9 +23,17 @@ export default function BeneficiaryDetailsModal({
   onClose,
   beneficiaryItem,
 }) {
+  const calculateAge = (dateOfBirth) => {
+    const dateStrip = dateOfBirth.split("T")[0].split("-");
+    const dateDiff = new Date(
+      Date.now() - new Date(dateStrip[0], dateStrip[1], dateStrip[2]).getTime()
+    );
+    return Math.abs(dateDiff.getUTCFullYear() - 1970);
+  };
+
   return (
     <Modal size={"6xl"} isOpen={isOpen} onClose={onClose} isCentered>
-      <ModalOverlay bg={`rgba(0,0,0,0.4)`} />
+      <ModalOverlay bg={`rgba(0,0,0,0.25)`} />
       <ModalContent fontSize="1.6rem">
         <ModalHeader
           fontFamily={"Poppins"}
@@ -48,20 +56,22 @@ export default function BeneficiaryDetailsModal({
               <Heading fontSize={"1.6rem"} fontFamily="Poppins">
                 Name
               </Heading>
-              <Text>{beneficiaryItem.name}</Text>
+              <Text>
+                {beneficiaryItem.firstname} {beneficiaryItem.surname}
+              </Text>
             </Box>
             <Box fontSize={"1.6rem"} fontFamily="Poppins">
               <Heading fontSize={"1.6rem"} fontFamily="Poppins">
                 Age
               </Heading>
-              <Text>{beneficiaryItem.age}</Text>
+              <Text>{calculateAge(beneficiaryItem.dob)} year(s)</Text>
             </Box>
 
             <Box fontSize={"1.6rem"} fontFamily="Poppins">
               <Heading fontSize={"1.6rem"} fontFamily="Poppins">
                 Account Number
               </Heading>
-              <Text>{beneficiaryItem.account}</Text>
+              <Text>{beneficiaryItem.account_number}</Text>
             </Box>
             <Heading fontSize={"1.6rem"} fontFamily="Poppins">
               Affiliated Estate Plans
@@ -70,15 +80,18 @@ export default function BeneficiaryDetailsModal({
               flexWrap="wrap"
               justifyContent={{ base: "space-around", lg: "space-between" }}
               gap="2rem"
-            //   mt={"5rem"}
             >
-                   {estateplanList.map((item, i) => (
-                <EstatePlanItem key={i}  width="30rem">
+              {estateplanList.map((item, i) => (
+                <EstatePlanItem key={i} width="30rem">
                   <RiFileList3Line fontSize={"2.5rem"} color="darkgreen" />
 
                   <Stack spacing={"0"} ml="1rem">
-                    <Heading fontFamily={"Poppins"}  fontSize="2rem">{item.name}</Heading>
-                    <Text color={"gray"} fontSize="1.4rem">{item.status}</Text>
+                    <Heading fontFamily={"Poppins"} fontSize="2rem">
+                      {item.name}
+                    </Heading>
+                    <Text color={"gray"} fontSize="1.4rem">
+                      {item.status}
+                    </Text>
                   </Stack>
                 </EstatePlanItem>
               ))}

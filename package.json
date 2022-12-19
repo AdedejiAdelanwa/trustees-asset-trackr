@@ -24,6 +24,8 @@
     "react-horizontal-stacked-bar-chart": "^8.15.2",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.5",
+    "react-toastify": "^9.1.1",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.3.5",
     "validator": "^13.7.0"
   },
