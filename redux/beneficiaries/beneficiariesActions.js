@@ -4,14 +4,14 @@ import { baseUrl } from "../../util";
 
 export const fetchBeneficiaries = createAsyncThunk(
   "beneficiaries/fetchbeneficiaries",
-  async (userToken, { rejectWithValue }) => {
+  async ({ rejectWithValue }) => {
     try {
       const {
         data: { data },
       } = await axios({
         method: "get",
         url: `${baseUrl}/beneficiary/list`,
-        headers: { Authorization: "Bearer " + userToken },
+        //headers: { Authorization: "Bearer " + userToken },
       });
       const userBeneficiaries = data;
       localStorage.setItem(
