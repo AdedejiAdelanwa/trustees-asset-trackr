@@ -4,13 +4,14 @@ import { baseUrl } from "../../util";
 
 export const fetchAssetCategories = createAsyncThunk(
   "assets/fetchAssetCategories",
-  async ({ rejectWithValue }) => {
+  async (userToken, { rejectWithValue }) => {
     try {
       const {
         data: { data },
       } = await axios({
         method: "get",
         url: `${baseUrl}/assets/category`,
+        headers: { Authorization: "Bearer " + userToken },
       });
       const assetCategories = data;
       localStorage.setItem("assetCategories", JSON.stringify(assetCategories));
