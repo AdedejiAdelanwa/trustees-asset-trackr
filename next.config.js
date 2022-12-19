@@ -7,10 +7,9 @@ const { withSentryConfig } = require("@sentry/nextjs");
 
 const moduleExports = {
   // Your existing module.exports
-  nextConfig: {
-    reactStrictMode: true,
-    swcMinify: false,
-  },
+
+  reactStrictMode: true,
+  swcMinify: false,
 
   sentry: {
     // Use `hidden-source-map` rather than `source-map` as the Webpack `devtool`
