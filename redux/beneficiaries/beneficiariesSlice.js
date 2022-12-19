@@ -8,7 +8,7 @@ if (typeof window !== "undefined") {
 
 const initialState = {
   loading: false,
-  userBeneficiaries,
+  userBeneficiaries: [],
   error: null,
   success: false,
 };
