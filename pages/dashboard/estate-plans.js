@@ -8,8 +8,6 @@ import {
   Stack,
   Heading,
   Text,
-  VStack,
-  Box,
   useDisclosure,
   Button,
   Modal,
@@ -52,35 +50,9 @@ export const estateplanList = [
   { name: "mkat", status: "processing" },
   { name: "mfat", status: "active" },
 ];
-export const beneficiaries = [
-  {
-    name: "Peterson Omoboriowo",
-    relationship: "son",
-    age: "19",
-    account: "12345367",
-  },
-  {
-    name: "Paula Omoboriowo",
-    relationship: "daughter",
-    age: "19",
-    account: "12345367",
-  },
-  {
-    name: "Wale Scott",
-    relationship: "nephew",
-    age: "19",
-    account: "12345367",
-  },
-  {
-    name: "Dammy  Walker",
-    relationship: "cousin",
-    age: "19",
-    account: "12345367",
-  },
-];
+
 export default function EstatePlans() {
   const { userDetails, userToken } = useSelector((state) => state.user);
-  //const [userBeneficiaries, setUseBeneficiaries] = useState([]);
   const { loading, userBeneficiaries, error } = useSelector(
     (state) => state.userBeneficiaries
   );
@@ -94,7 +66,6 @@ export default function EstatePlans() {
     age: "",
     account: "",
   });
-  console.log(userBeneficiaries, userToken);
 
   const dispatch = useDispatch();
   const [isAddingBeneficiary, setIsAddingBeneficiary] = useState(false);
@@ -185,7 +156,7 @@ export default function EstatePlans() {
     estatePlanModal.onOpen();
   };
   const handleSetBeneficiaryToShow = (i) => {
-    setBeneficiaryItem(beneficiaries[i]);
+    setBeneficiaryItem(userBeneficiaries[i]);
     beneficiaryModal.onOpen();
   };
 

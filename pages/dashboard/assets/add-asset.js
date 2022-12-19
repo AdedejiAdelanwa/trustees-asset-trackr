@@ -1,12 +1,5 @@
 import {
-  // Modal,
-  // ModalOverlay,
-  // ModalContent,
-  // ModalHeader,
-  // ModalBody,
-  // ModalCloseButton,
   Text,
-  //Button,
   Flex,
   Tooltip,
   VStack,
@@ -14,14 +7,15 @@ import {
   Link,
   Heading,
   Box,
-  //Container,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { AiOutlineBank, AiOutlineQuestionCircle } from "react-icons/ai";
 import { MdOutlineEditNote } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MainHeader from "../../../components/MainHeader";
+import { fetchAssetCategories } from "../../../redux/asset/assetActions";
 
 const assetsLink = [
   "Cash",
@@ -37,14 +31,21 @@ const assetsLink = [
 ];
 
 const AddAssetModal = () => {
-  const { userDetails } = useSelector((state) => state.user);
+  const { userDetails, userToken } = useSelector((state) => state.user);
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { assetCategories, loading } = useSelector((state) => state.assets);
 
+  const getAssetCategories = useCallback(async () => {
+    dispatch(fetchAssetCategories(userToken));
+  }, [dispatch, userToken]);
   useEffect(() => {
     if (!userDetails) {
       router.push("/login");
     }
-  }, [router, userDetails]);
+    getAssetCategories();
+  }, [getAssetCategories, router, userDetails]);
+
   return (
     userDetails && (
       <Box fontFamily={"Poppins"} bg="white">
@@ -82,10 +83,10 @@ const AddAssetModal = () => {
               </Tooltip>
             </Flex>
             <Stack pl={"2rem"} fontWeight="bold" spacing="1.5rem">
-              {assetsLink.map((assetLink) => (
+              {assetCategories.map((assetCategory) => (
                 <Link
                   href="#"
-                  key={assetLink}
+                  key={assetCategory.sn}
                   px="1rem"
                   py="1rem"
                   borderRadius={"4px"}
@@ -97,7 +98,7 @@ const AddAssetModal = () => {
                     bg: "grey",
                   }}
                 >
-                  {assetLink}
+                  {assetCategory.name}
                 </Link>
               ))}
             </Stack>
