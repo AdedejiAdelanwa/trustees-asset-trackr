@@ -50,32 +50,7 @@ export const estateplanList = [
   { name: "mkat", status: "processing" },
   { name: "mfat", status: "active" },
 ];
-// export const beneficiaries = [
-//   {
-//     name: "Peterson Omoboriowo",
-//     relationship: "son",
-//     age: "19",
-//     account: "12345367",
-//   },
-//   {
-//     name: "Paula Omoboriowo",
-//     relationship: "daughter",
-//     age: "19",
-//     account: "12345367",
-//   },
-//   {
-//     name: "Wale Scott",
-//     relationship: "nephew",
-//     age: "19",
-//     account: "12345367",
-//   },
-//   {
-//     name: "Dammy  Walker",
-//     relationship: "cousin",
-//     age: "19",
-//     account: "12345367",
-//   },
-// ];
+
 export default function EstatePlans() {
   const { userDetails, userToken } = useSelector((state) => state.user);
   const { loading, userBeneficiaries, error } = useSelector(
