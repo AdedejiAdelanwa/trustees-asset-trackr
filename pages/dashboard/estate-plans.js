@@ -110,6 +110,12 @@ export default function EstatePlans() {
     if (Date.now() >= token.exp * 1000) {
       dispatch(logout());
     } else {
+      setIsAddingBeneficiary(true);
+      let formatedDate = newBeneficiary.dob.split("-").reverse().join("/");
+      const formatedBen = {
+        ...newBeneficiary,
+        dob: formatedDate,
+      };
       try {
         const {
           data: { message },
@@ -154,12 +160,6 @@ export default function EstatePlans() {
         console.log(error);
       }
     }
-    setIsAddingBeneficiary(true);
-    let formatedDate = newBeneficiary.dob.split("-").reverse().join("/");
-    const formatedBen = {
-      ...newBeneficiary,
-      dob: formatedDate,
-    };
   };
 
   const addBeneficiary = useDisclosure();
