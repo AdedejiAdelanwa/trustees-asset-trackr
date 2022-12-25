@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BsArrowDown, BsArrowUp } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import AuthWrapper from "../../../components/AuthWrapper";
 
 import DashBoardContainer from "../../../components/DashboardLayout";
 import MainHeader from "../../../components/MainHeader";
@@ -39,15 +40,15 @@ const assets = [
 ];
 export default function Assets() {
   const [isVisible, setIsVisible] = useState(false);
-
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
   const { userDetails } = useSelector((state) => state.user);
   const router = useRouter();
 
   useEffect(() => {
-    if (!userDetails) {
+    if (!userToken) {
       router.push("/login");
     }
-  }, [router, userDetails]);
+  }, [router, userToken]);
 
   return (
     userDetails && (
@@ -186,10 +187,12 @@ export default function Assets() {
 }
 Assets.getLayout = function getLayout(page) {
   return (
-    <DashBoardContainer>
-      <MainHeader />
-      <SideNav />
-      {page}
-    </DashBoardContainer>
+    <AuthWrapper>
+      <DashBoardContainer>
+        <MainHeader />
+        <SideNav />
+        {page}
+      </DashBoardContainer>
+    </AuthWrapper>
   );
 };

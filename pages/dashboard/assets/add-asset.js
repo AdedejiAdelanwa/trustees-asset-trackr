@@ -7,44 +7,59 @@ import {
   Link,
   Heading,
   Box,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Select,
 } from "@chakra-ui/react";
-import axios from "axios";
+// import axios from "axios";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
-import { AiOutlineBank, AiOutlineQuestionCircle } from "react-icons/ai";
-import { MdOutlineEditNote } from "react-icons/md";
+import { useCallback, useEffect, useState } from "react";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import MainHeader from "../../../components/MainHeader";
 import { fetchAssetCategories } from "../../../redux/asset/assetActions";
 
-const assetsLink = [
-  "Cash",
-  "Equities",
-  "Fintech Wallets",
-  "Real Estate",
-  "Fixed Income/Money Market",
-  "Intellectual Property",
-  "Alternative Assets",
-  "Personal Assets",
-  "Pension",
-  "Life Insurance",
-];
+const AddAsset = () => {
+  const { userDetails } = useSelector((state) => state.user);
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
 
-const AddAssetModal = () => {
-  const { userDetails, userToken } = useSelector((state) => state.user);
   const router = useRouter();
   const dispatch = useDispatch();
   const { assetCategories, loading } = useSelector((state) => state.assets);
-
+  const [assetCategoryIndex, setAssetCategoryIndex] = useState(0);
+  const tableFields = assetCategories[assetCategoryIndex].table_fields;
+  let newAssetFields = Object.entries(tableFields).map((field) => {
+    return { [field[0]]: "" };
+  });
+  const [newAsset, setNewAsset] = useState(newAssetFields);
   const getAssetCategories = useCallback(async () => {
-    dispatch(fetchAssetCategories(userToken));
+    const token = jwt_decode(userToken);
+    if (Date.now() >= token.exp * 1000) {
+      dispatch(logout());
+    } else {
+      dispatch(fetchAssetCategories(userToken));
+    }
   }, [dispatch, userToken]);
+
+  const handleChangeAssetClass = (e) => {
+    setAssetCategoryIndex(e.target.dataset.assetcategoryindex);
+  };
+
+  const handleInputChange = (e) => {
+    setNewAsset({ ...newAsset, [e.target.name]: e.target.value.trim() });
+  };
+
+  const handleCreateAsset = (e) => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
-    if (!userDetails) {
+    if (!userToken) {
       router.push("/login");
     }
     getAssetCategories();
-  }, [getAssetCategories, router, userDetails]);
+  }, [getAssetCategories, router, userToken]);
 
   return (
     userDetails && (
@@ -83,9 +98,8 @@ const AddAssetModal = () => {
               </Tooltip>
             </Flex>
             <Stack pl={"2rem"} fontWeight="bold" spacing="1.5rem">
-              {assetCategories.map((assetCategory) => (
+              {assetCategories.map((assetCategory, i) => (
                 <Link
-                  href="#"
                   key={assetCategory.sn}
                   px="1rem"
                   py="1rem"
@@ -97,6 +111,8 @@ const AddAssetModal = () => {
                   _hover={{
                     bg: "grey",
                   }}
+                  data-assetCategoryIndex={i}
+                  onClick={handleChangeAssetClass}
                 >
                   {assetCategory.name}
                 </Link>
@@ -114,7 +130,7 @@ const AddAssetModal = () => {
               <Stack spacing={"1rem"} mb="3rem">
                 <Flex alignItems={"center"} mb="rem">
                   <Heading mr={"1rem"} fontFamily={"Poppins"} fontSize="2rem">
-                    Cash
+                    {assetCategories[assetCategoryIndex].name}
                   </Heading>
                   <Tooltip
                     hasArrow
@@ -127,45 +143,59 @@ const AddAssetModal = () => {
                     </span>
                   </Tooltip>
                 </Flex>
-                <Text>Add bank accounts to your porfolio</Text>
+                <Text> {assetCategories[assetCategoryIndex].details}</Text>
               </Stack>
 
-              <Flex
-                justifyContent={"space-between"}
-                flexDirection={{ base: "column", lg: "row" }}
-              >
-                <Flex
-                  w={{ base: "100%", lg: "50rem" }}
-                  borderRadius={"4px"}
-                  border="1px"
-                  borderColor={"grey"}
-                  p="1rem"
-                  alignItems={"center"}
+              <Flex justifyContent="space-around">
+                <form
+                  className="w-full text-[1.4rem]"
+                  onSubmit={handleCreateAsset}
                 >
-                  <AiOutlineBank fontSize={"5rem"} color="darkgreen" />
-                  <Stack ml="2rem">
-                    <Heading color={"darkgreen"} fontFamily={"Poppins"}>
-                      Connect your bank
-                    </Heading>
-                    <Text>Syncronise directly with your portfolio</Text>
-                  </Stack>
-                </Flex>
-                <Flex
-                  w={{ base: "100%", lg: "50rem" }}
-                  borderRadius={"4px"}
-                  border="1px"
-                  borderColor={"grey"}
-                  p="1rem"
-                  alignItems={"center"}
-                >
-                  <MdOutlineEditNote fontSize={"5rem"} color="darkgreen" />
-                  <Stack ml="2rem">
-                    <Heading color={"darkgreen"} fontFamily={"Poppins"}>
-                      Add account manually
-                    </Heading>
-                    <Text>Add bank details manually</Text>
-                  </Stack>
-                </Flex>
+                  {Object.entries(tableFields).map((field) => {
+                    return (
+                      <FormControl
+                        mb="1rem"
+                        key={field[1].label}
+                        w={["100%", , "50%"]}
+                      >
+                        <FormLabel fontSize="1.4rem">
+                          {field[1].label}
+                        </FormLabel>
+                        {field[1].datatype !== "select" ? (
+                          <input
+                            type={field[1].datatype}
+                            name={field[0]}
+                            value={newAsset[field[0]]}
+                            onChange={handleInputChange}
+                            className="w-[100%] border-solid border-[1px] py-[0.5rem]  rounded"
+                          />
+                        ) : (
+                          <Select
+                            name={field[0]}
+                            value={newAsset[field[0]]}
+                            onChange={handleInputChange}
+                          >
+                            {field[1].options.map((option) => (
+                              <option
+                                className="w-[100%] border-solid border-[1px]   rounded"
+                                key={option}
+                                value={option}
+                              >
+                                {option}
+                              </option>
+                            ))}
+                          </Select>
+                        )}
+                      </FormControl>
+                    );
+                  })}
+                  <button
+                    onClick={handleCreateAsset}
+                    className=" w-[50%] md:w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
+                  >
+                    Add Asset
+                  </button>
+                </form>
               </Flex>
             </Stack>
           </Stack>
@@ -175,4 +205,4 @@ const AddAssetModal = () => {
   );
 };
 
-export default AddAssetModal;
+export default AddAsset;

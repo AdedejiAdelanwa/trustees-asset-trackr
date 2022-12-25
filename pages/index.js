@@ -21,11 +21,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { FiMinus, FiPlus } from "react-icons/fi";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 export default function Home() {
-  const { userDetails } = useSelector((state) => state.user);
-  const router = useRouter();
   const datas = [
     {
       picture: peaceIcon,
@@ -46,11 +42,7 @@ export default function Home() {
         "The app is flexible and allows you to track differentassets easily as well as suggesting tailored plans for you.",
     },
   ];
-  useEffect(() => {
-    if (userDetails) {
-      router.push("/dashboard/home");
-    }
-  }, [router, userDetails]);
+
   return (
     <div>
       <Head>

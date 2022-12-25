@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
+
+// import { useRouter } from "next/router";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,9 +25,12 @@ import { BiBitcoin } from "react-icons/bi";
 import { HiOutlineSelector } from "react-icons/hi";
 import SideNav from "../../components/SideNavigation";
 import Link from "next/link";
-
+import jwt_decode from "jwt-decode";
 import { Select } from "@chakra-ui/react";
 import SimpleWillCard from "../../components/SimpleWillCard";
+import { logout } from "../../redux/user/userSlice";
+import AuthWrapper from "../../components/AuthWrapper";
+import { useRouter } from "next/router";
 
 export const assetTypes = [
   { name: "₦ Naira Assets" },
@@ -135,13 +139,16 @@ export default function Index() {
   const [isVisible, setIsVisible] = useState(false);
   const [selected, setSelected] = useState(assetTypes[0]);
   const { userDetails } = useSelector((state) => state.user);
-
   const router = useRouter();
+  //const { userToken } = useSelector((state) => state.user);
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+
   useEffect(() => {
-    if (!userDetails) {
+    if (!userToken) {
       router.push("/login");
     }
-  }, [router, userDetails]);
+  }, [router, userToken]);
+
   return (
     userDetails && (
       <section className="main-content text-black">
@@ -246,13 +253,14 @@ export default function Index() {
     )
   );
 }
-
 Index.getLayout = function getLayout(page) {
   return (
-    <DashBoardContainer>
-      <MainHeader />
-      <SideNav />
-      {page}
-    </DashBoardContainer>
+    <AuthWrapper>
+      <DashBoardContainer>
+        <MainHeader />
+        <SideNav />
+        {page}
+      </DashBoardContainer>
+    </AuthWrapper>
   );
 };

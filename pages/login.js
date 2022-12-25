@@ -21,9 +21,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState("");
-  const { loading, userDetails, error } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.user);
   // const [validatePassword, setvalidatePassword] = useState("");
-
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -47,13 +47,12 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (userDetails) {
-      setTimeout(() => {
-        router.push("/dashboard/home");
-      }, 3000);
+    if (userToken) {
+      router.push("/dashboard/home");
     }
+
     notify();
-  }, [notify, router, userDetails]);
+  }, [notify, router, userToken]);
   return (
     <>
       <Head>

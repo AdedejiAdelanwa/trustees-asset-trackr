@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userLogin } from "./userActions";
 let userDetails;
-let userToken;
+//let userToken;
 
 if (typeof window !== "undefined") {
   userDetails =
@@ -9,16 +9,16 @@ if (typeof window !== "undefined") {
       ? JSON.parse(window.localStorage.getItem("userDetails"))
       : null;
 
-  userToken =
-    localStorage.getItem("userToken") !== null
-      ? JSON.parse(window.localStorage.getItem("userToken"))
-      : null;
+  // userToken =
+  //   localStorage.getItem("userToken") !== null
+  //     ? JSON.parse(window.localStorage.getItem("userToken"))
+  //     : null;
 }
 
 const initialState = {
   loading: false,
   userDetails,
-  userToken,
+  //userToken: null,
   error: null,
   success: false,
 };
@@ -29,7 +29,7 @@ const userSlice = createSlice({
     logout: (state, action) => {
       state.userDetails = null;
       if (typeof window !== "undefined") {
-        localStorage.removeItem("userDetails");
+        localStorage.removeItem("userToken");
       }
     },
   },
@@ -41,7 +41,7 @@ const userSlice = createSlice({
     [userLogin.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.userDetails = payload.userDetails;
-      state.userToken = payload.userToken;
+      //state.userToken = payload.userToken;
     },
     [userLogin.rejected]: (state, { payload }) => {
       state.loading = false;

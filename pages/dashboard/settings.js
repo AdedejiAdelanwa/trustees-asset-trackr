@@ -27,6 +27,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import AuthWrapper from "../../components/AuthWrapper";
 
 const FormWrapper = styled.form`
   label {
@@ -49,13 +50,14 @@ const FormWrapper = styled.form`
 
 export default function Settings() {
   const { userDetails } = useSelector((state) => state.user);
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
   const router = useRouter();
 
   useEffect(() => {
-    if (!userDetails) {
+    if (!userToken) {
       router.push("/login");
     }
-  }, [router, userDetails]);
+  }, [router, userToken]);
   return (
     userDetails && (
       <section className="main-content">
@@ -290,10 +292,12 @@ export default function Settings() {
 }
 Settings.getLayout = function getLayout(page) {
   return (
-    <DashBoardContainer>
-      <MainHeader />
-      <SideNav />
-      {page}
-    </DashBoardContainer>
+    <AuthWrapper>
+      <DashBoardContainer>
+        <MainHeader />
+        <SideNav />
+        {page}
+      </DashBoardContainer>
+    </AuthWrapper>
   );
 };

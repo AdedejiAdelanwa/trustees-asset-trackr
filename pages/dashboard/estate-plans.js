@@ -40,9 +40,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { banks, baseUrl } from "../../util";
 import Head from "next/head";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import { fetchBeneficiaries } from "../../redux/beneficiaries/beneficiariesActions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import AuthWrapper from "../../components/AuthWrapper";
+import { logout } from "../../redux/user/userSlice";
 
 export const estateplanList = [
   { name: "simple will", status: "processing" },
@@ -53,10 +56,13 @@ export const estateplanList = [
 ];
 
 export default function EstatePlans() {
-  const { userDetails, userToken } = useSelector((state) => state.user);
+  const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const { userDetails } = useSelector((state) => state.user);
+  const token = jwt_decode(userToken);
   const { loading, userBeneficiaries, error } = useSelector(
     (state) => state.userBeneficiaries
   );
+
   const router = useRouter();
   const estatePlanModal = useDisclosure();
   const beneficiaryModal = useDisclosure();
@@ -86,69 +92,74 @@ export default function EstatePlans() {
     account_number: "",
   });
   const handleFetchBeneficiaries = useCallback(() => {
-    setTimeout(() => {
+    if (Date.now() >= token.exp * 1000) {
+      dispatch(logout());
+    } else {
       dispatch(fetchBeneficiaries(userToken));
-    }, 1500);
-  }, [dispatch, userToken]);
+    }
+  }, [dispatch, token.exp, userToken]);
   const handleChange = (e) => {
     setNewBeneficiary({
       ...newBeneficiary,
       [e.target.name]: e.target.value,
     });
   };
-
   const handleCreateNewbeneficiary = async (e) => {
     e.preventDefault();
+
+    if (Date.now() >= token.exp * 1000) {
+      dispatch(logout());
+    } else {
+      try {
+        const {
+          data: { message },
+        } = await axios({
+          method: "post",
+          url: `${baseUrl}/beneficiary/add`,
+          data: formatedBen,
+          headers: { Authorization: "Bearer " + userToken },
+        });
+        setNewBeneficiary({
+          firstname: "",
+          surname: "",
+          email: "",
+          phone: "",
+          dob: "",
+          address: "",
+          beneficiary_relationship: "",
+          gender: "",
+          marital_status: "",
+          banker: "",
+          account_name: "",
+          account_number: "",
+        });
+        setIsAddingBeneficiary(false);
+
+        toast.success(message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } catch (error) {
+        setIsAddingBeneficiary(false);
+        if (error.response && error.response.data.message) {
+          toast.error(error.response.data.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        } else {
+          toast.error(error.response.message),
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            };
+        }
+
+        console.log(error);
+      }
+    }
     setIsAddingBeneficiary(true);
     let formatedDate = newBeneficiary.dob.split("-").reverse().join("/");
     const formatedBen = {
       ...newBeneficiary,
       dob: formatedDate,
     };
-    try {
-      const {
-        data: { message },
-      } = await axios({
-        method: "post",
-        url: `${baseUrl}/beneficiary/add`,
-        data: formatedBen,
-        headers: { Authorization: "Bearer " + userToken },
-      });
-      setNewBeneficiary({
-        firstname: "",
-        surname: "",
-        email: "",
-        phone: "",
-        dob: "",
-        address: "",
-        beneficiary_relationship: "",
-        gender: "",
-        marital_status: "",
-        banker: "",
-        account_name: "",
-        account_number: "",
-      });
-      setIsAddingBeneficiary(false);
-
-      toast.success(message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      console.log(response);
-    } catch (error) {
-      setIsAddingBeneficiary(false);
-      if (error.response && error.response.data.message) {
-        toast.error(error.response.data.message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      } else {
-        toast.error(error.response.message),
-          {
-            position: toast.POSITION.TOP_RIGHT,
-          };
-      }
-
-      console.log(error);
-    }
   };
 
   const addBeneficiary = useDisclosure();
@@ -156,20 +167,18 @@ export default function EstatePlans() {
     setEstateItem(estateplanList[i]);
     estatePlanModal.onOpen();
   };
-  const handleSetBeneficiaryToShow = (i) => {
+  const handleSetBeneficiaryShow = (i) => {
     setBeneficiaryItem(userBeneficiaries[i]);
     beneficiaryModal.onOpen();
   };
 
   useEffect(() => {
-    if (!userDetails) {
+    if (!userToken) {
       router.push("/login");
     }
-  }, [router, userDetails]);
+  }, [router, userToken]);
   useEffect(() => {
-    setTimeout(() => {
-      handleFetchBeneficiaries();
-    }, 1500);
+    handleFetchBeneficiaries();
   }, [handleFetchBeneficiaries]);
   return (
     userDetails && (
@@ -186,9 +195,9 @@ export default function EstatePlans() {
         <section className="main-content">
           <div className="flex items-center justify-between">
             <h2 className="text-[2.8rem] font-bold">My Estate Plans </h2>
+
             <BiSearchAlt2 fontSize={"2rem"} className="cursor-pointer" />
           </div>
-
           <Tabs mt={"3rem"} fontSize="1.6rem">
             <TabList borderBottomColor={"grey"}>
               <Tab
@@ -257,32 +266,31 @@ export default function EstatePlans() {
                 >
                   {loading && <Spinner />}
 
-                  { userBeneficiaries.length !== 0 && (
+                  {userBeneficiaries.length !== 0 &&
                     userBeneficiaries.map((beneficiary, i) => (
-                    <>
-                      <EstatePlanItem
-                        key={i}
-                        onOpen={() => handleSetBeneficiaryToShow(i)}
-                      >
-                        <BsPersonCircle fontSize={"4rem"} color="darkgreen" />
+                      <>
+                        <EstatePlanItem
+                          key={i}
+                          onOpen={() => handleSetBeneficiaryToShow(i)}
+                        >
+                          <BsPersonCircle fontSize={"4rem"} color="darkgreen" />
 
-                        <Stack spacing={"0"}>
-                          <Heading fontFamily={"Poppins"}>
-                            {beneficiary.firstname} {beneficiary.surname}
-                          </Heading>
-                          <Text color={"gray"}>
-                            {beneficiary.beneficiary_relationship}
-                          </Text>
-                        </Stack>
-                      </EstatePlanItem>
-                      <BeneficiaryDetailsModal
-                        isOpen={beneficiaryModal.isOpen}
-                        onClose={beneficiaryModal.onClose}
-                        beneficiaryItem={beneficiary}
-                      />
-                    </>
-                    ))) 
-                  }
+                          <Stack spacing={"0"}>
+                            <Heading fontFamily={"Poppins"}>
+                              {beneficiary.firstname} {beneficiary.surname}
+                            </Heading>
+                            <Text color={"gray"}>
+                              {beneficiary.beneficiary_relationship}
+                            </Text>
+                          </Stack>
+                        </EstatePlanItem>
+                        <BeneficiaryDetailsModal
+                          isOpen={beneficiaryModal.isOpen}
+                          onClose={beneficiaryModal.onClose}
+                          beneficiaryItem={beneficiary}
+                        />
+                      </>
+                    ))}
                 </Flex>
               </TabPanel>
               <TabPanel>
@@ -515,10 +523,12 @@ export default function EstatePlans() {
 }
 EstatePlans.getLayout = function getLayout(page) {
   return (
-    <DashBoardContainer>
-      <MainHeader />
-      <SideNav />
-      {page}
-    </DashBoardContainer>
+    <AuthWrapper>
+      <DashBoardContainer>
+        <MainHeader />
+        <SideNav />
+        {page}
+      </DashBoardContainer>
+    </AuthWrapper>
   );
 };
