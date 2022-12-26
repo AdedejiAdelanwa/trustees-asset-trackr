@@ -87,9 +87,6 @@ export default function EstatePlans() {
     beneficiary_relationship: "",
     gender: "",
     marital_status: "",
-    banker: "",
-    account_name: "",
-    account_number: "",
   });
   const handleFetchBeneficiaries = useCallback(() => {
     if (Date.now() >= token.exp * 1000) {
@@ -135,9 +132,6 @@ export default function EstatePlans() {
           beneficiary_relationship: "",
           gender: "",
           marital_status: "",
-          banker: "",
-          account_name: "",
-          account_number: "",
         });
         setIsAddingBeneficiary(false);
 
@@ -310,7 +304,7 @@ export default function EstatePlans() {
           </Tabs>
           <Modal
             isOpen={addBeneficiary.isOpen}
-            size={"6xl"}
+            size={"5xl"}
             onClose={addBeneficiary.onClose}
             isCentered
           >
@@ -318,7 +312,7 @@ export default function EstatePlans() {
             <ModalContent
               fontSize="1.6rem"
               fontFamily={"Poppins"}
-              h="95%"
+              h="85%"
               overflowY="scroll"
             >
               <ModalHeader fontSize="1.8rem" textTransform={"capitalize"}>
@@ -327,97 +321,93 @@ export default function EstatePlans() {
               <ModalCloseButton />
               <ModalBody>
                 <form
-                  className="text-[2rem] w-[100%] overflow-y-auto"
+                  className="text-[1.6rem] w-[100%] overflow-y-auto"
                   onSubmit={handleCreateNewbeneficiary}
                 >
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>First name</FormLabel>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">First name</FormLabel>
                     <input
-                      style={{ width: "100%" }}
                       type="text"
                       name="firstname"
                       onChange={handleChange}
                       value={newBeneficiary.firstname}
-                      className="border-solid border-[1px]  rounded"
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
                     />
 
                     <FormErrorMessage>
                       Enter min. of 3 characters
                     </FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>Surname</FormLabel>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Surname</FormLabel>
                     <input
-                      style={{ width: "100%" }}
                       type="text"
                       name="surname"
                       onChange={handleChange}
                       value={newBeneficiary.surname}
-                      className="border-solid border-[1px]  rounded"
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
                     />
 
                     <FormErrorMessage>
                       Enter min. of 3 characters
                     </FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>Email</FormLabel>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Email</FormLabel>
                     <input
-                      style={{ width: "100%" }}
                       type="email"
                       name="email"
                       value={newBeneficiary.email}
                       onChange={handleChange}
-                      className="border-solid border-[1px]  rounded"
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
                     />
 
                     <FormErrorMessage>Enter a valid email</FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>Phone number</FormLabel>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Phone number</FormLabel>
                     <input
-                      style={{ width: "100%" }}
                       type="tel"
                       name="phone"
                       value={newBeneficiary.phone}
                       onChange={handleChange}
-                      className="border-solid border-[1px]  rounded"
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
                     />
 
                     <FormErrorMessage>
                       Enter a valid phone number
                     </FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>Date of birth</FormLabel>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Date of birth</FormLabel>
                     <input
-                      style={{ width: "100%" }}
                       type="date"
                       name="dob"
                       value={newBeneficiary.dob}
                       onChange={handleChange}
-                      className="border-solid border-[1px]  rounded"
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
                     />
 
                     <FormErrorMessage>
                       Enter a valid phone number
                     </FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>Address</FormLabel>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Address</FormLabel>
                     <input
-                      style={{ width: "100%" }}
                       type="text"
                       name="address"
                       value={newBeneficiary.address}
                       onChange={handleChange}
-                      className="border-solid border-[1px]  rounded"
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
                     />
 
                     <FormErrorMessage>Enter a valid address</FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>Beneficiary Relationship</FormLabel>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">
+                      Beneficiary Relationship
+                    </FormLabel>
                     <Select
                       placeholder="Select option"
                       name="beneficiary_relationship"
@@ -435,8 +425,8 @@ export default function EstatePlans() {
                     </Select>
                     <FormErrorMessage>Enter a valid address</FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>Gender</FormLabel>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Gender</FormLabel>
                     <Select
                       placeholder="Select a gender"
                       value={newBeneficiary.gender}
@@ -448,8 +438,8 @@ export default function EstatePlans() {
                     </Select>
                     <FormErrorMessage>Enter a valid address</FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>Marital status</FormLabel>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Marital status</FormLabel>
                     <Select
                       placeholder="Select an option"
                       value={newBeneficiary.marital_status}
@@ -462,8 +452,8 @@ export default function EstatePlans() {
                     </Select>
                     <FormErrorMessage>Enter a valid address</FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
-                    <FormLabel>Bank name</FormLabel>
+                  {/* <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Bank name</FormLabel>
                     <Select
                       placeholder="Select an option"
                       name="banker"
@@ -479,35 +469,35 @@ export default function EstatePlans() {
                     </Select>
                     <FormErrorMessage>Enter a valid address</FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
+                  <FormControl w="100%">
                     <FormLabel>Account name</FormLabel>
                     <input
-                      style={{ width: "100%" }}
+              
                       type="text"
                       name="account_name"
                       value={newBeneficiary.account_name}
                       onChange={handleChange}
-                      className="border-solid border-[1px]  rounded"
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
                     />
 
                     <FormErrorMessage>Enter the account name</FormErrorMessage>
                   </FormControl>
-                  <FormControl w={["100%", , "50%"]}>
+                  <FormControl w="100%">
                     <FormLabel>Account number</FormLabel>
                     <input
-                      style={{ width: "100%" }}
+              
                       type="number"
                       name="account_number"
                       value={newBeneficiary.account_number}
                       onChange={handleChange}
-                      className="border-solid border-[1px]  rounded"
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
                     />
 
                     <FormErrorMessage>Enter 10 digits</FormErrorMessage>
-                  </FormControl>
+                  </FormControl> */}
                   <button
                     onClick={handleCreateNewbeneficiary}
-                    className=" w-[50%] md:w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
+                    className=" w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
                   >
                     {isAddingBeneficiary ? <Spinner /> : "Add Beneficiary"}
                   </button>
