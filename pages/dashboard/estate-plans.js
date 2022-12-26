@@ -150,8 +150,6 @@ export default function EstatePlans() {
               position: toast.POSITION.TOP_RIGHT,
             };
         }
-
-        console.log(error);
       }
     }
   };

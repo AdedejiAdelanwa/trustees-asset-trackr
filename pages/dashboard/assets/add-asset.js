@@ -1,3 +1,10 @@
+import { useCallback, useEffect, useState } from "react";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { baseUrl } from "../../../util";
 import {
   Text,
   Flex,
@@ -11,23 +18,22 @@ import {
   FormLabel,
   FormErrorMessage,
   Select,
+  Spinner,
 } from "@chakra-ui/react";
-// import axios from "axios";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import jwt_decode from "jwt-decode";
 import MainHeader from "../../../components/MainHeader";
 import { fetchAssetCategories } from "../../../redux/asset/assetActions";
+import { logout } from "../../../redux/user/userSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const AddAsset = () => {
   const { userDetails } = useSelector((state) => state.user);
   const userToken = JSON.parse(localStorage.getItem("userToken"));
-
+  const token = jwt_decode(userToken);
   const router = useRouter();
   const dispatch = useDispatch();
   const { assetCategories, loading } = useSelector((state) => state.assets);
+  const [isAddingAsset, setIsAddingAsset] = useState(false);
   const [assetCategoryIndex, setAssetCategoryIndex] = useState(0);
   const tableFields = assetCategories[assetCategoryIndex].table_fields;
   let newAssetFields = Object.entries(tableFields).map((field) => {
@@ -35,24 +41,58 @@ const AddAsset = () => {
   });
   const [newAsset, setNewAsset] = useState(newAssetFields);
   const getAssetCategories = useCallback(async () => {
-    const token = jwt_decode(userToken);
     if (Date.now() >= token.exp * 1000) {
       dispatch(logout());
     } else {
       dispatch(fetchAssetCategories(userToken));
     }
-  }, [dispatch, userToken]);
+  }, [dispatch, token.exp, userToken]);
 
   const handleChangeAssetClass = (e) => {
     setAssetCategoryIndex(e.target.dataset.assetcategoryindex);
   };
 
   const handleInputChange = (e) => {
-    setNewAsset({ ...newAsset, [e.target.name]: e.target.value.trim() });
+    setNewAsset({ ...newAsset, [e.target.name]: e.target.value });
   };
 
-  const handleCreateAsset = (e) => {
+  const handleCreateAsset = async (e) => {
     e.preventDefault();
+    const newAssetClone = (({ amount, ...o }) => o)(newAsset);
+
+    if (Date.now() >= token.exp * 1000) {
+      dispatch(logout());
+    } else {
+      setIsAddingAsset(true);
+      try {
+        const {
+          data: { message },
+        } = await axios({
+          method: "post",
+          url: `${baseUrl}/assets/add`,
+          headers: { Authorization: "Bearer " + userToken },
+          data: {
+            asset_category_id: assetCategories[assetCategoryIndex]._id,
+            asset_name: assetCategories[assetCategoryIndex].name,
+            amount: newAsset.amount,
+            others: {
+              ...newAssetClone,
+            },
+          },
+        });
+        setIsAddingAsset(false);
+        setNewAsset(newAssetFields);
+        toast.success(message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } catch (error) {
+        setIsAddingAsset(false);
+        toast.error(error.response.message),
+          {
+            position: toast.POSITION.TOP_RIGHT,
+          };
+      }
+    }
   };
 
   useEffect(() => {
@@ -166,7 +206,7 @@ const AddAsset = () => {
                           <input
                             type={field[1].datatype}
                             name={field[0]}
-                            value={newAsset[field[0]]}
+                            value={newAsset[field[1]]}
                             onChange={handleInputChange}
                             className="w-[100%] border-solid border-[1px] py-[0.5rem]  rounded"
                           />
@@ -194,13 +234,14 @@ const AddAsset = () => {
                     onClick={handleCreateAsset}
                     className=" w-[50%] md:w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
                   >
-                    Add Asset
+                    {isAddingAsset ? <Spinner /> : "Add Asset"}
                   </button>
                 </form>
               </Flex>
             </Stack>
           </Stack>
         </Flex>
+        <ToastContainer />
       </Box>
     )
   );
