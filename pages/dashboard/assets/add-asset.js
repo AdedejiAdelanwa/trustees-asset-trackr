@@ -103,7 +103,7 @@ const AddAsset = () => {
   }, [getAssetCategories, router, userToken]);
 
   return (
-    userDetails && (
+    userToken && (
       <Box fontFamily={"Poppins"} bg="white">
         <MainHeader />
         <Flex fontSize={"1.4rem"} h="90vh">
