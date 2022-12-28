@@ -7,7 +7,7 @@ if (typeof window !== "undefined") {
 }
 const initialState = {
   loading: false,
-  assetCategories,
+  assetCategories: [],
   error: null,
   success: false,
 };
