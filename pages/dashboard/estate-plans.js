@@ -30,7 +30,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { RiFileList3Line } from "react-icons/ri";
 import EstatePlanItem from "../../components/EstatePlanItem";
 import { BsPersonCircle } from "react-icons/bs";
-import { MdOutlinePeopleAlt } from "react-icons/md";
+//import { MdOutlinePeopleAlt } from "react-icons/md";
 import SimpleWillCard from "../../components/SimpleWillCard";
 import EstatePlanDetailsModal from "../../components/EstatePlanDetailsModal";
 import { useCallback, useEffect, useState } from "react";
