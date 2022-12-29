@@ -14,16 +14,17 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCallback, useMemo } from "react";
 import { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BsArrowDown, BsArrowUp } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AuthWrapper from "../../../components/AuthWrapper";
 
 import DashBoardContainer from "../../../components/DashboardLayout";
 import MainHeader from "../../../components/MainHeader";
 import SideNav from "../../../components/SideNavigation";
-import { assetTypes } from "../home";
+import { fetchUserAssets } from "../../../redux/asset/assetActions";
 const assetClassList = [
   "All",
   "Crypto",
@@ -33,22 +34,47 @@ const assetClassList = [
   "NFT",
   "Arts",
 ];
-const assets = [
-  { name: "Gtb a/c (Omoboriowo Johnson)", valueIncrese: 200, value: 190000 },
-  { name: "luna", valueIncrese: -20, value: 7000 },
-  { name: "tether", valueIncrese: 0, value: 12000 },
+
+const assetTypes = [
+  { name: "₦ Naira Assets", value: "Naira" },
+  { name: "$ Dollar Assets", value: "Dollar" },
+  { name: "€ Euro Assets", value: "Euro" },
 ];
+
 export default function Assets() {
   const [isVisible, setIsVisible] = useState(false);
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   const { userDetails } = useSelector((state) => state.user);
+  const { userAssets } = useSelector((state) => state.assets);
+  const [assetCurrencyFilter, setAssetCurrencyFilter] = useState("Naira");
+  let filteredAssets = userAssets.filter((asset) => {
+    if (assetCurrencyFilter === "Naira") {
+      return asset.currency === "Naira";
+    } else if (assetCurrencyFilter === "Dollar") {
+      return asset.currency === "Dollar";
+    } else if (assetCurrencyFilter === "Euro") {
+      return asset.currency === "Euro";
+    } else {
+      return asset;
+    }
+  });
+  const dispatch = useDispatch();
   const router = useRouter();
+
+  const fetchAssets = useCallback(() => {
+    dispatch(fetchUserAssets(userToken));
+  }, [dispatch, userToken]);
+
+  const handleChangeFilterParam = (e) => {
+    setAssetCurrencyFilter(e.target.value);
+  };
 
   useEffect(() => {
     if (!userToken) {
       router.push("/login");
     }
-  }, [router, userToken]);
+    fetchAssets();
+  }, [fetchAssets, router, userToken]);
 
   return (
     userDetails && (
@@ -87,9 +113,16 @@ export default function Assets() {
             ))}
           </HStack> */}
 
-            <Select width={"7rem"} fontSize="1.4rem">
-              {assetClassList.map((assetClass, index) => (
-                <option key={index}>{assetClass}</option>
+            <Select
+              width={"7rem"}
+              fontSize="1.4rem"
+              value={assetCurrencyFilter}
+              onChange={handleChangeFilterParam}
+            >
+              {assetTypes.map(({ name, value }) => (
+                <option key={value} value={value}>
+                  {name}
+                </option>
               ))}
             </Select>
           </HStack>
@@ -106,7 +139,7 @@ export default function Assets() {
               {!isVisible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
             </small>
           </div>
-          <div className=" sm:mt-[1rem]">
+          {/* <div className=" sm:mt-[1rem]">
             <Select
               fontSize={"1.5rem"}
               py="1.5rem"
@@ -119,7 +152,7 @@ export default function Assets() {
                 </option>
               ))}
             </Select>
-          </div>
+          </div> */}
         </Flex>
 
         <TableContainer mt={"2.5rem"}>
@@ -147,37 +180,42 @@ export default function Assets() {
               </Tr>
             </Thead>
             <Tbody>
-              {assets.map(({ name, valueIncrese, value }) => (
-                <Tr
-                  key={name}
-                  borderBottomColor="#F3F3F3"
-                  borderBottomWidth={"1.5px"}
-                >
-                  <Td py="1.5rem">{name}</Td>
-                  <Td
-                    py="1.5rem"
-                    display={"flex"}
-                    borderBottom={"none"}
-                    color={
-                      valueIncrese < 0
-                        ? "red"
-                        : valueIncrese > 0
-                        ? "green"
-                        : "#828282"
-                    }
+              {filteredAssets.map(
+                ({ asset_name, valueIncrese, amount, sn, currency }) => (
+                  <Tr
+                    key={sn}
+                    borderBottomColor="#F3F3F3"
+                    borderBottomWidth={"1.5px"}
                   >
-                    {valueIncrese}%
-                    {valueIncrese < 0 ? (
-                      <BsArrowDown />
-                    ) : valueIncrese > 0 ? (
-                      <BsArrowUp />
-                    ) : (
-                      ""
-                    )}
-                  </Td>
-                  <Td py="1.5rem">₦{value}</Td>
-                </Tr>
-              ))}
+                    <Td py="1.5rem">{asset_name}</Td>
+                    <Td
+                      py="1.5rem"
+                      display={"flex"}
+                      borderBottom={"none"}
+                      color={
+                        valueIncrese < 0
+                          ? "red"
+                          : valueIncrese > 0
+                          ? "green"
+                          : "#828282"
+                      }
+                    >
+                      {valueIncrese}%
+                      {valueIncrese < 0 ? (
+                        <BsArrowDown />
+                      ) : valueIncrese > 0 ? (
+                        <BsArrowUp />
+                      ) : (
+                        ""
+                      )}
+                    </Td>
+                    <Td py="1.5rem">
+                      {currency === "Naira" ? "₦" : "Dollar" ? "$" : "€"}
+                      {amount}
+                    </Td>
+                  </Tr>
+                )
+              )}
             </Tbody>
           </Table>
         </TableContainer>

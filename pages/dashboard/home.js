@@ -32,9 +32,10 @@ import { logout } from "../../redux/user/userSlice";
 import AuthWrapper from "../../components/AuthWrapper";
 import { useRouter } from "next/router";
 
-export const assetTypes = [
-  { name: "₦ Naira Assets" },
-  { name: "$ Dollar Assets" },
+const assetTypes = [
+  { name: "₦ Naira Assets", value: "Naira" },
+  { name: "$ Dollar Assets", value: "Dollar" },
+  { name: "€ Euro Assets", value: "Euro" },
 ];
 
 const topAssets = [
