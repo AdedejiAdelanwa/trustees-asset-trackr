@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchAssetCategories } from "./assetActions";
+import { fetchUserAssets } from "./assetActions";
 let assetCategories;
 
 if (typeof window !== "undefined") {
@@ -7,7 +8,8 @@ if (typeof window !== "undefined") {
 }
 const initialState = {
   loading: false,
-  assetCategories: [],
+  assetCategories,
+  userAssets: [],
   error: null,
   success: false,
 };
@@ -26,6 +28,18 @@ const assetsSlice = createSlice({
       state.assetCategories = payload;
     },
     [fetchAssetCategories.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [fetchUserAssets.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    [fetchUserAssets.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.userAssets = payload;
+    },
+    [fetchUserAssets.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },
