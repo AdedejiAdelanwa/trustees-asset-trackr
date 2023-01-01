@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 // import { useRouter } from "next/router";
 import {
@@ -26,11 +26,12 @@ import { HiOutlineSelector } from "react-icons/hi";
 import SideNav from "../../components/SideNavigation";
 import Link from "next/link";
 import jwt_decode from "jwt-decode";
-import { Select } from "@chakra-ui/react";
+import { Select, Table, TableContainer, Tbody, Td, Tr } from "@chakra-ui/react";
 import SimpleWillCard from "../../components/SimpleWillCard";
 import { logout } from "../../redux/user/userSlice";
 import AuthWrapper from "../../components/AuthWrapper";
 import { useRouter } from "next/router";
+import { fetchUserAssets } from "../../redux/asset/assetActions";
 
 const assetTypes = [
   { name: "₦ Naira Assets", value: "Naira" },
@@ -38,58 +39,6 @@ const assetTypes = [
   { name: "€ Euro Assets", value: "Euro" },
 ];
 
-const topAssets = [
-  {
-    name: "Bitcoin",
-    value: "190020",
-    symbol: (
-      <BiBitcoin
-        fontSize="2.5rem"
-        className="bg-lightgreen p-1 rounded text-darkgreen"
-      />
-    ),
-  },
-  {
-    name: "Real estate",
-    value: "1900",
-    symbol: (
-      <BsHouse
-        fontSize="2.5rem"
-        className="bg-lightgreen p-1 rounded text-darkgreen"
-      />
-    ),
-  },
-  {
-    name: "Bank Accounts",
-    value: "100000",
-    symbol: (
-      <AiOutlineBank
-        fontSize="2.5rem"
-        className="bg-lightgreen p-1 rounded text-darkgreen"
-      />
-    ),
-  },
-  {
-    name: "Stocks",
-    value: "500000",
-    symbol: (
-      <AiOutlineStock
-        fontSize="2.5rem"
-        className="bg-lightgreen p-1 rounded text-darkgreen"
-      />
-    ),
-  },
-  {
-    name: "Cars",
-    value: "100000",
-    symbol: (
-      <AiOutlineCar
-        fontSize="2.5rem"
-        className="bg-lightgreen p-1 rounded text-darkgreen"
-      />
-    ),
-  },
-];
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -140,15 +89,50 @@ export default function Index() {
   const [isVisible, setIsVisible] = useState(false);
   const [selected, setSelected] = useState(assetTypes[0]);
   const { userDetails } = useSelector((state) => state.user);
+  const { userAssets, userStatistics, assetDetails } = useSelector(
+    (state) => state.assets
+  );
+  const dispatch = useDispatch();
   const router = useRouter();
   //const { userToken } = useSelector((state) => state.user);
   const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const [assetCurrencyFilter, setAssetCurrencyFilter] = useState("Naira");
+  let filteredAssets = userAssets.filter((asset) => {
+    if (assetCurrencyFilter === "Naira") {
+      return asset.currency === "Naira";
+    } else if (assetCurrencyFilter === "Dollar") {
+      return asset.currency === "Dollar";
+    } else if (assetCurrencyFilter === "Euro") {
+      return asset.currency === "Euro";
+    } else {
+      return asset;
+    }
+  });
+
+  const handleChangeFilterParam = (e) => {
+    setAssetCurrencyFilter(e.target.value);
+  };
+
+  const totalAssetsValueArray = Object.entries(userStatistics).map((entry) => {
+    return entry;
+  });
+  const currentTotalAssetValue = totalAssetsValueArray.map((aV) => {
+    if (aV[0].includes(assetCurrencyFilter)) {
+      return aV[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  });
+  console.log(assetDetails);
+
+  const fetchAssets = useCallback(() => {
+    dispatch(fetchUserAssets(userToken));
+  }, [dispatch, userToken]);
 
   useEffect(() => {
     if (!userToken) {
       router.push("/login");
     }
-  }, [router, userToken]);
+    fetchAssets();
+  }, [fetchAssets, router, userToken]);
 
   return (
     userDetails && (
@@ -161,7 +145,10 @@ export default function Index() {
             <h3 className="font-semibold text-[1.8rem]">Total Value</h3>
             <div className="flex items-center">
               <p className="text-[3rem] mr-2 font-normal">
-                &#8358;{isVisible ? "40203930.00" : "XXXXX.XX"}
+                {assetCurrencyFilter === "Naira" && "₦"}
+                {assetCurrencyFilter === "Dollar" && "$"}
+                {assetCurrencyFilter === "Euro" && "€"}
+                {isVisible ? currentTotalAssetValue : "XXXXX.XX"}
               </p>
               <small
                 className="text-[2.5rem] cursor-pointer"
@@ -172,10 +159,15 @@ export default function Index() {
             </div>
           </div>
           <div className=" text-[1.5rem] sm:mt-[1rem]">
-            <Select>
-              {assetTypes.map((assetType, index) => (
-                <option key={index} value={assetType.name}>
-                  {assetType.name}
+            <Select
+              width={"7rem"}
+              fontSize="1.4rem"
+              value={assetCurrencyFilter}
+              onChange={handleChangeFilterParam}
+            >
+              {assetTypes.map(({ name, value }) => (
+                <option key={value} value={value}>
+                  {name}
                 </option>
               ))}
             </Select>
@@ -191,24 +183,52 @@ export default function Index() {
                 </span>
               </Link>
             </div>
-            <table className="table-auto w-[100%]  mt-[1rem]">
-              <tbody className="text-[1.6rem]">
-                {topAssets.map(({ name, value, symbol }) => (
-                  <tr
-                    key={name}
-                    className="h-[5rem] w-[100%] flex items-center border-b-2 border-lightgrey"
-                  >
-                    <td className="w-[80%] sm:w-[60%] flex items-center">
-                      {symbol}
-                      {name}
-                    </td>
-                    <td className="w-[20%] sm:w-[40%] text-right font-semibold">
-                      &#8358;{value}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <TableContainer mt={"1rem"}>
+              <Table
+                variant={"simple"}
+                textTransform="capitalize"
+                fontSize="1.5rem"
+                fontFamily={"Poppins"}
+              >
+                <Tbody>
+                  {filteredAssets.map(
+                    ({ asset_name, amount, sn, currency }) => (
+                      <Tr key={sn}>
+                        <Td py="1.5rem" display="flex" alignItems="center">
+                          {asset_name === "Stocks" && (
+                            <AiOutlineStock
+                              fontSize="2.5rem"
+                              className="bg-lightgreen p-1 rounded text-darkgreen"
+                            />
+                          )}
+                          {asset_name === "Real Estate" && (
+                            <BsHouse
+                              fontSize="2.5rem"
+                              className="bg-lightgreen p-1 rounded text-darkgreen"
+                            />
+                          )}
+                          {asset_name === "Bank Accounts" && (
+                            <AiOutlineBank
+                              fontSize="2.5rem"
+                              className="bg-lightgreen p-1 rounded text-darkgreen"
+                            />
+                          )}
+
+                          {asset_name}
+                        </Td>
+
+                        <Td py="1.5rem">
+                          {currency === "Naira" && "₦"}
+                          {currency === "Dollar" && "$"}
+                          {currency === "Euro" && "€"}
+                          {amount}
+                        </Td>
+                      </Tr>
+                    )
+                  )}
+                </Tbody>
+              </Table>
+            </TableContainer>
             <div className="flex justify-end pt-[1rem]">
               <Link href="/dashboard/assets">
                 <span className=" text-[1.6rem] text-darkgreen cursor-pointer">

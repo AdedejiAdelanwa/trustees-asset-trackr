@@ -16,8 +16,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
 import { useEffect, useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { BsArrowDown, BsArrowUp } from "react-icons/bs";
+import {
+  AiOutlineBank,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineStock,
+} from "react-icons/ai";
+import { BsArrowDown, BsArrowUp, BsHouse } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import AuthWrapper from "../../../components/AuthWrapper";
 
@@ -45,7 +50,7 @@ export default function Assets() {
   const [isVisible, setIsVisible] = useState(false);
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   const { userDetails } = useSelector((state) => state.user);
-  const { userAssets } = useSelector((state) => state.assets);
+  const { userAssets, userStatistics } = useSelector((state) => state.assets);
   const [assetCurrencyFilter, setAssetCurrencyFilter] = useState("Naira");
   let filteredAssets = userAssets.filter((asset) => {
     if (assetCurrencyFilter === "Naira") {
@@ -58,23 +63,26 @@ export default function Assets() {
       return asset;
     }
   });
-  const dispatch = useDispatch();
-  const router = useRouter();
 
-  const fetchAssets = useCallback(() => {
-    dispatch(fetchUserAssets(userToken));
-  }, [dispatch, userToken]);
+  const router = useRouter();
 
   const handleChangeFilterParam = (e) => {
     setAssetCurrencyFilter(e.target.value);
   };
+  const totalAssetsValueArray = Object.entries(userStatistics).map((entry) => {
+    return entry;
+  });
+  const currentTotalAssetValue = totalAssetsValueArray.map((aV) => {
+    if (aV[0].includes(assetCurrencyFilter)) {
+      return aV[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  });
 
   useEffect(() => {
     if (!userToken) {
       router.push("/login");
     }
-    fetchAssets();
-  }, [fetchAssets, router, userToken]);
+  }, [router, userToken]);
 
   return (
     userDetails && (
@@ -130,7 +138,10 @@ export default function Assets() {
         <Flex alignItems={"center"} mt="1.5rem">
           <div className="flex items-center">
             <p className="text-[3rem] mr-2 font-normal">
-              &#8358;{isVisible ? "40203930.00" : "XXXXX.XX"}
+              {assetCurrencyFilter === "Naira" && "₦"}
+              {assetCurrencyFilter === "Dollar" && "$"}
+              {assetCurrencyFilter === "Euro" && "€"}
+              {isVisible ? currentTotalAssetValue : "XXXXX.XX"}
             </p>
             <small
               className="text-[2.5rem] cursor-pointer"
@@ -165,30 +176,38 @@ export default function Assets() {
             <Thead bg={"darkgreen"} color="white" fontSize="1.5rem">
               <Tr py="2rem">
                 <Th>Asset</Th>
-                <Th>
-                  <Select variant={"unstyled"}>
-                    {["Last 7 days", "3 months", "6 months", "1 year"].map(
-                      (item) => (
-                        <option key={item} value={item}>
-                          {item}
-                        </option>
-                      )
-                    )}
-                  </Select>
-                </Th>
                 <Th>Value</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {filteredAssets.map(
-                ({ asset_name, valueIncrese, amount, sn, currency }) => (
-                  <Tr
-                    key={sn}
-                    borderBottomColor="#F3F3F3"
-                    borderBottomWidth={"1.5px"}
-                  >
-                    <Td py="1.5rem">{asset_name}</Td>
-                    <Td
+              {filteredAssets.map(({ asset_name, amount, sn, currency }) => (
+                <Tr
+                  key={sn}
+                  borderBottomColor="#F3F3F3"
+                  borderBottomWidth={"1.5px"}
+                >
+                  <Td py="1.5rem" display="flex" border="none">
+                    {asset_name === "Stocks" && (
+                      <AiOutlineStock
+                        fontSize="2.5rem"
+                        className="bg-lightgreen p-1 rounded text-darkgreen"
+                      />
+                    )}
+                    {asset_name === "Real Estate" && (
+                      <BsHouse
+                        fontSize="2.5rem"
+                        className="bg-lightgreen p-1 rounded text-darkgreen"
+                      />
+                    )}
+                    {asset_name === "Bank Accounts" && (
+                      <AiOutlineBank
+                        fontSize="2.5rem"
+                        className="bg-lightgreen p-1 rounded text-darkgreen"
+                      />
+                    )}
+                    {asset_name}
+                  </Td>
+                  {/* <Td
                       py="1.5rem"
                       display={"flex"}
                       borderBottom={"none"}
@@ -208,23 +227,15 @@ export default function Assets() {
                       ) : (
                         ""
                       )}
-                    </Td>
-                    <Td py="1.5rem">
-                      {/* {currency === "Naira"
-                        ? "₦"
-                        : "Dollar"
-                        ? "$"
-                        : "Euro"
-                        ? "€"
-                        : ""} */}
-                      {currency === "Naira" && "₦"}
-                      {currency === "Dollar" && "$"}
-                      {currency === "Euro" && "€"}
-                      {amount}
-                    </Td>
-                  </Tr>
-                )
-              )}
+                    </Td> */}
+                  <Td py="1.5rem">
+                    {currency === "Naira" && "₦"}
+                    {currency === "Dollar" && "$"}
+                    {currency === "Euro" && "€"}
+                    {amount}
+                  </Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
         </TableContainer>
