@@ -210,7 +210,16 @@ export default function Assets() {
                       )}
                     </Td>
                     <Td py="1.5rem">
-                      {currency === "Naira" ? "₦" : "Dollar" ? "$" : "€"}
+                      {/* {currency === "Naira"
+                        ? "₦"
+                        : "Dollar"
+                        ? "$"
+                        : "Euro"
+                        ? "€"
+                        : ""} */}
+                      {currency === "Naira" && "₦"}
+                      {currency === "Dollar" && "$"}
+                      {currency === "Euro" && "€"}
                       {amount}
                     </Td>
                   </Tr>
