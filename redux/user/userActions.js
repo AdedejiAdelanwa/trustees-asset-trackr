@@ -14,13 +14,15 @@ export const userLogin = createAsyncThunk(
       const {
         headers: { token },
         data: {
-          data: { userDetails },
+          data: { userDetails, statistics, assetsDetails },
         },
       } = await axios.post(`${baseUrl}/login`, { email, password }, config);
       localStorage.setItem("userDetails", JSON.stringify(userDetails));
       localStorage.setItem("userToken", JSON.stringify(token));
+      localStorage.setItem("userStatistics", JSON.stringify(statistics));
+      localStorage.setItem("assetDetails", JSON.stringify(assetsDetails));
 
-      return { userDetails, token };
+      return { userDetails, token, statistics, assetsDetails };
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

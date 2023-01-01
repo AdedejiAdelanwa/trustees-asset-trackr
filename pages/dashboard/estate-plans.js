@@ -62,7 +62,6 @@ export default function EstatePlans() {
   const { loading, userBeneficiaries, error } = useSelector(
     (state) => state.userBeneficiaries
   );
-
   const router = useRouter();
   const estatePlanModal = useDisclosure();
   const beneficiaryModal = useDisclosure();
@@ -73,10 +72,8 @@ export default function EstatePlans() {
     age: "",
     account: "",
   });
-
   const dispatch = useDispatch();
   const [isAddingBeneficiary, setIsAddingBeneficiary] = useState(false);
-
   const [newBeneficiary, setNewBeneficiary] = useState({
     firstname: "",
     surname: "",
@@ -88,6 +85,7 @@ export default function EstatePlans() {
     gender: "",
     marital_status: "",
   });
+  const [estateplans, setEstatePlans] = useState([]);
   const handleFetchBeneficiaries = useCallback(() => {
     if (Date.now() >= token.exp * 1000) {
       dispatch(logout());
@@ -154,6 +152,22 @@ export default function EstatePlans() {
     }
   };
 
+  const fetchEstatePlans = useCallback(async () => {
+    if (Date.now() >= token.exp * 1000) {
+      dispatch(logout());
+    } else {
+      try {
+        const {
+          data: { data },
+        } = await axios({
+          method: "get",
+          url: `${baseUrl}/estate-plans`,
+          headers: { Authorization: "Bearer " + userToken },
+        });
+        setEstatePlans(data);
+      } catch (error) {}
+    }
+  }, [dispatch, token.exp, userToken]);
   const addBeneficiary = useDisclosure();
   const handleSetItemToShow = (i) => {
     setEstateItem(estateplanList[i]);
@@ -171,7 +185,9 @@ export default function EstatePlans() {
   }, [router, userToken]);
   useEffect(() => {
     handleFetchBeneficiaries();
-  }, [handleFetchBeneficiaries]);
+    fetchEstatePlans();
+  }, [fetchEstatePlans, handleFetchBeneficiaries]);
+
   return (
     userDetails && (
       <div>
@@ -293,8 +309,11 @@ export default function EstatePlans() {
                   gap="2rem"
                   mt={"3rem"}
                 >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
-                    <SimpleWillCard key={i} />
+                  {estateplans.map((estatePlan) => (
+                    <SimpleWillCard
+                      key={estatePlan.sn}
+                      //estatePlan={estatePlan}
+                    />
                   ))}
                 </Flex>
               </TabPanel>
