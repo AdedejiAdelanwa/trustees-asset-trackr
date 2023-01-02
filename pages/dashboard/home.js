@@ -26,7 +26,15 @@ import { HiOutlineSelector } from "react-icons/hi";
 import SideNav from "../../components/SideNavigation";
 import Link from "next/link";
 import jwt_decode from "jwt-decode";
-import { Select, Table, TableContainer, Tbody, Td, Tr } from "@chakra-ui/react";
+import {
+  Select,
+  Spinner,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Tr,
+} from "@chakra-ui/react";
 import SimpleWillCard from "../../components/SimpleWillCard";
 import { logout } from "../../redux/user/userSlice";
 import AuthWrapper from "../../components/AuthWrapper";
@@ -78,23 +86,15 @@ const data = {
   ],
 };
 
-const horizontalBarData = [
-  { value: 35, name: "Crypto", description: "35%", color: "#345C45" },
-  { value: 25, name: "Bank Accounts", description: "25%", color: "#F9B353" },
-  { value: 20, name: "Real Estate", description: "20%", color: "#97A92E" },
-  { value: 15, name: "Stocks", description: "15%", color: "#9452A1" },
-  { value: 5, name: "Others", description: "5%", color: "#BBF1D1" },
-];
 export default function Index() {
   const [isVisible, setIsVisible] = useState(false);
   const [selected, setSelected] = useState(assetTypes[0]);
   const { userDetails } = useSelector((state) => state.user);
-  const { userAssets, userStatistics, assetDetails } = useSelector(
+  const { userAssets, userStatistics, assetDetails, loading } = useSelector(
     (state) => state.assets
   );
   const dispatch = useDispatch();
   const router = useRouter();
-  //const { userToken } = useSelector((state) => state.user);
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   const [assetCurrencyFilter, setAssetCurrencyFilter] = useState("Naira");
   let filteredAssets = userAssets.filter((asset) => {
@@ -121,8 +121,41 @@ export default function Index() {
       return aV[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   });
-  console.log(assetDetails);
+  //console.log(assetDetails);
 
+  const newAssetDetailsArray = Object.entries(assetDetails)
+    .map((entry) => {
+      return entry[1];
+    })
+    .flat();
+
+  const filteredFlatArray = newAssetDetailsArray.filter(
+    (element) => element.currency === assetCurrencyFilter
+  );
+  const horizontalBarData = filteredFlatArray.map((en) => {
+    //   (en.amount /
+    const value =
+      (Number(en.amount) /
+        filteredFlatArray.reduce(
+          (accum, { amount }) => accum + Number(amount),
+          0
+        )) *
+      100;
+
+    return {
+      value,
+      name: en.asset_name,
+      description: `${value.toFixed(3)}%`,
+      color:
+        en.asset_name === "Bank Accounts"
+          ? "#F9B353"
+          : en.asset_name === "Real Estate"
+          ? "#97A92E"
+          : en.asset_name === "Stocks"
+          ? "#9452A1"
+          : "#BBF1D1",
+    };
+  });
   const fetchAssets = useCallback(() => {
     dispatch(fetchUserAssets(userToken));
   }, [dispatch, userToken]);
@@ -191,41 +224,42 @@ export default function Index() {
                 fontFamily={"Poppins"}
               >
                 <Tbody>
-                  {filteredAssets.map(
-                    ({ asset_name, amount, sn, currency }) => (
-                      <Tr key={sn}>
-                        <Td py="1.5rem" display="flex" alignItems="center">
-                          {asset_name === "Stocks" && (
-                            <AiOutlineStock
-                              fontSize="2.5rem"
-                              className="bg-lightgreen p-1 rounded text-darkgreen"
-                            />
-                          )}
-                          {asset_name === "Real Estate" && (
-                            <BsHouse
-                              fontSize="2.5rem"
-                              className="bg-lightgreen p-1 rounded text-darkgreen"
-                            />
-                          )}
-                          {asset_name === "Bank Accounts" && (
-                            <AiOutlineBank
-                              fontSize="2.5rem"
-                              className="bg-lightgreen p-1 rounded text-darkgreen"
-                            />
-                          )}
+                  {userAssets &&
+                    filteredAssets.map(
+                      ({ asset_name, amount, sn, currency }) => (
+                        <Tr key={sn}>
+                          <Td py="1.5rem" display="flex" alignItems="center">
+                            {asset_name === "Stocks" && (
+                              <AiOutlineStock
+                                fontSize="2.5rem"
+                                className="bg-lightgreen p-1 rounded text-darkgreen"
+                              />
+                            )}
+                            {asset_name === "Real Estate" && (
+                              <BsHouse
+                                fontSize="2.5rem"
+                                className="bg-lightgreen p-1 rounded text-darkgreen"
+                              />
+                            )}
+                            {asset_name === "Bank Accounts" && (
+                              <AiOutlineBank
+                                fontSize="2.5rem"
+                                className="bg-lightgreen p-1 rounded text-darkgreen"
+                              />
+                            )}
 
-                          {asset_name}
-                        </Td>
+                            {asset_name}
+                          </Td>
 
-                        <Td py="1.5rem">
-                          {currency === "Naira" && "₦"}
-                          {currency === "Dollar" && "$"}
-                          {currency === "Euro" && "€"}
-                          {amount}
-                        </Td>
-                      </Tr>
-                    )
-                  )}
+                          <Td py="1.5rem">
+                            {currency === "Naira" && "₦"}
+                            {currency === "Dollar" && "$"}
+                            {currency === "Euro" && "€"}
+                            {amount}
+                          </Td>
+                        </Tr>
+                      )
+                    )}
                 </Tbody>
               </Table>
             </TableContainer>
@@ -253,9 +287,10 @@ export default function Index() {
         <div className="mt-[4.4rem] sm:mt-[5rem]">
           <h3 className="font-semibold text-[1.8rem]">Asset Distribution</h3>
           <HSBar
-            showTextDown
-            showValueDown
-            height="7rem"
+            showTextIn
+            showValueIn
+            showTextWithValue
+            height="5rem"
             id="hsbar"
             data={horizontalBarData}
           />
