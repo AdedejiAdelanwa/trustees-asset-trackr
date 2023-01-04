@@ -13,7 +13,7 @@ if (typeof window !== "undefined") {
 }
 const initialState = {
   loading: false,
-  assetCategories,
+  assetCategories: [],
   userAssets: [],
   userStatistics,
   assetDetails,
