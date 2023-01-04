@@ -13,9 +13,9 @@ export const fetchAssetCategories = createAsyncThunk(
         url: `${baseUrl}/assets/category`,
         headers: { Authorization: "Bearer " + userToken },
       });
-      const assetCategories = data;
-      localStorage.setItem("assetCategories", JSON.stringify(assetCategories));
-      return assetCategories;
+
+      localStorage.setItem("assetCategories", JSON.stringify(data));
+      return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
