@@ -133,7 +133,6 @@ export default function Index() {
     (element) => element.currency === assetCurrencyFilter
   );
   const horizontalBarData = filteredFlatArray.map((en) => {
-    //   (en.amount /
     const value =
       (Number(en.amount) /
         filteredFlatArray.reduce(
