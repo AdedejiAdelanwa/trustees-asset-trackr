@@ -25,11 +25,14 @@ import {
 import { BsArrowDown, BsArrowUp, BsHouse } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import AuthWrapper from "../../../components/AuthWrapper";
-
+import jwt_decode from "jwt-decode";
 import DashBoardContainer from "../../../components/DashboardLayout";
 import MainHeader from "../../../components/MainHeader";
 import SideNav from "../../../components/SideNavigation";
-import { fetchUserAssets } from "../../../redux/asset/assetActions";
+import {
+  fetchAssetCategories,
+  fetchUserAssets,
+} from "../../../redux/asset/assetActions";
 const assetClassList = [
   "All",
   "Crypto",
@@ -49,6 +52,7 @@ const assetTypes = [
 export default function Assets() {
   const [isVisible, setIsVisible] = useState(false);
   const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const token = jwt_decode(userToken);
   const { userDetails } = useSelector((state) => state.user);
   const { userAssets, userStatistics } = useSelector((state) => state.assets);
   const [assetCurrencyFilter, setAssetCurrencyFilter] = useState("Naira");
@@ -63,7 +67,7 @@ export default function Assets() {
       return asset;
     }
   });
-
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleChangeFilterParam = (e) => {
@@ -77,12 +81,20 @@ export default function Assets() {
       return aV[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   });
+  const getAssetCategories = useCallback(async () => {
+    if (Date.now() >= token.exp * 1000) {
+      dispatch(logout());
+    } else {
+      dispatch(fetchAssetCategories(userToken));
+    }
+  }, [dispatch, token.exp, userToken]);
 
   useEffect(() => {
     if (!userToken) {
       router.push("/login");
     }
-  }, [router, userToken]);
+    getAssetCategories();
+  }, [getAssetCategories, router, userToken]);
 
   return (
     userDetails && (
