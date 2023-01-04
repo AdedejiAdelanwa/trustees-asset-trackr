@@ -209,11 +209,6 @@ export default function Index() {
           <div className="w-[44rem] md:w-[100%]">
             <div className="flex justify-between sm:mt-[2rem]">
               <h2 className="font-bold text-[2rem]">Top Assets</h2>
-              <Link href="/">
-                <span className=" text-[1.8rem] text-darkgreen font-semibold cursor-pointer">
-                  + Add Asset
-                </span>
-              </Link>
             </div>
             <TableContainer mt={"1rem"}>
               <Table

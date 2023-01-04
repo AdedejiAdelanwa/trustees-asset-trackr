@@ -42,13 +42,6 @@ const AddAsset = () => {
   const [assetCurrencies, setAssetCurrencies] = useState([]);
   const [currency, setCurrency] = useState("");
   const [newAsset, setNewAsset] = useState(newAssetFields);
-  const getAssetCategories = useCallback(async () => {
-    if (Date.now() >= token.exp * 1000) {
-      dispatch(logout());
-    } else {
-      dispatch(fetchAssetCategories(userToken));
-    }
-  }, [dispatch, token.exp, userToken]);
 
   const handleChangeAssetClass = (e) => {
     setAssetCategoryIndex(e.target.dataset.assetcategoryindex);
@@ -115,11 +108,8 @@ const AddAsset = () => {
     if (!userToken) {
       router.push("/login");
     }
-  }, [router, userToken]);
-  useEffect(() => {
-    getAssetCategories();
     getCurrencies();
-  }, [getAssetCategories]);
+  }, [router, userToken]);
 
   return (
     userToken && (
