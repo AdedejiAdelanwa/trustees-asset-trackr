@@ -4,6 +4,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import jwt_decode from "jwt-decode";
 import { userLogin } from "../redux/user/userActions";
 import block_one from "../public/assets/blockOne.png";
 import block_two from "../public/assets/blockTwo.png";
@@ -15,6 +16,7 @@ import Logocomponent from "../components/LandingPageShared/logocomponent";
 import { Spinner } from "@chakra-ui/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { logout } from "../redux/user/userSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,6 +26,7 @@ const Login = () => {
   const { loading, error } = useSelector((state) => state.user);
   // const [validatePassword, setvalidatePassword] = useState("");
   const userToken = JSON.parse(localStorage.getItem("userToken"));
+
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -46,13 +49,23 @@ const Login = () => {
     } catch (error) {}
   };
 
-  useEffect(() => {
+  const checkValidToken = useCallback(() => {
+    let token;
     if (userToken) {
-      router.push("/dashboard/home");
+      token = jwt_decode(userToken);
+      if (Date.now() >= token.exp * 1000) {
+        dispatch(logout());
+      } else {
+        router.push("/dashboard/home");
+      }
     }
+  }, [dispatch, router, userToken]);
+
+  useEffect(() => {
+    checkValidToken();
 
     notify();
-  }, [notify, router, userToken]);
+  }, [checkValidToken, notify]);
   return (
     <>
       <Head>
