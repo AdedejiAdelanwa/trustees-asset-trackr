@@ -30,7 +30,6 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { RiFileList3Line } from "react-icons/ri";
 import EstatePlanItem from "../../components/EstatePlanItem";
 import { BsPersonCircle } from "react-icons/bs";
-//import { MdOutlinePeopleAlt } from "react-icons/md";
 import SimpleWillCard from "../../components/SimpleWillCard";
 import EstatePlanDetailsModal from "../../components/EstatePlanDetailsModal";
 import { useCallback, useEffect, useState } from "react";
@@ -46,6 +45,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import AuthWrapper from "../../components/AuthWrapper";
 import { logout } from "../../redux/user/userSlice";
+import { NewUser } from "../../components/NewUser";
+import NoBenefSvg from "../../public/assets/no-beneficiary.svg";
 
 export const estateplanList = [
   { name: "simple will", status: "processing" },
@@ -58,7 +59,6 @@ export const estateplanList = [
 export default function EstatePlans() {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   const { userDetails } = useSelector((state) => state.user);
-  const token = jwt_decode(userToken);
   const { loading, userBeneficiaries, error } = useSelector(
     (state) => state.userBeneficiaries
   );
@@ -87,12 +87,16 @@ export default function EstatePlans() {
   });
   const [estateplans, setEstatePlans] = useState([]);
   const handleFetchBeneficiaries = useCallback(() => {
-    if (Date.now() >= token.exp * 1000) {
-      dispatch(logout());
-    } else {
-      dispatch(fetchBeneficiaries(userToken));
+    let token;
+    if (userToken) {
+      token = jwt_decode(userToken);
+      if (Date.now() >= token.exp * 1000) {
+        dispatch(logout());
+      } else {
+        dispatch(fetchBeneficiaries(userToken));
+      }
     }
-  }, [dispatch, token.exp, userToken]);
+  }, [dispatch, userToken]);
   const handleChange = (e) => {
     setNewBeneficiary({
       ...newBeneficiary,
@@ -153,21 +157,25 @@ export default function EstatePlans() {
   };
 
   const fetchEstatePlans = useCallback(async () => {
-    if (Date.now() >= token.exp * 1000) {
-      dispatch(logout());
-    } else {
-      try {
-        const {
-          data: { data },
-        } = await axios({
-          method: "get",
-          url: `${baseUrl}/estate-plans`,
-          headers: { Authorization: "Bearer " + userToken },
-        });
-        setEstatePlans(data);
-      } catch (error) {}
+    let token;
+    if (userToken) {
+      token = jwt_decode(userToken);
+      if (Date.now() >= token.exp * 1000) {
+        dispatch(logout());
+      } else {
+        try {
+          const {
+            data: { data },
+          } = await axios({
+            method: "get",
+            url: `${baseUrl}/estate-plans`,
+            headers: { Authorization: "Bearer " + userToken },
+          });
+          setEstatePlans(data);
+        } catch (error) {}
+      }
     }
-  }, [dispatch, token.exp, userToken]);
+  }, [dispatch, userToken]);
   const addBeneficiary = useDisclosure();
   const handleSetItemToShow = (i) => {
     setEstateItem(estateplanList[i]);
@@ -182,11 +190,9 @@ export default function EstatePlans() {
     if (!userToken) {
       router.push("/login");
     }
-  }, [router, userToken]);
-  useEffect(() => {
     handleFetchBeneficiaries();
     fetchEstatePlans();
-  }, [fetchEstatePlans, handleFetchBeneficiaries]);
+  }, [fetchEstatePlans, handleFetchBeneficiaries, router, userToken]);
 
   return (
     userDetails && (
@@ -274,31 +280,39 @@ export default function EstatePlans() {
                 >
                   {loading && <Spinner />}
 
-                  {userBeneficiaries.length !== 0 &&
-                    userBeneficiaries.map((beneficiary, i) => (
-                      <>
-                        <EstatePlanItem
-                          key={i}
-                          onOpen={() => handleSetBeneficiaryToShow(i)}
-                        >
-                          <BsPersonCircle fontSize={"4rem"} color="darkgreen" />
+                  {userBeneficiaries.length > 0 ? (
+                    <>
+                      {userBeneficiaries.map((beneficiary, i) => (
+                        <>
+                          <EstatePlanItem
+                            key={i}
+                            onOpen={() => handleSetBeneficiaryToShow(i)}
+                          >
+                            <BsPersonCircle
+                              fontSize={"4rem"}
+                              color="darkgreen"
+                            />
 
-                          <Stack spacing={"0"}>
-                            <Heading fontFamily={"Poppins"}>
-                              {beneficiary.firstname} {beneficiary.surname}
-                            </Heading>
-                            <Text color={"gray"}>
-                              {beneficiary.beneficiary_relationship}
-                            </Text>
-                          </Stack>
-                        </EstatePlanItem>
-                        <BeneficiaryDetailsModal
-                          isOpen={beneficiaryModal.isOpen}
-                          onClose={beneficiaryModal.onClose}
-                          beneficiaryItem={beneficiary}
-                        />
-                      </>
-                    ))}
+                            <Stack spacing={"0"}>
+                              <Heading fontFamily={"Poppins"}>
+                                {beneficiary.firstname} {beneficiary.surname}
+                              </Heading>
+                              <Text color={"gray"}>
+                                {beneficiary.beneficiary_relationship}
+                              </Text>
+                            </Stack>
+                          </EstatePlanItem>
+                          <BeneficiaryDetailsModal
+                            isOpen={beneficiaryModal.isOpen}
+                            onClose={beneficiaryModal.onClose}
+                            beneficiaryItem={beneficiary}
+                          />
+                        </>
+                      ))}
+                    </>
+                  ) : (
+                    <NewUser text="beneficiary" svg={NoBenefSvg} />
+                  )}
                 </Flex>
               </TabPanel>
               <TabPanel>
