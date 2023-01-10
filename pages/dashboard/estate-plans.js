@@ -71,6 +71,7 @@ export default function EstatePlans() {
     relationship: "",
     age: "",
     account: "",
+    dob: "",
   });
   const dispatch = useDispatch();
   const [isAddingBeneficiary, setIsAddingBeneficiary] = useState(false);
@@ -183,6 +184,7 @@ export default function EstatePlans() {
   };
   const handleSetBeneficiaryShow = (i) => {
     setBeneficiaryItem(userBeneficiaries[i]);
+    console.log(beneficiaryItem);
     beneficiaryModal.onOpen();
   };
 
@@ -244,7 +246,7 @@ export default function EstatePlans() {
                 >
                   {estateplanList.map((item, i) => (
                     <EstatePlanItem
-                      key={i}
+                      key={item.sn}
                       onOpen={() => handleSetItemToShow(i)}
                     >
                       <RiFileList3Line fontSize={"2.5rem"} color="darkgreen" />
@@ -285,8 +287,8 @@ export default function EstatePlans() {
                       {userBeneficiaries.map((beneficiary, i) => (
                         <>
                           <EstatePlanItem
-                            key={i}
-                            onOpen={() => handleSetBeneficiaryToShow(i)}
+                            key={beneficiary.sn}
+                            onOpen={() => handleSetBeneficiaryShow(i)}
                           >
                             <BsPersonCircle
                               fontSize={"4rem"}
@@ -302,13 +304,13 @@ export default function EstatePlans() {
                               </Text>
                             </Stack>
                           </EstatePlanItem>
-                          <BeneficiaryDetailsModal
-                            isOpen={beneficiaryModal.isOpen}
-                            onClose={beneficiaryModal.onClose}
-                            beneficiaryItem={beneficiary}
-                          />
                         </>
                       ))}
+                      <BeneficiaryDetailsModal
+                        isOpen={beneficiaryModal.isOpen}
+                        onClose={beneficiaryModal.onClose}
+                        beneficiaryItem={beneficiaryItem}
+                      />
                     </>
                   ) : (
                     <NewUser text="beneficiary" svg={NoBenefSvg} />

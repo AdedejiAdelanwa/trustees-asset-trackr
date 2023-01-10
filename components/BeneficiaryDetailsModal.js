@@ -13,16 +13,12 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { RiFileList3Line } from "react-icons/ri";
 import { estateplanList } from "../pages/dashboard/estate-plans";
 import EstatePlanItem from "./EstatePlanItem";
 
-export default function BeneficiaryDetailsModal({
-  isOpen,
-  onClose,
-  beneficiaryItem,
-}) {
+const BeneficiaryDetailsModal = ({ isOpen, onClose, beneficiaryItem }) => {
   const calculateAge = (dateOfBirth) => {
     const dateStrip = dateOfBirth.split("T")[0].split("-");
     const dateDiff = new Date(
@@ -66,12 +62,11 @@ export default function BeneficiaryDetailsModal({
               </Heading>
               <Text>{calculateAge(beneficiaryItem.dob)} year(s)</Text>
             </Box>
-
             <Box fontSize={"1.6rem"} fontFamily="Poppins">
               <Heading fontSize={"1.6rem"} fontFamily="Poppins">
-                Account Number
+                Address
               </Heading>
-              <Text>{beneficiaryItem.account_number}</Text>
+              <Text>{beneficiaryItem.address} year(s)</Text>
             </Box>
             <Heading fontSize={"1.6rem"} fontFamily="Poppins">
               Affiliated Estate Plans
@@ -101,4 +96,6 @@ export default function BeneficiaryDetailsModal({
       </ModalContent>
     </Modal>
   );
-}
+};
+
+export default BeneficiaryDetailsModal;
