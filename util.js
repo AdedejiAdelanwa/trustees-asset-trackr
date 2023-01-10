@@ -327,7 +327,7 @@ export const estatePlans = [
     name: "education trust",
     details:
       "Trust Fund designed to ensure that your Ward/child’s future and Education is secured up to the desired degree, regardless of any unforeseen event.",
-    actionUrl: "https://app.wealthbuddy.ng/auth/login",
+    actionUrl: "https://form.typeform.com/to/FIPHRC7H",
   },
   {
     sn: 4,
