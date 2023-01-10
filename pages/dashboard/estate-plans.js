@@ -22,6 +22,9 @@ import {
   FormErrorMessage,
   Select,
   Spinner,
+  VStack,
+  Box,
+  Link,
 } from "@chakra-ui/react";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
@@ -30,7 +33,6 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { RiFileList3Line } from "react-icons/ri";
 import EstatePlanItem from "../../components/EstatePlanItem";
 import { BsPersonCircle } from "react-icons/bs";
-import SimpleWillCard from "../../components/SimpleWillCard";
 import EstatePlanDetailsModal from "../../components/EstatePlanDetailsModal";
 import { useCallback, useEffect, useState } from "react";
 import BeneficiaryDetailsModal from "../../components/BeneficiaryDetailsModal";
@@ -47,6 +49,9 @@ import AuthWrapper from "../../components/AuthWrapper";
 import { logout } from "../../redux/user/userSlice";
 import { NewUser } from "../../components/NewUser";
 import NoBenefSvg from "../../public/assets/no-beneficiary.svg";
+import Image from "next/image";
+import Writer from "../../public/assets/will-writer.png";
+import { estatePlans } from "../../util";
 
 export const estateplanList = [
   { name: "simple will", status: "processing" },
@@ -65,7 +70,13 @@ export default function EstatePlans() {
   const router = useRouter();
   const estatePlanModal = useDisclosure();
   const beneficiaryModal = useDisclosure();
+  const estatePlanItem = useDisclosure();
   const [estateItem, setEstateItem] = useState({ name: "", status: "" });
+  const [estatePlan, setEstatePlan] = useState({
+    name: "",
+    details: "",
+    actionUrl: "",
+  });
   const [beneficiaryItem, setBeneficiaryItem] = useState({
     name: "",
     relationship: "",
@@ -186,6 +197,10 @@ export default function EstatePlans() {
     setBeneficiaryItem(userBeneficiaries[i]);
     console.log(beneficiaryItem);
     beneficiaryModal.onOpen();
+  };
+  const handleEstatePlanItemShow = (i) => {
+    setEstatePlan(estatePlans[i]);
+    estatePlanItem.onOpen();
   };
 
   useEffect(() => {
@@ -325,12 +340,69 @@ export default function EstatePlans() {
                   gap="2rem"
                   mt={"3rem"}
                 >
-                  {estateplans.map((estatePlan) => (
-                    <SimpleWillCard
-                      key={estatePlan.sn}
-                      //estatePlan={estatePlan}
-                    />
+                  {estatePlans.map((estatePlan, i) => (
+                    <>
+                      <div
+                        key={estatePlan.sn}
+                        className="w-[30rem] sm:w-[40rem] md:w-[60rem] h-[30.5rem] m-[1rem] bg-white flex-grow flex-shrink-0 flex-[25rem] rounded-[5px] shadow-lg transition-all duration-200 ease-in-out hover:shadow-md hover:translate-y-[-1px] overflow-hidden"
+                      >
+                        <Image src={Writer} alt="describe" />
+                        <div className="p-[1.8rem]">
+                          <h5 className="text-[2.4rem] capitalize">
+                            {estatePlan.name}
+                          </h5>
+                          <Text fontSize="1.4rem" noOfLines={3}>
+                            {estatePlan.details}
+                          </Text>
+                          <Button onClick={() => handleEstatePlanItemShow(i)}>
+                            Learn More
+                          </Button>
+                        </div>
+                      </div>
+                    </>
                   ))}
+                  <Modal
+                    size={"4xl"}
+                    isOpen={estatePlanItem.isOpen}
+                    onClose={estatePlanItem.onClose}
+                    isCentered
+                  >
+                    <ModalOverlay bg={`rgba(0,0,0,0.4)`} />
+                    <ModalContent fontSize="1.6rem" py="1.5rem">
+                      <ModalHeader
+                        fontFamily={"Poppins"}
+                        fontSize="1.8rem"
+                        textTransform={"capitalize"}
+                      >
+                        {estatePlan.name}
+                      </ModalHeader>
+                      <ModalCloseButton />
+                      <ModalBody
+                        px="1.5rem"
+                        textTransform="lowercase"
+                        fontFamily={"Poppins"}
+                      >
+                        <Text mb="1rem">{estatePlan.details}</Text>
+                        <Link
+                          href={estatePlan.actionUrl}
+                          isExternal
+                          _hover={{
+                            textDecoration: "none",
+                          }}
+                        >
+                          <Button
+                            bg={"darkgreen"}
+                            colorScheme={"darkgreen"}
+                            className="py-[1rem] px-[2rem]"
+                            size="lg"
+                            fontSize="1.6rem"
+                          >
+                            Sign up
+                          </Button>
+                        </Link>
+                      </ModalBody>
+                    </ModalContent>
+                  </Modal>
                 </Flex>
               </TabPanel>
             </TabPanels>

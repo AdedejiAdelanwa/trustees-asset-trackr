@@ -36,6 +36,7 @@ import {
   Td,
   Text,
   Tr,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import SimpleWillCard from "../../components/SimpleWillCard";
@@ -45,6 +46,7 @@ import { fetchUserAssets } from "../../redux/asset/assetActions";
 import Image from "next/image";
 import NoAssetSvg from "../../public/assets/no-asset.svg";
 import { NewUser } from "../../components/NewUser";
+import { estatePlans } from "../../util";
 
 const assetTypes = [
   { name: "₦ Naira Assets", value: "Naira" },
@@ -99,6 +101,7 @@ export default function Index() {
     (state) => state.assets
   );
   const dispatch = useDispatch();
+
   const router = useRouter();
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   const [assetCurrencyFilter, setAssetCurrencyFilter] = useState("Naira");
@@ -327,8 +330,8 @@ export default function Index() {
             Recomended Estate Plans
           </h3>
           <div className="relative flex items-center overflow-x-auto space-x-8">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-              <SimpleWillCard key={num} />
+            {estatePlans.map((estatePlan, i) => (
+              <SimpleWillCard key={estatePlan.sn} estatePlan={estatePlan} />
             ))}
           </div>
         </div>

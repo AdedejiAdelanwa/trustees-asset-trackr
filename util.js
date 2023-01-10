@@ -307,3 +307,54 @@ export const banks = [
     name: "TCF MFB",
   },
 ];
+export const estatePlans = [
+  {
+    sn: 1,
+    name: "simple will",
+    details:
+      "With a less complex estate planning needs, your cash in bank, Retirement Savings (Pension Fund) and Shares is used to prepare a simple will and lodged at the probate registry.",
+    actionUrl: "http://meristemtrustees.com/simple-will/",
+  },
+  {
+    sn: 2,
+    name: "mkat",
+    details:
+      "For Ease of contribution into a dedicated Trust account held for the benefit of your kids or wards, MKAT relieves you of cash strain while catering for your children, Attractive interest rate on savings.",
+    actionUrl: "https://app.wealthbuddy.ng/auth/login",
+  },
+  {
+    sn: 3,
+    name: "education trust",
+    details:
+      "Trust Fund designed to ensure that your Ward/child’s future and Education is secured up to the desired degree, regardless of any unforeseen event.",
+    actionUrl: "https://app.wealthbuddy.ng/auth/login",
+  },
+  {
+    sn: 4,
+    name: "comprehensive will",
+    details:
+      "Distribute assets and properties amongst family and friends in the way you want after demise. Appoint trusted people/entity as executors and trustees.",
+    actionUrl: "https://form.typeform.com/to/D0xUBFsk",
+  },
+  {
+    sn: 5,
+    name: "living trust",
+    details:
+      "One of the most flexible estate planning tools that meticulously document terms and arrangements for managing the assets of a Person while alive and subsequently after their demise in strict accordance with his/her express wishes.",
+    actionUrl: "https://form.typeform.com/to/D0xUBFsk",
+  },
+  {
+    sn: 6,
+    name: "nominated fund",
+    details:
+      "Nominate cash and/or near cash assets through a directive that ensures that upon demise, all funds in an organization is to be paid to a particular individual (the nominee).",
+    actionUrl: "https://form.typeform.com/to/D0xUBFsk",
+  },
+  {
+    sn: 7,
+    name: "testamentary trust",
+    details:
+      "Trust created under a Will which determine the estate or specific assets to be managed and administered by the Trustee for the benefit of the beneficiaries stated in the Will.",
+    actionUrl: "https://form.typeform.com/to/D0xUBFsk",
+  },
+];
