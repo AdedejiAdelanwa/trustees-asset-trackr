@@ -49,7 +49,6 @@ const assetTypes = [
 export default function Assets() {
   const [isVisible, setIsVisible] = useState(false);
   const userToken = JSON.parse(localStorage.getItem("userToken"));
-  //const token = jwt_decode(userToken);
   const { userDetails } = useSelector((state) => state.user);
   const { userAssets, userStatistics } = useSelector((state) => state.assets);
   const [assetCurrencyFilter, setAssetCurrencyFilter] = useState("Naira");
@@ -64,7 +63,6 @@ export default function Assets() {
       return asset;
     }
   });
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleChangeFilterParam = (e) => {
@@ -79,24 +77,11 @@ export default function Assets() {
     }
   });
 
-  const getAssetCategories = useCallback(async () => {
-    let token;
-    if (userToken) {
-      token = jwt_decode(userToken);
-      if (Date.now() >= token.exp * 1000) {
-        dispatch(logout());
-      } else {
-        dispatch(fetchAssetCategories(userToken));
-      }
-    }
-  }, [dispatch, userToken]);
-
   useEffect(() => {
     if (!userToken) {
       router.push("/login");
     }
-    getAssetCategories();
-  }, [getAssetCategories, router, userToken]);
+  }, [router, userToken]);
 
   return (
     userDetails && (
