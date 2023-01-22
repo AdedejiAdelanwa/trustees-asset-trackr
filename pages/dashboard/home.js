@@ -202,7 +202,7 @@ export default function Index() {
               </div>
               <div className=" text-[1.5rem] sm:mt-[1rem]">
                 <Select
-                  width={"7rem"}
+                  width={"15rem"}
                   fontSize="1.4rem"
                   value={assetCurrencyFilter}
                   onChange={handleChangeFilterParam}
