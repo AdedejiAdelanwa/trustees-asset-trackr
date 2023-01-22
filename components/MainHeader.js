@@ -134,7 +134,7 @@ const MainHeader = () => {
             width="40px"
             height={"40px"}
             className="rounded-full  border-solid border-6 border-darkgreen bg-lightgreen"
-            alt="Johnson O."
+            alt={`{userDetails.othernames} {userDetails.surname[0]}`}
           />
           <p className="">
             {userDetails.othernames} {userDetails.surname[0]}.
