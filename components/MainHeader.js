@@ -123,7 +123,7 @@ const MainHeader = () => {
             </Link>
           </nav>
 
-          <Link href="/" passHref>
+          <Link href="/dashboard/home" passHref>
             <Image src={Logo} alt="Meristem logo" />
           </Link>
         </div>
