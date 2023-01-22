@@ -42,7 +42,11 @@ import {
 import SimpleWillCard from "../../components/SimpleWillCard";
 import AuthWrapper from "../../components/AuthWrapper";
 import { useRouter } from "next/router";
-import { fetchUserAssets } from "../../redux/asset/assetActions";
+import jwt_decode from "jwt-decode";
+import {
+  fetchAssetCategories,
+  fetchUserAssets,
+} from "../../redux/asset/assetActions";
 import Image from "next/image";
 import NoAssetSvg from "../../public/assets/no-asset.svg";
 import { NewUser } from "../../components/NewUser";
@@ -167,12 +171,25 @@ export default function Index() {
     dispatch(fetchUserAssets(userToken));
   }, [dispatch, userToken]);
 
+  const getAssetCategories = useCallback(async () => {
+    let token;
+    if (userToken) {
+      token = jwt_decode(userToken);
+      if (Date.now() >= token.exp * 1000) {
+        dispatch(logout());
+      } else {
+        dispatch(fetchAssetCategories(userToken));
+      }
+    }
+  }, [dispatch, userToken]);
+
   useEffect(() => {
     if (!userToken) {
       router.push("/login");
     }
     fetchAssets();
-  }, [fetchAssets, router, userToken]);
+    getAssetCategories();
+  }, [fetchAssets, getAssetCategories, router, userToken]);
 
   return (
     userDetails && (
@@ -202,7 +219,7 @@ export default function Index() {
               </div>
               <div className=" text-[1.5rem] sm:mt-[1rem]">
                 <Select
-                  width={"7rem"}
+                  width={"15rem"}
                   fontSize="1.4rem"
                   value={assetCurrencyFilter}
                   onChange={handleChangeFilterParam}
