@@ -6,7 +6,6 @@ import {
   FormLabel,
   Heading,
   HStack,
-  Image,
   Input,
   Stack,
   Tab,
@@ -17,11 +16,12 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import styled from "styled-components";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
 import SideNav from "../../components/SideNavigation";
-import Lego from "../../public/assets/user-icon.png";
+import User from "../../public/assets/user-icon.png";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -52,7 +52,6 @@ export default function Settings() {
   const { userDetails } = useSelector((state) => state.user);
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   const router = useRouter();
-
   useEffect(() => {
     if (!userToken) {
       router.push("/login");
@@ -70,12 +69,7 @@ export default function Settings() {
             >
               Profile
             </Tab>
-            <Tab
-              _selected={{ color: "green", borderBottomColor: "green" }}
-              fontSize="1.6rem"
-            >
-              Security
-            </Tab>
+
             <Tab
               _selected={{ color: "green", borderBottomColor: "green" }}
               fontSize="1.6rem"
@@ -89,10 +83,11 @@ export default function Settings() {
               <Box>
                 <HStack mt="2rem">
                   <Image
-                    borderRadius={"full"}
-                    boxSize={{ base: "8rem", lg: "15rem" }}
-                    src="https://bit.ly/dan-abramov"
-                    alt="user"
+                    width="70px"
+                    height="70px"
+                    className="rounded-full  border-solid border-6 border-darkgreen bg-lightgreen"
+                    src={User}
+                    alt={`${userDetails.othernames} ${userDetails.surname[0]}`}
                     mr="1rem"
                   />
                   <Stack>
@@ -126,8 +121,7 @@ export default function Settings() {
                       fontSize={"1.6rem"}
                       bg={"grey"}
                       border="none"
-                      py={"2rem"}
-                      disabled
+                      py={"1.5rem"}
                     />
                   </FormControl>
                   <FormControl w={{ base: "100%", lg: "40rem" }}>
@@ -139,87 +133,57 @@ export default function Settings() {
                       fontSize={"1.6rem"}
                       bg={"grey"}
                       border="none"
-                      py={"2rem"}
-                      disabled
+                      py={"1.5rem"}
                     />
                   </FormControl>
-                  <Button
-                    bg={"darkgreen"}
-                    color="white"
-                    w="10rem"
-                    fontSize={"1.6rem"}
-                    py="2rem"
-                  >
-                    Save
-                  </Button>
-                </Stack>
-              </Box>
-            </TabPanel>
-            <TabPanel>
-              <Box w={{ base: "100%", lg: "53rem" }}>
-                <Heading fontFamily={"Poppins"}>Contact info</Heading>
-                <Text>
-                  Change the information we use to contact you.<br></br> Please
-                  note that this will also change the email you use to sign in.
-                </Text>
-              </Box>
-
-              <Box>
-                <Stack mt="3rem" spacing={"2rem"}>
                   <FormControl w={{ base: "100%", lg: "40rem" }}>
                     <FormLabel fontSize={"1.6rem"}>Email</FormLabel>
                     <Input
-                      type="email"
-                      placeholder="labake@mail.com"
+                      type="text"
+                      value={userDetails.email}
+                      readOnly
                       fontSize={"1.6rem"}
                       bg={"grey"}
                       border="none"
-                      py={"2rem"}
+                      py={"1.5rem"}
                     />
                   </FormControl>
                   <FormControl w={{ base: "100%", lg: "40rem" }}>
                     <FormLabel fontSize={"1.6rem"}>Phone Number</FormLabel>
                     <Input
-                      type="tel"
-                      placeholder="+2348123456789"
+                      type="text"
+                      value={userDetails.phone_number}
+                      readOnly
                       fontSize={"1.6rem"}
                       bg={"grey"}
                       border="none"
-                      py={"2rem"}
+                      py={"1.5rem"}
                     />
                   </FormControl>
-                  <Button
-                    bg={"darkgreen"}
-                    color="white"
-                    w="10rem"
-                    fontSize={"1.6rem"}
-                    py="2rem"
-                  >
-                    Save
-                  </Button>
+                  <Box mt="2rem">
+                    <Heading fontFamily={"Poppins"}>Password</Heading>
+                    <Text>Reset your password.</Text>
+                  </Box>
+                  <VStack alignItems={"flex-start"} mt="2rem">
+                    <Link href="/resetpassword">
+                      <Button
+                        bg={"white"}
+                        color="darkgreen"
+                        fontSize={"1.6rem"}
+                        borderWidth={"1px"}
+                        borderColor={"darkgreen"}
+                        py="2rem"
+                        px="2rem"
+                      >
+                        Reset Password
+                        <MdOutlineKeyboardArrowRight fontSize={"1.8rem"} />
+                      </Button>
+                    </Link>
+                  </VStack>
                 </Stack>
               </Box>
-              <Box mt="2rem">
-                <Heading fontFamily={"Poppins"}>Password</Heading>
-                <Text>Reset your password.</Text>
-              </Box>
-              <VStack alignItems={"flex-start"} mt="2rem">
-                <Link href="/resetpassword">
-                  <Button
-                    bg={"white"}
-                    color="darkgreen"
-                    fontSize={"1.6rem"}
-                    borderWidth={"1px"}
-                    borderColor={"darkgreen"}
-                    py="2rem"
-                    px="2rem"
-                  >
-                    Reset Password
-                    <MdOutlineKeyboardArrowRight fontSize={"1.8rem"} />
-                  </Button>
-                </Link>
-              </VStack>
             </TabPanel>
+
             <TabPanel>
               <Box w={{ base: "100%", lg: "57rem" }} mt="2rem">
                 <Heading fontFamily={"Poppins"}>BVN</Heading>

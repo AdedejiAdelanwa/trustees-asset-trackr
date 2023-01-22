@@ -107,7 +107,7 @@ export default function Assets() {
             <Flex fontSize={"1.4rem"} mt="3.5rem">
               <HStack w={"85%"}>
                 <Select
-                  width={"7rem"}
+                  width={"15rem"}
                   fontSize="1.4rem"
                   value={assetCurrencyFilter}
                   onChange={handleChangeFilterParam}
@@ -160,8 +160,8 @@ export default function Assets() {
               >
                 <Thead bg={"darkgreen"} color="white" fontSize="1.5rem">
                   <Tr py="2rem">
-                    <Th>Asset</Th>
-                    <Th>Value</Th>
+                    <Th fontSize="1.4rem">Asset</Th>
+                    <Th fontSize="1.4rem">Value</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
