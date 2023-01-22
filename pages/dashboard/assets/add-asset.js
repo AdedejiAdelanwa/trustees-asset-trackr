@@ -21,7 +21,6 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import MainHeader from "../../../components/MainHeader";
-import { fetchAssetCategories } from "../../../redux/asset/assetActions";
 import { logout } from "../../../redux/user/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -202,75 +201,84 @@ const AddAsset = () => {
 
                 <Flex justifyContent="space-around">
                   <form
-                    className="w-full text-[1.4rem]"
+                    className="w-full text-[1.4rem] "
                     onSubmit={handleCreateAsset}
                   >
-                    {Object.entries(tableFields).map((field) => {
-                      return (
-                        <FormControl
-                          mb="1rem"
-                          key={field[1].label}
-                          w={["100%", , "50%"]}
-                        >
-                          <FormLabel fontSize="1.4rem">
-                            {field[1].label}
-                          </FormLabel>
-                          {field[1].datatype !== "select" ? (
-                            <input
-                              type={field[1].datatype}
-                              name={field[0]}
-                              value={newAsset[field[1]]}
-                              onChange={handleInputChange}
-                              className="w-[100%] border-solid border-[1px] py-[0.5rem]  rounded"
-                            />
-                          ) : (
-                            <Select
-                              name={field[0]}
-                              value={newAsset[field[0]]}
-                              onChange={handleInputChange}
-                            >
-                              {field[1].options.map((option) => (
-                                <option
-                                  className="w-[100%] border-solid border-[1px]   rounded"
-                                  key={option}
-                                  value={option}
-                                >
-                                  {option}
-                                </option>
-                              ))}
-                            </Select>
-                          )}
-                        </FormControl>
-                      );
-                    })}
-                    <FormControl mb="1rem" w={["100%", , "50%"]}>
-                      <FormLabel fontSize="1.4rem">Currency</FormLabel>
-                      <Select
-                        name="assetcurrency"
-                        value={currency}
-                        onChange={(e) => setCurrency(e.target.value)}
-                      >
-                        <option
-                          value=""
-                          className="w-[100%] border-solid border-[1px]   rounded"
-                        >
-                          choose asset currency
-                        </option>
-                        {assetCurrencies.map(({ currency, sn }) => (
-                          <option
-                            className="w-[100%] border-solid border-[1px]   rounded"
-                            key={sn}
-                            value={currency}
+                    <div className="grid grid-cols-2 gap-[2rem]">
+                      {Object.entries(tableFields).map((field) => {
+                        return (
+                          <FormControl
+                            mb="1rem"
+                            key={field[1].label}
+                            w={["100%", , "100%"]}
+                            className="grid flex-col"
                           >
-                            {currency}
+                            <FormLabel fontSize="1.4rem">
+                              {field[1].label}
+                            </FormLabel>
+                            {field[1].datatype !== "select" ? (
+                              <input
+                                type={field[1].datatype}
+                                name={field[0]}
+                                value={newAsset[field[1]]}
+                                onChange={handleInputChange}
+                                className={`${
+                                  field[1].datatype === "checkbox"
+                                    ? ""
+                                    : "w-[100%]"
+                                } border-solid border-[1px] py-[0.5rem] justify-self-start  rounded`}
+                              />
+                            ) : (
+                              <Select
+                                name={field[0]}
+                                value={newAsset[field[0]]}
+                                onChange={handleInputChange}
+                                size="lg"
+                              >
+                                {field[1].options.map((option) => (
+                                  <option
+                                    className="w-[100%] border-solid border-[1px]   rounded"
+                                    key={option}
+                                    value={option}
+                                  >
+                                    {option}
+                                  </option>
+                                ))}
+                              </Select>
+                            )}
+                          </FormControl>
+                        );
+                      })}
+                      <FormControl mb="1rem" w={["100%", , "100%"]}>
+                        <FormLabel fontSize="1.4rem">Currency</FormLabel>
+                        <Select
+                          name="assetcurrency"
+                          value={currency}
+                          onChange={(e) => setCurrency(e.target.value)}
+                          size="lg"
+                        >
+                          <option
+                            value=""
+                            className="w-[100%] border-solid border-[1px]   rounded"
+                          >
+                            choose asset currency
                           </option>
-                        ))}
-                      </Select>
-                    </FormControl>
+                          {assetCurrencies.map(({ currency, sn }) => (
+                            <option
+                              className="w-[100%] border-solid border-[1px]   rounded"
+                              key={sn}
+                              value={currency}
+                            >
+                              {currency}
+                            </option>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </div>
                     <button
                       disabled={!currency && newAsset}
                       onClick={handleCreateAsset}
-                      className=" w-[50%] md:w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
+                      className=" w-[100%] md:w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
                     >
                       {isAddingAsset ? <Spinner /> : "Add Asset"}
                     </button>
