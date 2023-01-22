@@ -24,7 +24,7 @@ export default function SimpleWillCard({ estatePlan }) {
   return (
     <>
       <div className="w-[30rem] sm:w-[40rem] md:w-[60rem] h-[30.5rem] m-[1rem] bg-white flex-grow flex-shrink-0 flex-[25rem] rounded-[5px] shadow-lg transition-all duration-200 ease-in-out hover:shadow-md hover:translate-y-[-1px] overflow-hidden">
-        <Image src={Writer} alt="describe" />
+        <Image height="150px" src={estatePlan.image || Writer} alt="describe" />
         <div className="p-[1.8rem]">
           <h5 className="text-[2.4rem] capitalize">{estatePlan.name}</h5>
           <Text fontSize="1.4rem" noOfLines={3}>
