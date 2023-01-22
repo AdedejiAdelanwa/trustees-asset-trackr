@@ -123,7 +123,7 @@ const Login = () => {
                     validateEmail;
                     setEmail(e.target.value);
                   }}
-                  className="bg-[#F3F3F3] w-[38rem] pt-[1.6rem] pr-[1.2rem] pb-[1.4rem] pl-[1.4rem] mt-[0.4rem]  rounded-[0.5rem]"
+                  className="bg-[#F3F3F3] text-[1.4rem] w-[38rem] pt-[1.6rem] pr-[1.2rem] pb-[1.4rem] pl-[1.4rem] mt-[0.4rem]  rounded-[0.5rem]"
                   id="grid-Email-Address"
                   type="email"
                   value={email}
@@ -139,7 +139,7 @@ const Login = () => {
                 <div className="flex bg-[#F3F3F3] w-[38rem] pt-[1.4rem] pr-[1.2rem] pb-[1.2rem] pl-[1.4rem] mt-[0.4rem] rounded-[0.5rem]">
                   <input
                     onChange={(e) => setPassword(e.target.value.trim())}
-                    className="w-[33rem] bg-[#F3F3F3] text-1.6rem"
+                    className="w-[33rem] bg-[#F3F3F3] text-[1.4rem]"
                     type={showPassword ? "text" : "password"}
                     value={password}
                     placeholder="*******"
