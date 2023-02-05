@@ -27,19 +27,18 @@ export default function Home() {
       picture: peaceIcon,
       word: "Peace of mind",
       instruction:
-        "Set your affairs in order and you can sit back, assured that things are taken care of.",
+        "Eliminate all the worries associated with what happens to your assets in your absence. Asset Tracker will sort it out.",
     },
     {
       picture: securityIcon,
       word: "Security and Privacy",
       instruction:
-        "All your data will be secured by powerful encryptions to ensure they stay private and secure.",
+        "Your privacy is important to us. All your data is secured by encryption to ensure confidentiality.",
     },
     {
       picture: builtInIcon,
       word: "Built for you",
-      instruction:
-        "The app is flexible and allows you to track differentassets easily as well as suggesting tailored plans for you.",
+      instruction: `We understand that everyone has different assets and needs. "Asset tracker" enables you to track it all - cash, equities, real estate, digital assets, and more!`,
     },
   ];
 
@@ -55,11 +54,11 @@ export default function Home() {
           <div className=" w-full h-[100vh] sm:h-fit md:h-[50vh] px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between  sm:px-[1.5rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain ">
             <div className="w-1/2 sm:w-full mt-[11rem] md:mt-[2rem] md:ml-[3rem] sm:ml-[0rem] sm:mt-[3rem]  ">
               <h1 className="w-[46rem] md:w-[37rem] sm:w-[35rem] text-[4.8rem] md:text-[3rem] sm:text-[3.5rem] text-darkgreen">
-                Let’s help you <br /> track, organize, and transfer your wealth
+                Track, Organise, and Transfer your Wealth
               </h1>
               <p className="w-[37rem] sm:w-[30rem]  text-black text-[1.5rem] ">
-                Easily keep track of your assets, designate beneficiaries and
-                access estate planning products tailored to your assets.
+                Seamlessly track your assets, designate beneficiaries and access
+                estate planning products tailored to your needs.
               </p>
               <Link href="/signup">
                 <div className="text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[3rem] cursor-pointer">
@@ -81,14 +80,11 @@ export default function Home() {
                 Keep track of your assets
               </h2>
               <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]">
-                Automatically track your assets by connecting them with our
-                asset tracker, and we’ll help you keep track of their details
-                and how they’re growing.
+                Track your assets and monitor their growth seamlessly.
               </p>
               <p className="text-[1.6rem]  md:text-[1.1rem] sm:text-[1.6rem]">
-                Upload any other assets that cannot be tracked automatically
-                such as Real Estate and you can easy organise and track your
-                wealth in one place.
+                With "asset tracker" the total value of your cash, investments,
+                real estate and digital assets are organised and consolidated.
               </p>
               <Link href="/signup">
                 <div className="sm:hidden text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer">
@@ -101,17 +97,13 @@ export default function Home() {
           <div className="flex sm:flex-col-reverse mt-[10rem] md:mt-[5rem] sm:mt-[3rem] h-[51rem] md:h-[40rem] sm:h-[68rem] px-[15.2rem] md:px-[2rem] sm:px-[1.5rem] justify-between bg-[url('/assets/secondBlob.svg')] bg-right sm:bg-right bg-no-repeat [background-position-y:1rem] md:[background-position-y:-6rem] md:[background-position-x:69rem] sm:[background-position-y:-2rem] sm:[background-position-x:30rem]  ">
             <div className="flex flex-col w-[50.4rem] md:w-[36rem] sm:w-[33rem] h-[37vh] md:h-fit sm:h-[37vh] my-[15rem] md:my-[7rem] sm:my-[0rem] space-y-5 ">
               <h3 className="font-semibold text-[2.8rem] md:text-[2rem] sm:text-[2.8rem] text-darkgreen sm:mt-[5rem] md:mt-[7rem] ">
-                Designate beneficiaries
+                Assign beneficiaries
               </h3>
               <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]">
-                Designate beneficiaries to receive your assets in the event of
-                demise. Different assets can be assigned to different
-                beneficiaries.
+                Designate beneficiaries to receive your assets in your absence.
+                Different assets can be allocated to specific beneficiaries.
               </p>
-              <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]">
-                Allocate your wealth to chosen beneficiaries and rest assured
-                that things will be taken care off in your absence.
-              </p>
+
               <Link href="/signup">
                 <div className="sm:hidden text-white  text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer">
                   Get Started
@@ -132,14 +124,12 @@ export default function Home() {
                 Plan for those you love
               </h4>
               <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]  ">
-                Who will get your wealth after your demise? Who gets to cater
-                for your loved ones when you are gone? These questions are best
-                answered when you’re here.
+                Give what you want, to whom you want, in the way and manner you
+                want it.
               </p>
               <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] ">
-                We can help you by providing you with the estate planning
-                products tailored to suit you based on the assets we’re helping
-                you track.
+                “Asset tracker" helps you protect the interests of your loved
+                ones by creating by an estate plan tailored to your needs.
               </p>
               <Link href="/signup">
                 <div className="sm:self-center  text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer  ">
