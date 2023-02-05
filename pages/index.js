@@ -83,8 +83,9 @@ export default function Home() {
                 Track your assets and monitor their growth seamlessly.
               </p>
               <p className="text-[1.6rem]  md:text-[1.1rem] sm:text-[1.6rem]">
-                With "asset tracker" the total value of your cash, investments,
-                real estate and digital assets are organised and consolidated.
+                With &quot;asset tracker&quot; the total value of your cash,
+                investments, real estate and digital assets are organised and
+                consolidated.
               </p>
               <Link href="/signup">
                 <div className="sm:hidden text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer">
@@ -128,8 +129,9 @@ export default function Home() {
                 want it.
               </p>
               <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] ">
-                “Asset tracker" helps you protect the interests of your loved
-                ones by creating by an estate plan tailored to your needs.
+                &quot;Asset tracker&quot; helps you protect the interests of
+                your loved ones by creating by an estate plan tailored to your
+                needs.
               </p>
               <Link href="/signup">
                 <div className="sm:self-center  text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer  ">
