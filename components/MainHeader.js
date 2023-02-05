@@ -2,13 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { GrDiamond, GrHomeRounded } from "react-icons/gr";
-import { RiFileList3Line } from "react-icons/ri";
+import { RiFileList3Line, RiQuestionMark } from "react-icons/ri";
 import { FiSettings } from "react-icons/fi";
 import styled from "styled-components";
 import Logo from "../public/assets/Logo.svg";
 import User from "../public/assets/user-icon.png";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  Text,
+} from "@chakra-ui/react";
+import { BiLogOut } from "react-icons/bi";
+import { logout } from "../redux/user/userSlice";
 
 const HeaderWrapper = styled.header`
   width: 100vw;
@@ -75,6 +86,7 @@ const HeaderWrapper = styled.header`
 const MainHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { userDetails } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   return (
     userDetails && (
       <HeaderWrapper className="relative text-black bg-white">
@@ -127,19 +139,47 @@ const MainHeader = () => {
             <Image src={Logo} alt="Meristem logo" />
           </Link>
         </div>
-
-        <div className=" user-box flex font-bold">
-          <Image
-            src={User}
-            width="40px"
-            height={"40px"}
-            className="rounded-full  border-solid border-6 border-darkgreen bg-lightgreen"
-            alt={`{userDetails.othernames} {userDetails.surname[0]}`}
-          />
-          <p className="">
-            {userDetails.othernames} {userDetails.surname[0]}.
-          </p>
-        </div>
+        <Menu>
+          <MenuButton as={Button} cursor={"pointer"} minW={0}>
+            <div className=" user-box flex font-bold">
+              <Image
+                src={User}
+                width="40px"
+                height={"40px"}
+                className="rounded-full  border-solid border-6 border-darkgreen bg-lightgreen"
+                alt={`{userDetails.othernames} {userDetails.surname[0]}`}
+              />
+              <Text>
+                {userDetails.othernames} {userDetails.surname[0]}.
+              </Text>
+            </div>
+          </MenuButton>
+          <MenuList>
+            <MenuItem>
+              <Link href="/help-and-support">
+                <button className=" w-full   py-4 px-6  text-darkgreen text-center  rounded-md border-solid border-2 md:border-0 border-darkgreen hover:bg-lightgreen hover:shadow-md">
+                  <p className="help-text md:hidden">Help & Support</p>
+                  <RiQuestionMark
+                    className="help-icon hidden md:block"
+                    fontSize={"2.4rem"}
+                  />
+                </button>
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <button
+                className=" w-full   py-4 px-6  text-[red] text-center  rounded-md border-solid border-2 md:border-0 border-[red] hover:bg-[red] hover:text-[white] hover:shadow-md"
+                onClick={() => dispatch(logout())}
+              >
+                <p className="help-text md:hidden"> logout</p>
+                <BiLogOut
+                  className="help-icon hidden md:block"
+                  fontSize={"2.4rem"}
+                />
+              </button>
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </HeaderWrapper>
     )
   );
