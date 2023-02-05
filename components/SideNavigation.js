@@ -1,17 +1,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { logout } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
-import { AiOutlineMenu } from "react-icons/ai";
-import { BiLogOut } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { GrDiamond, GrHomeRounded } from "react-icons/gr";
 import { RiFileList3Line, RiQuestionMark } from "react-icons/ri";
 
 const SideNav = () => {
   const [isSideNavOpen, setIsSidNavOpen] = useState(false);
-  const dispatch = useDispatch();
   const router = useRouter();
 
   return (
