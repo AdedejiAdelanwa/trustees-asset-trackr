@@ -218,7 +218,7 @@ export default function Assets() {
                           {currency === "Naira" && "₦"}
                           {currency === "Dollar" && "$"}
                           {currency === "Euro" && "€"}
-                          {amount}
+                          {isVisible ? amount : "XXXXX.XX"}
                         </Td>
                       </Tr>
                     )

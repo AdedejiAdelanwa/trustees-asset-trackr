@@ -27,16 +27,12 @@ import SideNav from "../../components/SideNavigation";
 import Link from "next/link";
 import {
   Button,
-  Heading,
   Select,
-  Spinner,
   Table,
   TableContainer,
   Tbody,
   Td,
-  Text,
   Tr,
-  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import SimpleWillCard from "../../components/SimpleWillCard";
@@ -47,7 +43,7 @@ import {
   fetchAssetCategories,
   fetchUserAssets,
 } from "../../redux/asset/assetActions";
-import Image from "next/image";
+//import Image from "next/image";
 import NoAssetSvg from "../../public/assets/no-asset.svg";
 import { NewUser } from "../../components/NewUser";
 import { estatePlans } from "../../util";
@@ -280,7 +276,7 @@ export default function Index() {
                                 {currency === "Naira" && "₦"}
                                 {currency === "Dollar" && "$"}
                                 {currency === "Euro" && "€"}
-                                {amount}
+                                {isVisible ? amount : "XXXXX.XX"}
                               </Td>
                             </Tr>
                           )
