@@ -7,6 +7,9 @@ import { useState } from "react";
 import { Button, HStack } from "@chakra-ui/react";
 
 const HeaderWrapper = styled.header`
+  position: sticky;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 10vh;
   display: flex;
@@ -14,8 +17,9 @@ const HeaderWrapper = styled.header`
   justify-content: space-between;
   font-family: inherit;
   font-size: 1.6rem;
-  padding: 0 15rem;
+  padding: 0 8rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  z-index: 100;
 
   .logo-group {
     align-items: flex-end;
@@ -60,7 +64,7 @@ const HeaderWrapper = styled.header`
 const ExternalHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <HeaderWrapper className="relative text-black bg-white">
+    <HeaderWrapper className=" text-black bg-white">
       <div className="logo-group  w-2/3 flex">
         <Link href="/" passHref>
           <Image src={Logo} alt="Meristem logo" />
@@ -74,12 +78,20 @@ const ExternalHeader = () => {
       >
         <Link href="/faqs">FAQ</Link>
         <Link href="/login">Log in</Link>
-        <Link href="signup">
-          <Button py={"2rem"} px="2rem" bg={"darkgreen"} color="white" fontSize={"1.5rem"}> Get Started</Button>
+        <Link href="/signup">
+          <Button
+            py={"2rem"}
+            px="2rem"
+            bg={"darkgreen"}
+            color="white"
+            fontSize={"1.5rem"}
+          >
+            Get Started
+          </Button>
         </Link>
       </HStack>
       {isOpen ? (
-      ""
+        ""
       ) : (
         <AiOutlineMenu
           fontSize={"2.4rem"}

@@ -1,44 +1,52 @@
 import Image from "next/dist/client/image";
 import Link from "next/dist/client/link";
-import { useSelector } from "react-redux";
 import Head from "next/head";
 import Container from "../components/LandingPageShared/container";
-import heroImage from "../public/assets/Hero-Image.png";
-import keep_track from "../public/assets/keepTrack.png";
-import Cards from "../components/LandingPageShared/cards";
-import peaceIcon from "../public/assets/peaceIcon.png";
-import securityIcon from "../public/assets/securityIcon.png";
-import builtInIcon from "../public/assets/builtInIcon.png";
-import faqImage from "../public/assets/faqImage.png";
-import trackAssetImage from "../public/assets/trackAssetImage.png";
-import designate from "../public/assets/designateImage.png";
-import plan from "../public/assets/planImage.png";
+
+import loveIcon from "../public/assets/love.svg";
+import securityIcon from "../public/assets/shield.svg";
+import helpingHand from "../public/assets/helping-hand.svg";
+import ValuationGroup from "../public/assets/valuation-group.svg";
+import StockGroup from "../public/assets/stockie.png";
+import BeneficiariesGroup from "../public/assets/beneficiaries-group.png";
+import EstateGroup from "../public/assets/estateplan-group.png";
 import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
   Box,
+  Card,
+  CardBody,
+  VStack,
+  Heading,
+  Text,
+  Button,
+  HStack,
+  Flex,
 } from "@chakra-ui/react";
-import { FiMinus, FiPlus } from "react-icons/fi";
+import SectionFlex from "../components/SectionFlex";
+import TextBlock from "../components/TextBlock";
+import ImageBlock from "../components/ImageBlock";
+import CardWrapper from "../components/LandingPageShared/OfferingCard";
+import Allaccordion from "../components/LandingPageShared/accordions";
 export default function Home() {
-  const datas = [
+  const cardData = [
     {
-      picture: peaceIcon,
-      word: "Peace of mind",
-      instruction:
+      icon: loveIcon,
+      heading: "Peace of mind",
+      hexCode: "#E4E9DF",
+      textBody:
         "Eliminate all the worries associated with what happens to your assets in your absence. Asset Tracker will sort it out.",
     },
     {
-      picture: securityIcon,
-      word: "Security and Privacy",
-      instruction:
+      icon: securityIcon,
+      heading: "Security and Privacy",
+      hexCode: "#ECF2CB",
+      textBody:
         "Your privacy is important to us. All your data is secured by encryption to ensure confidentiality.",
     },
     {
-      picture: builtInIcon,
-      word: "Built for you",
-      instruction: `We understand that everyone has different assets and needs. "Asset tracker" enables you to track it all - cash, equities, real estate, digital assets, and more!`,
+      icon: helpingHand,
+      heading: "Built for you",
+      hexCode: "#E1F9EB",
+      textBody: `We understand that everyone has different assets and needs. "Asset tracker" enables you to track it all - cash, equities, real estate, digital assets, and more!`,
     },
   ];
 
@@ -50,191 +58,248 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <main className="flex w-[100%] flex-col  font-Poppins">
-          <div className=" w-full h-[100vh] sm:h-fit md:h-[50vh] px-[15.2rem]  md:px-[2rem] sm:bg-lightgreen flex items-center justify-between  sm:px-[1.5rem] bg-[url('/assets/fullVector.svg')] bg-no-repeat bg-cover md:bg-contain ">
-            <div className="w-1/2 sm:w-full mt-[11rem] md:mt-[2rem] md:ml-[3rem] sm:ml-[0rem] sm:mt-[3rem]  ">
-              <h1 className="w-[46rem] md:w-[37rem] sm:w-[35rem] text-[4.8rem] md:text-[3rem] sm:text-[3.5rem] text-darkgreen">
-                Track, Organise, and Transfer your Wealth
-              </h1>
-              <p className="w-[37rem] sm:w-[30rem]  text-black text-[1.5rem] ">
-                Seamlessly track your assets, designate beneficiaries and access
-                estate planning products tailored to your needs.
-              </p>
-              <Link href="/signup">
-                <div className="text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[3rem] cursor-pointer">
-                  Get Started
-                </div>
-              </Link>
-            </div>
-            <div className="w-1/2 md:w-[30rem] sm:hidden ml-[15.5rem] md:ml-[1rem] mt-[6rem] md:mt-[-1rem] ">
-              <Image src={heroImage} alt="heroImage" />
-            </div>
-          </div>
-
-          <div className="flex sm:flex-col mt-[10rem] h-[51rem] md:h-[40rem] sm:h-[68rem] px-[15.2rem] md:px-[2rem] sm:px-[1.5rem] justify-between bg-[url('/assets/firstBlob.svg')] bg-no-repeat [background-position-y:8.4rem] md:[background-position-y:1rem] md:[background-position-x:-23rem] sm:[background-position-y:7rem] sm:[background-position-x:-11rem]  sm:bg-contain  sm:w-[29rem] ">
-            <div className="ml-[3rem] md:w-[37rem] sm:w-[36.5rem] md:ml-[0rem] sm:ml-[0rem]">
-              <Image src={keep_track} alt="keep_track" />
-            </div>
-            <div className="flex flex-col w-[50.4rem] md:w-[34.8rem] sm:w-[33rem] h-[37vh] md:h-fit sm:h-[37vh]  my-[8rem] md:my-[6rem] sm:my-[0rem] space-y-5">
-              <h2 className="font-semibold text-[2.8rem] md:text-[2rem] sm:text-[2.8rem] text-darkgreen ">
-                Keep track of your assets
-              </h2>
-              <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]">
-                Track your assets and monitor their growth seamlessly.
-              </p>
-              <p className="text-[1.6rem]  md:text-[1.1rem] sm:text-[1.6rem]">
-                With &quot;asset tracker&quot; the total value of your cash,
-                investments, real estate and digital assets are organised and
-                consolidated.
-              </p>
-              <Link href="/signup">
-                <div className="sm:hidden text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer">
-                  Get Started
-                </div>
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex sm:flex-col-reverse mt-[10rem] md:mt-[5rem] sm:mt-[3rem] h-[51rem] md:h-[40rem] sm:h-[68rem] px-[15.2rem] md:px-[2rem] sm:px-[1.5rem] justify-between bg-[url('/assets/secondBlob.svg')] bg-right sm:bg-right bg-no-repeat [background-position-y:1rem] md:[background-position-y:-6rem] md:[background-position-x:69rem] sm:[background-position-y:-2rem] sm:[background-position-x:30rem]  ">
-            <div className="flex flex-col w-[50.4rem] md:w-[36rem] sm:w-[33rem] h-[37vh] md:h-fit sm:h-[37vh] my-[15rem] md:my-[7rem] sm:my-[0rem] space-y-5 ">
-              <h3 className="font-semibold text-[2.8rem] md:text-[2rem] sm:text-[2.8rem] text-darkgreen sm:mt-[5rem] md:mt-[7rem] ">
-                Assign beneficiaries
-              </h3>
-              <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]">
-                Designate beneficiaries to receive your assets in your absence.
-                Different assets can be allocated to specific beneficiaries.
-              </p>
-
-              <Link href="/signup">
-                <div className="sm:hidden text-white  text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer">
-                  Get Started
-                </div>
-              </Link>
-            </div>
-            <div className="md:w-[37rem] sm:w-[36.5rem] mt-[7.3rem]">
-              <Image src={designate} alt="designate" />
-            </div>
-          </div>
-
-          <div className="flex sm:flex-col mt-[10rem] sm:mt-[15rem] h-[51rem] md:h-[35rem] sm:h-[68rem] px-[15.2rem] md:px-[2rem]  sm:px-[1.5rem] justify-between bg-[url('/assets/thirdBlob.svg')] bg-no-repeat [background-position-y:3rem] md:[background-position-y:7rem] md:[background-position-x:-19rem] md:w-[78rem] sm:[background-position-y:5rem] sm:[background-position-x:-9rem]  sm:bg-contain  sm:w-[25rem] ">
-            <div className="ml-[3rem] md:w-[37rem] sm:w-[36.5rem] md:ml-[0rem] sm:ml-[0rem]">
-              <Image src={plan} alt="plan" />
-            </div>
-            <div className="flex flex-col w-[50.4rem] md:w-[34.8rem] sm:w-[33rem] h-[37vh] md:h-fit sm:h-[37vh]  my-[8rem] md:my-[6rem] sm:my-[0rem] space-y-5">
-              <h4 className="font-semibold text-[2.8rem] md:text-[2rem] sm:text-[2.8rem] text-darkgreen ">
-                Plan for those you love
-              </h4>
-              <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem]  ">
-                Give what you want, to whom you want, in the way and manner you
-                want it.
-              </p>
-              <p className="text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] ">
-                &quot;Asset tracker&quot; helps you protect the interests of
-                your loved ones by creating by an estate plan tailored to your
-                needs.
-              </p>
-              <Link href="/signup">
-                <div className="sm:self-center  text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] my-[6rem] cursor-pointer  ">
-                  Get Started
-                </div>
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex flex-col w-full sm:items-center bg-lightgreen mt-[10rem] sm:mt-[15rem] ">
-            <div className="flex sm:flex-col md:mx-[1rem] justify-center gap-x-[8rem] md:gap-x-[2.5rem] ">
-              {datas.map((data, i) => (
-                <Cards
-                  key={i}
-                  picture={data.picture}
-                  word={data.word}
-                  instruction={data.instruction}
-                />
-              ))}
-            </div>
+        <SectionFlex
+          bgColor="white"
+          height="100vh"
+          sidePadding={["1.5rem", "2rem", "8rem"]}
+        >
+          <VStack
+            color="#323232"
+            alignItems="start"
+            w={["100%", "50%"]}
+            spacing="2.5rem"
+            justifyContent="space-around"
+          >
+            <Heading
+              fontFamily="Poppins"
+              fontSize={["4rem", "5rem", "6rem"]}
+              textTransform="uppercase"
+            >
+              Track, Organise and Transfer your Wealth
+            </Heading>
+            <Text fontSize={["1.4rem", "1.8rem"]} color="rgba(50, 50, 50, 0.8)">
+              Seamlessly track your assets, designate beneficiaries and access
+              estate planning products tailored to your needs.
+            </Text>
             <Link href="/signup">
-              <div className="text-white  text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] mx-auto my-[4rem] cursor-pointer">
-                Get Started
-              </div>
-            </Link>
-          </div>
-
-          <div className="flex sm:flex-col sm:items-center bg-white w-full justify-between px-[15.2rem] md:px-[2rem] my-[7rem] ">
-            <div className="w-[78rem] md:w-[39rem] sm:w-[36rem] h-[73vh] md:h-[64vh] sm:h-[85vh] flex flex-col relative">
-              <div className="flex">
-                <div className="sm:hidden">
-                  <Image src={faqImage} alt="faqImage" />
-                </div>
-                <p className="text-black font-semibold text-[2.8rem] md:text-[2rem] sm:text-[2.8rem] ml-[1rem] sm:ml-[0rem]  ">
-                  Frequently Asked Questions
-                </p>
-              </div>
-
-              <Accordion
-                className="mt-[3.5rem] md:mt-[7.5rem] sm:mt-[1rem] border-y-1 border-y-[#D0CDCD]"
-                allowToggle
+              <Button
+                py={"2rem"}
+                px="2rem"
+                bg={"darkgreen"}
+                color="white"
+                fontSize={["1.4rem", "1.6rem"]}
               >
-                {[...Array(5)].map((num, i) => (
-                  <AccordionItem key={`accord-${i}`} py="1rem">
-                    {({ isExpanded }) => (
-                      <>
-                        <h2>
-                          <AccordionButton>
-                            <Box
-                              flex="1"
-                              textAlign="left"
-                              className="font-semibold text-[2rem] md:text-[1.1rem] sm:text-[1.6rem]"
-                            >
-                              What is the process for transfering assets to
-                              beneficiaries?
-                            </Box>
-                            {isExpanded ? (
-                              <FiMinus fontSize="1.4rem" />
-                            ) : (
-                              <FiPlus fontSize="1.4rem" />
-                            )}
-                          </AccordionButton>
-                        </h2>
-                        <AccordionPanel
-                          pb={4}
-                          className="w-[70rem] md:w-[39rem] sm:w-[33rem] text-[1.6rem] md:text-[1rem] sm:text-[1rem]"
-                        >
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit. Nunc vulputate libero et velit interdu, ac
-                          aliquet odio mattis. Class aptent taciti sociosqu ad
-                          litora torquent per conubia nostra, per inceptos
-                          himenaeos.
-                        </AccordionPanel>
-                      </>
-                    )}
-                  </AccordionItem>
-                ))}
-              </Accordion>
-
-              <Link href="/faqs">
-                <div className="text-darkgreen text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] border-2 border-darkgreen py-[1rem] px-[3.7rem] absolute bottom-0 left-0 text-darkgreen text-[1.6rem] cursor-pointer">
-                  Open FAQ
-                </div>
-              </Link>
-            </div>
-            <div className="flex flex-col w-[37rem] md:w-[31rem] sm:w-[35rem] sm:mt-[8rem] h-[62vh] md:h-[55vh] sm:h-[62vh] p-[2rem] bg-lightgreen rounded-[1rem] border-1 border-darkgreen shadow-lg">
-              <Image
-                src={trackAssetImage}
-                alt="trackAssetImage"
-                className="rounded-[1em] "
+                Get Started
+              </Button>
+            </Link>
+          </VStack>
+          <VStack w={["100%", "45%"]}>
+            <HStack justifyContent="space-between" w="100%">
+              <Box w="55%">
+                <Image src={ValuationGroup} alt="valuation group" />
+              </Box>
+              <Box
+                w="40%"
+                h="13rem"
+                rounded="1rem"
+                bgImage={"url('/assets/woman-happy-park.png')"}
+                backgroundPosition="top"
+                backgroundRepeat="no-repeat"
+              ></Box>
+            </HStack>
+            <HStack justifyContent="space-between" w="100%">
+              <Box
+                w="25%"
+                h="13rem"
+                rounded="1rem"
+                bgImage={"url('/assets/coins-stack.png')"}
+                backgroundPosition="center"
+                backgroundSize="contain"
+                backgroundRepeat="no-repeat"
               />
 
-              <h2 className="w-[32rem] md:w-[27rem] sm:w-[29rem] my-8 text-black text-[2.8rem] md:text-[2.3rem] sm:text-[2.8rem] ">
-                Start tracking your assets and securing the future today.
-              </h2>
-              <Link href="/signup">
-                <div className="text-white text-[1.6rem] md:text-[1.1rem] sm:text-[1.6rem] w-[17rem] md:w-[14rem] sm:w-[17rem] rounded-[0.4rem] bg-darkgreen items-center py-[1rem] px-[3.7rem] cursor-pointer mb-5">
-                  Get Started
-                </div>
-              </Link>
-            </div>
-          </div>
-        </main>
+              <Box
+                w="25%"
+                h="13rem"
+                rounded="1rem"
+                bgImage={"url('/assets/hand-holding-house.png')"}
+                backgroundPosition="center"
+                backgroundSize="contain"
+                backgroundRepeat="no-repeat"
+              />
+              <Box
+                w="40%"
+                h="13rem"
+                rounded="1rem"
+                bgImage={"url('/assets/happy-black-family.png')"}
+                backgroundPosition="center"
+                backgroundSize="contain"
+                backgroundRepeat="no-repeat"
+              />
+            </HStack>
+            <HStack justifyContent="space-between" w="100%">
+              <Box
+                w="25%"
+                h="13rem"
+                rounded="1rem"
+                bgImage={"url('/assets/happy-oldman.png')"}
+                backgroundPosition="center"
+                backgroundSize="contain"
+                backgroundRepeat="no-repeat"
+              />
+              <HStack
+                w="70%"
+                h="13rem"
+                rounded="1rem"
+                backgroundColor="#E6EAE8"
+                justifyContent="space-between"
+                p="1.2rem"
+              >
+                <VStack
+                  color="#323232"
+                  alignItems="start"
+                  w={["100%", "60%"]}
+                  justifyContent="space-between"
+                  spacing="1rem"
+                >
+                  <Heading
+                    fontFamily="Poppins"
+                    fontSize={["1.2rem", "1.4rem", "1.6rem"]}
+                    textTransform="uppercase"
+                  >
+                    asset plan for you
+                  </Heading>
+                  <Text
+                    fontSize={["0.8rem", "1rem", "1.2rem"]}
+                    color="rgba(50, 50, 50, 0.8)"
+                  >
+                    Everything of value can be put in a trust
+                  </Text>
+                  <Link href="/signup">
+                    <Button
+                      py={"1.2rem"}
+                      px="1.2rem"
+                      bg={"darkgreen"}
+                      color="white"
+                      fontSize={["0.8rem", "1rem", "1.2rem"]}
+                    >
+                      Sign up
+                    </Button>
+                  </Link>
+                </VStack>
+                <Box
+                  w="30%"
+                  h="100%"
+                  bgImage={"url('/assets/graph-green.png')"}
+                  backgroundPosition="center"
+                  backgroundSize="contain"
+                  backgroundRepeat="no-repeat"
+                />
+              </HStack>
+            </HStack>
+          </VStack>
+        </SectionFlex>
+        <SectionFlex height="65vh" bgColor="white">
+          <ImageBlock
+            alignPlacing="flex-start"
+            mainImage="/assets/downloader.png"
+            floatingImage={StockGroup}
+            rightPos="-40%"
+            topPos="10%"
+          />
+          <TextBlock
+            heading=" Keep track of your assets"
+            text1=" Track your assets and monitor their growth seamlessly."
+            text2="  With 'asset tracker' the total value of your cash, investments, real
+        estate and digital assets are organised and consolidated."
+          ></TextBlock>
+        </SectionFlex>
+        <SectionFlex height="65vh" bgColor="white">
+          <TextBlock
+            heading="assign beneficiaries"
+            text1="Wealth Transfer is an essential part of your wealth journey, Don’t leave the individuals who depend on you financially stranded."
+            text2="Designate beneficiaries to receive your assets in your absence. Different assets can be allocated to specific beneficiaries."
+          />
+          <ImageBlock
+            alignPlacing="flex-end"
+            mainImage="/assets/planning-couple.png"
+            floatingImage={BeneficiariesGroup}
+            rightPos="80%"
+            topPos="5%"
+          />
+        </SectionFlex>
+        <SectionFlex height="65vh" bgColor="white">
+          <ImageBlock
+            alignPlacing="flex-start"
+            mainImage="/assets/planImage.png"
+            floatingImage={EstateGroup}
+            rightPos="-40%"
+            topPos="10%"
+          />
+          <TextBlock
+            heading="Plan for those you love"
+            text1="Give what you want, to whom you want, in the way and manner you want it."
+            text2="'Asset tracker' helps you protect the interests of your loved ones by creating by an estate plan tailored to your needs."
+          />
+        </SectionFlex>
+        <SectionFlex
+          height="65vh"
+          sidePadding={["1.5rem", "2rem", "8rem"]}
+          bgColor="white"
+        >
+          <Flex
+            direction={["column", "row"]}
+            gap="2rem"
+            paddingTop={["2.5rem", "0rem"]}
+            paddingBottom={["2.5rem", "0rem"]}
+          >
+            {cardData.map(({ icon, heading, textBody, hexCode }) => (
+              <CardWrapper
+                key={heading}
+                icon={icon}
+                heading={heading}
+                textBody={textBody}
+                hexCode={hexCode}
+              />
+            ))}
+          </Flex>
+        </SectionFlex>
+        <SectionFlex
+          height="65vh"
+          bgColor="#FBFBFB"
+          sidePadding={["1.5rem", "2rem", "8rem"]}
+        >
+          <VStack
+            h="100%"
+            alignItems="center"
+            w={["auto", "50%"]}
+            paddingLeft={["1.5rem", "2rem", "8rem"]}
+            paddingRight={["1.5rem", "2rem", "8rem"]}
+            paddingTop={["3rem", "0rem"]}
+            paddingBottom={["3rem", "0rem"]}
+            justifyContent="space-around"
+          >
+            <Heading
+              textTransform="uppercase"
+              fontFamily="Poppins"
+              fontSize={["2rem", "3.2rem", "3.6rem"]}
+            >
+              Frequently Asked Questions
+            </Heading>
+          </VStack>
+          <VStack
+            h="100%"
+            alignItems="flex-start"
+            w={["auto", "50%"]}
+            // paddingLeft={["1.5rem", "2rem", "8rem"]}
+            // paddingRight={["1.5rem", "2rem", "8rem"]}
+            // paddingTop={["3rem", "0rem"]}
+            // paddingBottom={["3rem", "0rem"]}
+            justifyContent="space-around"
+          >
+            <Allaccordion />
+          </VStack>
+        </SectionFlex>
       </Container>
     </div>
   );
