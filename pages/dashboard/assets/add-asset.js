@@ -109,7 +109,6 @@ const AddAsset = () => {
     }
     getCurrencies();
   }, [router, userToken]);
-
   return (
     userToken && (
       <AuthWrapper>
