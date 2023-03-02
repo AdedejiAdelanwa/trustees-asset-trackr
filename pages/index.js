@@ -59,6 +59,7 @@ export default function Home() {
       </Head>
       <Container>
         <SectionFlex
+          flexDir="column"
           bgColor="white"
           height="100vh"
           sidePadding={["1.5rem", "2rem", "8rem"]}
@@ -199,7 +200,7 @@ export default function Home() {
             </HStack>
           </VStack>
         </SectionFlex>
-        <SectionFlex height="65vh" bgColor="white">
+        <SectionFlex flexDir="column" height="65vh" bgColor="white">
           <ImageBlock
             alignPlacing="flex-start"
             mainImage="/assets/downloader.png"
@@ -214,7 +215,7 @@ export default function Home() {
         estate and digital assets are organised and consolidated."
           ></TextBlock>
         </SectionFlex>
-        <SectionFlex height="65vh" bgColor="white">
+        <SectionFlex flexDir="column-reverse" height="65vh" bgColor="white">
           <TextBlock
             heading="assign beneficiaries"
             text1="Wealth Transfer is an essential part of your wealth journey, Don’t leave the individuals who depend on you financially stranded."
@@ -228,7 +229,7 @@ export default function Home() {
             topPos="5%"
           />
         </SectionFlex>
-        <SectionFlex height="65vh" bgColor="white">
+        <SectionFlex flexDir="column" height="65vh" bgColor="white">
           <ImageBlock
             alignPlacing="flex-start"
             mainImage="/assets/planImage.png"
@@ -243,6 +244,7 @@ export default function Home() {
           />
         </SectionFlex>
         <SectionFlex
+          flexDir="column"
           height="65vh"
           sidePadding={["1.5rem", "2rem", "8rem"]}
           bgColor="white"
@@ -265,6 +267,7 @@ export default function Home() {
           </Flex>
         </SectionFlex>
         <SectionFlex
+          flexDir="column"
           height="65vh"
           bgColor="#FBFBFB"
           sidePadding={["1.5rem", "2rem", "8rem"]}

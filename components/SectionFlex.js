@@ -1,13 +1,13 @@
 import { Flex } from "@chakra-ui/react";
 
-const SectionFlex = ({ children, height, sidePadding, bgColor }) => (
+const SectionFlex = ({ children, height, sidePadding, bgColor, flexDir }) => (
   <Flex
     h={["auto", height]}
     bg={bgColor}
     paddingLeft={sidePadding}
     paddingRight={sidePadding}
     fontFamily="Poppins"
-    direction={["column", "row"]}
+    direction={[flexDir, "row"]}
     alignItems="center"
     justifyContent={["space-around", "space-between"]}
   >
