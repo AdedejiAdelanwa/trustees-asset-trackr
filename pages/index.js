@@ -70,6 +70,7 @@ export default function Home() {
             w={["100%", "50%"]}
             spacing="2.5rem"
             justifyContent="space-around"
+            pt="2rem"
           >
             <Heading
               fontFamily="Poppins"
