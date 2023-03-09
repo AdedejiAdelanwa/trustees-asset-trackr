@@ -109,6 +109,7 @@ const AddAsset = () => {
     }
     getCurrencies();
   }, [router, userToken]);
+  console.log(assetCategories);
   return (
     userToken && (
       <AuthWrapper>
@@ -183,7 +184,7 @@ const AddAsset = () => {
                     </Heading>
                     <Tooltip
                       hasArrow
-                      label="about categories"
+                      label={assetCategories[assetCategoryIndex].description}
                       bg="gray.300"
                       color="black"
                     >
@@ -260,7 +261,7 @@ const AddAsset = () => {
                             value=""
                             className="w-[100%] border-solid border-[1px]   rounded"
                           >
-                            choose asset currency
+                            Choose currency
                           </option>
                           {assetCurrencies.map(({ currency, sn }) => (
                             <option

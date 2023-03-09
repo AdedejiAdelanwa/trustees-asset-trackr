@@ -1,9 +1,17 @@
 import { Flex } from "@chakra-ui/react";
 
-const SectionFlex = ({ children, height, sidePadding, bgColor, flexDir }) => (
+const SectionFlex = ({
+  children,
+  height,
+  sidePadding,
+  bgColor,
+  flexDir,
+  bgImage,
+}) => (
   <Flex
     h={["auto", height]}
     bg={bgColor}
+    backgroundImage={`url(${bgImage})`}
     paddingLeft={sidePadding}
     paddingRight={sidePadding}
     fontFamily="Poppins"
