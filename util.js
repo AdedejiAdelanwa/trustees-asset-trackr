@@ -322,14 +322,6 @@ export const estatePlans = [
     actionUrl: "http://meristemtrustees.com/simple-will/",
   },
   {
-    sn: 2,
-    name: "mkat",
-    image: "",
-    details:
-      "For Ease of contribution into a dedicated Trust account held for the benefit of your kids or wards, MKAT relieves you of cash strain while catering for your children, Attractive interest rate on savings.",
-    actionUrl: "https://app.wealthbuddy.ng/auth/login",
-  },
-  {
     sn: 3,
     name: "education trust",
     image: EduTrustImage,
