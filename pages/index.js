@@ -2,7 +2,7 @@ import Image from "next/dist/client/image";
 import Link from "next/dist/client/link";
 import Head from "next/head";
 import Container from "../components/LandingPageShared/container";
-
+import HeroBg from "../public/assets/hero-bg.png";
 import loveIcon from "../public/assets/love.svg";
 import securityIcon from "../public/assets/shield.svg";
 import helpingHand from "../public/assets/helping-hand.svg";
@@ -60,7 +60,7 @@ export default function Home() {
       <Container>
         <SectionFlex
           flexDir="column"
-          bgColor="white"
+          bgImage={HeroBg.src}
           height="100vh"
           sidePadding={["1.5rem", "2rem", "8rem"]}
         >

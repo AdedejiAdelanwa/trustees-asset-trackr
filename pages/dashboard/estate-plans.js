@@ -434,20 +434,6 @@ export default function EstatePlans() {
                   onSubmit={handleCreateNewbeneficiary}
                 >
                   <FormControl w="100%">
-                    <FormLabel fontSize="1.6rem">First name</FormLabel>
-                    <input
-                      type="text"
-                      name="firstname"
-                      onChange={handleChange}
-                      value={newBeneficiary.firstname}
-                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
-                    />
-
-                    <FormErrorMessage>
-                      Enter min. of 3 characters
-                    </FormErrorMessage>
-                  </FormControl>
-                  <FormControl w="100%">
                     <FormLabel fontSize="1.6rem">Surname</FormLabel>
                     <input
                       type="text"
@@ -461,6 +447,21 @@ export default function EstatePlans() {
                       Enter min. of 3 characters
                     </FormErrorMessage>
                   </FormControl>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Other names</FormLabel>
+                    <input
+                      type="text"
+                      name="firstname"
+                      onChange={handleChange}
+                      value={newBeneficiary.firstname}
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
+                    />
+
+                    <FormErrorMessage>
+                      Enter min. of 3 characters
+                    </FormErrorMessage>
+                  </FormControl>
+
                   <FormControl w="100%">
                     <FormLabel fontSize="1.6rem">Email</FormLabel>
                     <input
@@ -547,7 +548,7 @@ export default function EstatePlans() {
                     </Select>
                     <FormErrorMessage>Enter a valid address</FormErrorMessage>
                   </FormControl>
-                  <FormControl w="100%">
+                  {/* <FormControl w="100%">
                     <FormLabel fontSize="1.6rem">Marital status</FormLabel>
                     <Select
                       placeholder="Select an option"
@@ -560,7 +561,7 @@ export default function EstatePlans() {
                       <option value="divorced">Divorced</option>
                     </Select>
                     <FormErrorMessage>Enter a valid address</FormErrorMessage>
-                  </FormControl>
+                  </FormControl> */}
                   {/* <FormControl w="100%">
                     <FormLabel fontSize="1.6rem">Bank name</FormLabel>
                     <Select
