@@ -128,10 +128,12 @@ const MainHeader = () => {
                 <Link href="/dashboard/settings">Settings</Link>
               </li>
             </ul>
-            <Link href="/help-and-support">
-              <button className=" w-3/4 absolute bottom-40 ml-8 py-4 px-6 text-darkgreen  rounded-md border-solid border-2 border-darkgreen hover:bg-lightgreen hover:shadow-md">
-                Help & Support
-              </button>
+            <Link href="https://tawk.to/chat/5b87b97cf31d0f771d8448e4/default">
+              <a target="_blank" rel="noopener noreferrer">
+                <button className=" w-3/4 absolute bottom-40 ml-8 py-4 px-6 text-darkgreen  rounded-md border-solid border-2 border-darkgreen hover:bg-lightgreen hover:shadow-md">
+                  Help & Support
+                </button>
+              </a>
             </Link>
           </nav>
 
@@ -156,14 +158,16 @@ const MainHeader = () => {
           </MenuButton>
           <MenuList>
             <MenuItem>
-              <Link href="/help-and-support">
-                <button className=" w-full   py-4 px-6  text-darkgreen text-center  rounded-md border-solid border-2 md:border-0 border-darkgreen hover:bg-lightgreen hover:shadow-md">
-                  <p className="help-text md:hidden">Help & Support</p>
-                  <RiQuestionMark
-                    className="help-icon hidden md:block"
-                    fontSize={"2.4rem"}
-                  />
-                </button>
+              <Link href="https://tawk.to/chat/5b87b97cf31d0f771d8448e4/default">
+                <a target="_blank" rel="noopener noreferrer">
+                  <button className=" w-full   py-4 px-6  text-darkgreen text-center  rounded-md border-solid border-2 md:border-0 border-darkgreen hover:bg-lightgreen hover:shadow-md">
+                    <p className="help-text md:hidden">Help & Support</p>
+                    <RiQuestionMark
+                      className="help-icon hidden md:block"
+                      fontSize={"2.4rem"}
+                    />
+                  </button>
+                </a>
               </Link>
             </MenuItem>
             <MenuItem>
