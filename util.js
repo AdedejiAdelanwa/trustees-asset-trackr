@@ -1,7 +1,7 @@
-import SimpleImage from "./public/assets/simple-will.PNG";
-import EduTrustImage from "./public/assets/education-trust.PNG";
-import ComprehensiveImage from "./public/assets/comprehensive-will.png";
-import NominatedImage from "./public/assets/nominated-funds.png";
+import TrusImage from "./public/assets/cytonn-photography.png";
+import EduTrustImage from "./public/assets/high-angle-letters-notebook.png";
+import ComprehensiveImage from "./public/assets/cheerful-african-family.png";
+import NominatedImage from "./public/assets/businessman-consulting.png";
 
 export const baseUrl = "https://trustees-app.herokuapp.com/api/v1";
 
@@ -315,50 +315,33 @@ export const banks = [
 export const estatePlans = [
   {
     sn: 1,
-    name: "simple will",
-    image: SimpleImage,
+    name: "SET UP A TRUST",
+    image: TrusImage,
     details:
-      "With a less complex estate planning needs, your cash in bank, Retirement Savings (Pension Fund) and Shares is used to prepare a simple will and lodged at the probate registry.",
+      "Relieve yourself and your beneficiaries of the hassle associated with managing and transferring multiple asset classes by setting up a Trust.",
     actionUrl: "http://meristemtrustees.com/simple-will/",
   },
   {
-    sn: 3,
-    name: "education trust",
+    sn: 2,
+    name: "SECURE YOUR CHILDRENS EDUCATION",
     image: EduTrustImage,
+    details: "Give your children/wards a foundation for a bright future",
+    actionUrl: "https://form.typeform.com/to/FIPHRC7H",
+  },
+  {
+    sn: 3,
+    name: "Write a Will",
+    image: ComprehensiveImage,
     details:
-      "Trust Fund designed to ensure that your Ward/child’s future and Education is secured up to the desired degree, regardless of any unforeseen event.",
+      "A Will allows a person determine how their assets are managed and distributed after their demise.",
     actionUrl: "https://form.typeform.com/to/FIPHRC7H",
   },
   {
     sn: 4,
-    name: "comprehensive will",
-    image: ComprehensiveImage,
-    details:
-      "Distribute assets and properties amongst family and friends in the way you want after demise. Appoint trusted people/entity as executors and trustees.",
-    actionUrl: "https://form.typeform.com/to/D0xUBFsk",
-  },
-  {
-    sn: 5,
-    name: "living trust",
-    image: "",
-    details:
-      "One of the most flexible estate planning tools that meticulously document terms and arrangements for managing the assets of a Person while alive and subsequently after their demise in strict accordance with his/her express wishes.",
-    actionUrl: "https://form.typeform.com/to/D0xUBFsk",
-  },
-  {
-    sn: 6,
-    name: "nominated fund",
+    name: "APPOINT A NOMINEE",
     image: NominatedImage,
     details:
-      "Nominate cash and/or near cash assets through a directive that ensures that upon demise, all funds in an organization is to be paid to a particular individual (the nominee).",
-    actionUrl: "https://form.typeform.com/to/D0xUBFsk",
-  },
-  {
-    sn: 7,
-    name: "testamentary trust",
-    image: "",
-    details:
-      "Trust created under a Will which determine the estate or specific assets to be managed and administered by the Trustee for the benefit of the beneficiaries stated in the Will.",
+      "Appoint a Nominee to transfer specific funds to your beneficiaries in the event of incapacity or demise.",
     actionUrl: "https://form.typeform.com/to/D0xUBFsk",
   },
 ];
