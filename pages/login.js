@@ -28,7 +28,7 @@ const Login = () => {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
 
   const dispatch = useDispatch();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  //const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const notify = useCallback(() => {
     toast.error(error, {

@@ -20,9 +20,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
 import { AiOutlineBank, AiOutlineCar, AiOutlineStock } from "react-icons/ai";
-import { BsCheck2, BsHouse } from "react-icons/bs";
-import { BiBitcoin } from "react-icons/bi";
-import { HiOutlineSelector } from "react-icons/hi";
+import { BsHouse } from "react-icons/bs";
 import SideNav from "../../components/SideNavigation";
 import Link from "next/link";
 import {
