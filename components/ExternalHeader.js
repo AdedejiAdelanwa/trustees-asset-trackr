@@ -76,7 +76,21 @@ const ExternalHeader = () => {
         display={{ base: "none", lg: "flex" }}
       >
         <Link href="/faqs">FAQ</Link>
-        <Link href="/login">Log in</Link>
+        <Link href="/login">
+          <Button
+            py={"2rem"}
+            px="2rem"
+            color="darkgreen"
+            border="2px solid darkgreen"
+            fontSize={"1.5rem"}
+            _hover={{
+              backgroundColor: "darkgreen",
+              color: "white",
+            }}
+          >
+            Log in
+          </Button>
+        </Link>
         <Link href="/signup">
           <Button
             py={"2rem"}
