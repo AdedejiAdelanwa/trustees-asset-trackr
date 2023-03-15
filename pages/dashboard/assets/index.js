@@ -86,7 +86,7 @@ export default function Assets() {
   return (
     userDetails && (
       <>
-        {userAssets.length > 0 ? (
+        {userAssets && userAssets.length > 0 ? (
           <section className="main-content">
             <Flex alignItems={"center"} justifyContent="space-between">
               <Heading fontFamily={"Poppins"} fontSize="2.8rem">
@@ -135,20 +135,6 @@ export default function Assets() {
                   {!isVisible ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                 </small>
               </div>
-              {/* <div className=" sm:mt-[1rem]">
-            <Select
-              fontSize={"1.5rem"}
-              py="1.5rem"
-              color="darkgreen"
-              borderColor={"darkgreen"}
-            >
-              {assetTypes.map((assetType, index) => (
-                <option key={index} value={assetType.name}>
-                  {assetType.name}
-                </option>
-              ))}
-            </Select>
-          </div> */}
             </Flex>
 
             <TableContainer mt={"2.5rem"}>
@@ -193,27 +179,7 @@ export default function Assets() {
                           )}
                           {asset_name}
                         </Td>
-                        {/* <Td
-                      py="1.5rem"
-                      display={"flex"}
-                      borderBottom={"none"}
-                      color={
-                        valueIncrese < 0
-                          ? "red"
-                          : valueIncrese > 0
-                          ? "green"
-                          : "#828282"
-                      }
-                    >
-                      {valueIncrese}%
-                      {valueIncrese < 0 ? (
-                        <BsArrowDown />
-                      ) : valueIncrese > 0 ? (
-                        <BsArrowUp />
-                      ) : (
-                        ""
-                      )}
-                    </Td> */}
+
                         <Td py="1.5rem">
                           {currency === "Naira" && "₦"}
                           {currency === "Dollar" && "$"}

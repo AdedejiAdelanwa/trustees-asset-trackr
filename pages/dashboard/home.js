@@ -191,7 +191,7 @@ export default function Index() {
         <h2 className="text-[2.8rem] font-bold">
           Hi {userDetails.othernames} {userDetails.surname[0]}. 👋🏼
         </h2>
-        {userAssets.length > 0 ? (
+        {userAssets && userAssets.length > 0 ? (
           <>
             <div className="asset-figures flex justify-between sm:flex-col sm:mt-[1.8rem] items-center mt-[3.5rem]">
               <div>
