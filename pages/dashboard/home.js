@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { useRouter } from "next/router";
 import {
   Chart as ChartJS,
+  ArcElement,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -13,8 +14,7 @@ import {
   Filler,
   Legend,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
-import HSBar from "react-horizontal-stacked-bar-chart";
+import { Doughnut, Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import DashBoardContainer from "../../components/DashboardLayout";
@@ -53,6 +53,7 @@ const assetTypes = [
 ];
 
 ChartJS.register(
+  ArcElement,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -138,29 +139,22 @@ export default function Index() {
   const filteredFlatArray = newAssetDetailsArray.filter(
     (element) => element.currency === assetCurrencyFilter
   );
-  const horizontalBarData = filteredFlatArray.map((en) => {
+  const donutDataLabels = filteredFlatArray.map((item) => item.asset_name);
+  const donutData = filteredFlatArray.map((item) => {
     const value =
-      (Number(en.amount) /
+      (Number(item.amount) /
         filteredFlatArray.reduce(
           (accum, { amount }) => accum + Number(amount),
           0
         )) *
       100;
-
-    return {
-      value,
-      name: en.asset_name,
-      description: `${value.toFixed(3)}%`,
-      color:
-        en.asset_name === "Bank Accounts"
-          ? "#F9B353"
-          : en.asset_name === "Real Estate"
-          ? "#97A92E"
-          : en.asset_name === "Stocks"
-          ? "#9452A1"
-          : "#BBF1D1",
-    };
+    return value.toFixed(2);
   });
+  const donutColors = filteredFlatArray.map((item) => {
+    let n = (Math.random() * 0xfffff * 1000000).toString(16);
+    return "#" + n.slice(0, 6);
+  });
+
   const fetchAssets = useCallback(() => {
     dispatch(fetchUserAssets(userToken));
   }, [dispatch, userToken]);
@@ -184,7 +178,8 @@ export default function Index() {
     fetchAssets();
     getAssetCategories();
   }, [fetchAssets, getAssetCategories, router, userToken]);
-
+  // console.log(filteredAssets);
+  console.log(donutColors);
   return (
     userDetails && (
       <section className="main-content text-black">
@@ -291,32 +286,38 @@ export default function Index() {
                 </div>
               </div>
               <div className="w-[55rem] md:w-[100%]">
-                <div className="flex justify-between sm:flex-col sm:mt-[2rem]">
-                  <h2 className="text-[1.6rem] font-semibold">
-                    Net worth History
-                  </h2>
-                  <p className="font-semibold text-[1.6rem]">
-                    Value Change:
-                    <span className=" text-green font-semibold ml-4">
-                      200% &#8593;
-                    </span>
-                  </p>
-                </div>
-                <Line options={options} data={data} />
+                <Doughnut
+                  options={{
+                    cutout: "60%",
+                  }}
+                  data={{
+                    labels: donutDataLabels,
+
+                    datasets: [
+                      {
+                        label: "My First Dataset",
+                        data: donutData,
+                        backgroundColor: donutColors,
+                        hoverOffset: 4,
+                      },
+                    ],
+                  }}
+                />
               </div>
             </div>
-            <div className="mt-[4.4rem] sm:mt-[5rem]">
-              <h3 className="font-semibold text-[1.8rem]">
-                Asset Distribution
-              </h3>
-              <HSBar
-                showTextIn
-                showValueIn
-                showTextWithValue
-                height="5rem"
-                id="hsbar"
-                data={horizontalBarData}
-              />
+            <div className="w-[100%]">
+              <div className="flex justify-between sm:flex-col sm:mt-[2rem]">
+                <h2 className="text-[1.6rem] font-semibold">
+                  Net worth History
+                </h2>
+                <p className="font-semibold text-[1.6rem]">
+                  Value Change:
+                  <span className=" text-green font-semibold ml-4">
+                    200% &#8593;
+                  </span>
+                </p>
+              </div>
+              <Line options={options} data={data} />
             </div>
           </>
         ) : (
@@ -335,6 +336,20 @@ export default function Index() {
             </Link>
           </VStack>
         )}
+        {/* 
+        <div className="mt-[4.4rem] sm:mt-[5rem]">
+              <h3 className="font-semibold text-[1.8rem]">
+                Asset Distribution
+              </h3>
+              <HSBar
+                showTextIn
+                showValueIn
+                showTextWithValue
+                height="5rem"
+                id="hsbar"
+                data={horizontalBarData}
+              />
+            </div> */}
 
         <div className="mt-[4.4rem] sm:mt-[5rem]">
           <h3 className="font-semibold text-[2.8rem]">
