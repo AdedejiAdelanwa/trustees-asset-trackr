@@ -70,11 +70,13 @@ const options = {
     legend: {
       position: "top",
     },
+
     title: {
       display: false,
       text: "Asset Performace",
     },
   },
+  maintainAspectRatio: false,
 };
 
 const labels = ["January", "March", "May", "June"];
@@ -285,10 +287,11 @@ export default function Index() {
                   </Link>
                 </div>
               </div>
-              <div className="w-[55rem] md:w-[100%]">
+              <div className="w-[55rem] md:w-[100%] h-[35rem] md:h-[auto]">
                 <Doughnut
                   options={{
                     cutout: "60%",
+                    maintainAspectRatio: false,
                   }}
                   data={{
                     labels: donutDataLabels,
@@ -305,7 +308,7 @@ export default function Index() {
                 />
               </div>
             </div>
-            <div className="w-[100%]">
+            <div className="w-[100%]  h-[40rem] md:h-[auto]">
               <div className="flex justify-between sm:flex-col sm:mt-[2rem]">
                 <h2 className="text-[1.6rem] font-semibold">
                   Net worth History
