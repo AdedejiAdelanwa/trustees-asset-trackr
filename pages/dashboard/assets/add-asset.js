@@ -109,7 +109,9 @@ const AddAsset = () => {
     }
     getCurrencies();
   }, [router, userToken]);
-  console.log(assetCategories);
+  //console.log(tableFields);
+  console.log(Object.entries(tableFields));
+  console.log(assetCategories[assetCategoryIndex]);
   return (
     userToken && (
       <AuthWrapper>
@@ -207,46 +209,51 @@ const AddAsset = () => {
                     <div className="grid grid-cols-2 gap-[2rem]">
                       {Object.entries(tableFields).map((field) => {
                         return (
-                          <FormControl
-                            mb="1rem"
-                            key={field[1].label}
-                            w={["100%", , "100%"]}
-                            className="grid flex-col"
-                          >
-                            <FormLabel fontSize="1.4rem">
-                              {field[1].label}
-                            </FormLabel>
-                            {field[1].datatype !== "select" ? (
-                              <input
-                                type={field[1].datatype}
-                                name={field[0]}
-                                value={newAsset[field[1]]}
-                                onChange={handleInputChange}
-                                className={`${
-                                  field[1].datatype === "checkbox"
-                                    ? ""
-                                    : "w-[100%]"
-                                } border-solid border-[1px] py-[0.5rem] justify-self-start  rounded`}
-                              />
-                            ) : (
-                              <Select
-                                name={field[0]}
-                                value={newAsset[field[0]]}
-                                onChange={handleInputChange}
-                                size="lg"
-                              >
-                                {field[1].options.map((option) => (
-                                  <option
-                                    className="w-[100%] border-solid border-[1px]   rounded"
-                                    key={option}
-                                    value={option}
-                                  >
-                                    {option}
-                                  </option>
-                                ))}
-                              </Select>
-                            )}
-                          </FormControl>
+                          <>
+                            <FormControl
+                              mb="1rem"
+                              key={field[1].label}
+                              w={["100%", , "100%"]}
+                              className="grid flex-col"
+                            >
+                              <FormLabel fontSize="1.4rem">
+                                {field[1].label}
+                                {field[0].asset_type ===
+                                  "identifying_number" && <small>Hello</small>}
+                              </FormLabel>
+                              {field[1].datatype !== "select" ? (
+                                <input
+                                  type={field[1].datatype}
+                                  name={field[0]}
+                                  value={newAsset[field[1]]}
+                                  onChange={handleInputChange}
+                                  placeholder={field[1].explainer_text}
+                                  className={`${
+                                    field[1].datatype === "checkbox"
+                                      ? ""
+                                      : "w-[100%]"
+                                  } border-solid border-[1px] p-[0.5rem] justify-self-start  rounded`}
+                                />
+                              ) : (
+                                <Select
+                                  name={field[0]}
+                                  value={newAsset[field[0]]}
+                                  onChange={handleInputChange}
+                                  size="lg"
+                                >
+                                  {field[1].options.map((option) => (
+                                    <option
+                                      className="w-[100%] border-solid border-[1px]   rounded"
+                                      key={option}
+                                      value={option}
+                                    >
+                                      {option}
+                                    </option>
+                                  ))}
+                                </Select>
+                              )}
+                            </FormControl>
+                          </>
                         );
                       })}
                       <FormControl mb="1rem" w={["100%", , "100%"]}>

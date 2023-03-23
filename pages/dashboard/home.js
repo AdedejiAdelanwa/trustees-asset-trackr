@@ -295,7 +295,6 @@ export default function Index() {
                   }}
                   data={{
                     labels: donutDataLabels,
-
                     datasets: [
                       {
                         label: "My First Dataset",
