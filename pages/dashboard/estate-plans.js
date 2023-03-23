@@ -195,7 +195,6 @@ export default function EstatePlans() {
   };
   const handleSetBeneficiaryShow = (i) => {
     setBeneficiaryItem(userBeneficiaries[i]);
-    console.log(beneficiaryItem);
     beneficiaryModal.onOpen();
   };
   const handleEstatePlanItemShow = (i) => {
