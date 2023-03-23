@@ -218,8 +218,6 @@ const AddAsset = () => {
                             >
                               <FormLabel fontSize="1.4rem">
                                 {field[1].label}
-                                {field[0].asset_type ===
-                                  "identifying_number" && <small>Hello</small>}
                               </FormLabel>
                               {field[1].datatype !== "select" ? (
                                 <input
