@@ -180,8 +180,6 @@ export default function Index() {
     fetchAssets();
     getAssetCategories();
   }, [fetchAssets, getAssetCategories, router, userToken]);
-  // console.log(filteredAssets);
-  console.log(donutColors);
   return (
     userDetails && (
       <section className="main-content text-black">

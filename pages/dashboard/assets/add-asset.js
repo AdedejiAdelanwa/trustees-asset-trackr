@@ -27,6 +27,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import AuthWrapper from "../../../components/AuthWrapper";
 
 const AddAsset = () => {
+  const { userDetails } = useSelector((state) => state.user);
   const userToken = JSON.parse(localStorage.getItem("userToken"));
   const token = jwt_decode(userToken);
   const router = useRouter();
@@ -109,11 +110,9 @@ const AddAsset = () => {
     }
     getCurrencies();
   }, [router, userToken]);
-  //console.log(tableFields);
-  console.log(Object.entries(tableFields));
-  console.log(assetCategories[assetCategoryIndex]);
+
   return (
-    userToken && (
+    userDetails && (
       <AuthWrapper>
         <Box fontFamily={"Poppins"} bg="white">
           <MainHeader />
