@@ -25,6 +25,7 @@ import { logout } from "../../../redux/user/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import AuthWrapper from "../../../components/AuthWrapper";
+import AddAssetHeader from "../../../components/AddAssetHeader";
 
 const AddAsset = () => {
   const { userDetails } = useSelector((state) => state.user);
@@ -115,26 +116,36 @@ const AddAsset = () => {
     userDetails && (
       <AuthWrapper>
         <Box fontFamily={"Poppins"} bg="white">
-          <MainHeader />
-          <Flex fontSize={"1.4rem"} h="90vh">
+          <AddAssetHeader
+            assetCategories={assetCategories}
+            handleChangeAssetClass={handleChangeAssetClass}
+          />
+          <Flex pos="relative" fontSize={"1.4rem"} h="90vh">
             <VStack
-              w={{ base: "100%", lg: "20%" }}
-              pl="2rem"
+              pos="absolute"
+              top="0"
+              left="0"
+              zIndex="50"
+              height="100vh"
+              w={["60%", "20%"]}
+              display={["none", "flex"]}
+              pl={["1rem", "2rem"]}
               pt="2rem"
               bg="lightgrey"
               textAlign="left"
               alignItems={"flex-start"}
             >
               <Heading
-                fontSize={"2.8rem"}
-                pl="2rem"
+                w="100%"
+                fontSize={["1.8rem", "2.8rem"]}
+                pl={["0rem", "2rem"]}
                 mb="1.75rem"
                 fontFamily={"Poppins"}
               >
                 New Asset
               </Heading>
               <Flex alignItems={"center"} mb="1.5rem">
-                <Text mr={"1rem"} pl="2rem">
+                <Text mr={"1rem"} pl={["0rem", "2rem"]}>
                   Choose Category
                 </Text>
                 <Tooltip
@@ -148,13 +159,12 @@ const AddAsset = () => {
                   </span>
                 </Tooltip>
               </Flex>
-              <Stack pl={"2rem"} fontWeight="bold" spacing="1.5rem">
+              <Stack pl={["0rem", "2rem"]} fontWeight="bold" spacing="1.5rem">
                 {assetCategories.map((assetCategory, i) => (
                   <Link
-                    key={assetCategory.sn}
-                    px="1rem"
-                    py="1rem"
+                    key={assetCategory.sn + i}
                     borderRadius={"4px"}
+                    p={["0.5rem", "1rem"]}
                     _activeLink={{
                       bg: "lightgreen",
                       color: "darkgreen",
@@ -162,7 +172,7 @@ const AddAsset = () => {
                     _hover={{
                       bg: "grey",
                     }}
-                    data-assetCategoryIndex={i}
+                    data-assetcategoryindex={i}
                     onClick={handleChangeAssetClass}
                   >
                     {assetCategory.name}
@@ -171,8 +181,11 @@ const AddAsset = () => {
               </Stack>
             </VStack>
             <Stack
-              w={{ base: "0", lg: "80%" }}
-              display={{ base: "none", lg: "initial" }}
+              pos="absolute"
+              top="0"
+              right="0"
+              w={{ base: "100%", lg: "80%" }}
+              // display={{ base: "none", lg: "initial" }}
               pl="2rem"
               pt="2rem"
             >
@@ -205,52 +218,50 @@ const AddAsset = () => {
                     className="w-full text-[1.4rem] "
                     onSubmit={handleCreateAsset}
                   >
-                    <div className="grid grid-cols-2 gap-[2rem]">
+                    <div className="grid grid-cols-2 md:grid-cols-1 gap-[2rem]">
                       {Object.entries(tableFields).map((field) => {
                         return (
-                          <>
-                            <FormControl
-                              mb="1rem"
-                              key={field[1].label}
-                              w={["100%", , "100%"]}
-                              className="grid flex-col"
-                            >
-                              <FormLabel fontSize="1.4rem">
-                                {field[1].label}
-                              </FormLabel>
-                              {field[1].datatype !== "select" ? (
-                                <input
-                                  type={field[1].datatype}
-                                  name={field[0]}
-                                  value={newAsset[field[1]]}
-                                  onChange={handleInputChange}
-                                  placeholder={field[1].explainer_text}
-                                  className={`${
-                                    field[1].datatype === "checkbox"
-                                      ? ""
-                                      : "w-[100%]"
-                                  } border-solid border-[1px] p-[0.5rem] justify-self-start  rounded`}
-                                />
-                              ) : (
-                                <Select
-                                  name={field[0]}
-                                  value={newAsset[field[0]]}
-                                  onChange={handleInputChange}
-                                  size="lg"
-                                >
-                                  {field[1].options.map((option) => (
-                                    <option
-                                      className="w-[100%] border-solid border-[1px]   rounded"
-                                      key={option}
-                                      value={option}
-                                    >
-                                      {option}
-                                    </option>
-                                  ))}
-                                </Select>
-                              )}
-                            </FormControl>
-                          </>
+                          <FormControl
+                            mb="1rem"
+                            key={field[1].label}
+                            w={["100%", , "100%"]}
+                            className="grid flex-col"
+                          >
+                            <FormLabel fontSize="1.4rem">
+                              {field[1].label}
+                            </FormLabel>
+                            {field[1].datatype !== "select" ? (
+                              <input
+                                type={field[1].datatype}
+                                name={field[0]}
+                                value={newAsset[field[1]]}
+                                onChange={handleInputChange}
+                                placeholder={field[1].explainer_text}
+                                className={`${
+                                  field[1].datatype === "checkbox"
+                                    ? ""
+                                    : "w-[100%]"
+                                } border-solid border-[1px] p-[0.5rem] justify-self-start  rounded`}
+                              />
+                            ) : (
+                              <Select
+                                name={field[0]}
+                                value={newAsset[field[0]]}
+                                onChange={handleInputChange}
+                                size="lg"
+                              >
+                                {field[1].options.map((option) => (
+                                  <option
+                                    className="w-[100%] border-solid border-[1px]   rounded"
+                                    key={option}
+                                    value={option}
+                                  >
+                                    {option}
+                                  </option>
+                                ))}
+                              </Select>
+                            )}
+                          </FormControl>
                         );
                       })}
                       <FormControl mb="1rem" w={["100%", , "100%"]}>
