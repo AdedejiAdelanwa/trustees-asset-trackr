@@ -10,9 +10,9 @@ import {
 
 const faqs = [
   {
-    faq: "When should i establish a trust?",
+    faq: "When should I establish a trust?",
     answer:
-      "when you have amassed wealth to an extent, with an intent to transfer it your beneficiaries",
+      "when you have amassed wealth to an extent, with an intent to transfer it to your beneficiaries",
   },
   {
     faq: "Who owns the property in a Trust?",
@@ -29,7 +29,7 @@ const faqs = [
       "A beneficiary can only access the trust fund in accordance with the provision of the trust deed.",
   },
   {
-    faq: "Will i have control over a trust i set up?",
+    faq: "Will I have control over a trust i set up?",
     answer:
       "Yes, however the extent of control is as provided by applicable law and the trust deed.",
   },

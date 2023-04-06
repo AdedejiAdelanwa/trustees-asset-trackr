@@ -353,7 +353,7 @@ export default function Index() {
 
         <div className="mt-[4.4rem] sm:mt-[5rem]">
           <h3 className="font-semibold text-[2.8rem]">
-            Recomended Estate Plans
+           PROTECT YOUR LOVED ONES
           </h3>
           <div className="relative flex items-center overflow-x-auto space-x-8">
             {estatePlans.map((estatePlan, i) => (

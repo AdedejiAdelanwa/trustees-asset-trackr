@@ -315,7 +315,7 @@ export const banks = [
 export const estatePlans = [
   {
     sn: 1,
-    name: "SET UP A TRUST",
+    name: "Set up a Trust",
     image: TrusImage,
     details:
       "Relieve yourself and your beneficiaries of the hassle associated with managing and transferring multiple asset classes by setting up a Trust.",
@@ -323,7 +323,7 @@ export const estatePlans = [
   },
   {
     sn: 2,
-    name: "SECURE YOUR CHILDRENS EDUCATION",
+    name: "Secure your child's future",
     image: EduTrustImage,
     details: "Give your children/wards a foundation for a bright future",
     actionUrl: "https://form.typeform.com/to/FIPHRC7H",
@@ -338,7 +338,7 @@ export const estatePlans = [
   },
   {
     sn: 4,
-    name: "APPOINT A NOMINEE",
+    name: "Appoint a Nominee",
     image: NominatedImage,
     details:
       "Appoint a Nominee to transfer specific funds to your beneficiaries in the event of incapacity or demise.",
