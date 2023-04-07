@@ -19,8 +19,17 @@ import { faker } from "@faker-js/faker";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
-import { AiOutlineBank, AiOutlineCar, AiOutlineStock } from "react-icons/ai";
-import { BsHouse } from "react-icons/bs";
+import {
+  AiOutlineBank, AiOutlinePartition, AiOutlineWallet, AiOutlineStock, AiOutlineBarcode,
+  AiOutlineAreaChart,
+  AiOutlineBulb,
+  AiOutlineApartment,
+  AiOutlineApi,
+  AiOutlineAudit,
+  AiOutlineGift,
+  AiOutlineUser
+} from "react-icons/ai";
+import { BsWindowDash, BsHouse } from "react-icons/bs";
 import SideNav from "../../components/SideNavigation";
 import Link from "next/link";
 import {
@@ -184,7 +193,7 @@ export default function Index() {
     userDetails && (
       <section className="main-content text-black">
         <h2 className="text-[2.8rem] font-bold">
-          Hi {userDetails.othernames} {userDetails.surname[0]}. 👋🏼
+          Hi {userDetails.othernames || ''} {userDetails.surname[0] || ''}. 👋🏼
         </h2>
         {userAssets && userAssets.length > 0 ? (
           <>
@@ -261,6 +270,69 @@ export default function Index() {
                                     className="bg-lightgreen p-1 rounded text-darkgreen"
                                   />
                                 )}
+                                {asset_name === "Cash" && (
+                                  <AiOutlineBarcode
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                 {asset_name === "Equities" && (
+                                  <AiOutlinePartition
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+
+                                {asset_name === "Fintech Wallets" && (
+                                  <BsWindowDash
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+
+                                {asset_name === "Fixed Income/Money Market" && (
+                                  <AiOutlineAreaChart
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Intellectual Property" && (
+                                  <AiOutlineBulb
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Alternate Assets(Cryptocurrency and NFTs)" && (
+                                  <AiOutlineApartment
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Alternate Assets(Digital Platform)" && (
+                                  <AiOutlineApi
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Personal Assets" && (
+                                  <AiOutlineAudit
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Pension" && (
+                                  <AiOutlineGift
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Life Insurance" && (
+                                  <AiOutlineUser
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+
 
                                 {asset_name}
                               </Td>
