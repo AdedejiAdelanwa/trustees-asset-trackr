@@ -24,9 +24,9 @@ export default function SimpleWillCard({ estatePlan }) {
   };
   return (
     <>
-      <div className="h-[38rem] w-[35rem]  sm:w-[40rem] md:w-[60rem] h-[30.5rem] m-[1rem]  bg-white flex-grow flex-shrink-0 flex-[25rem] rounded-[5px] shadow-lg transition-all duration-200 ease-in-out hover:shadow-md hover:translate-y-[-1px] overflow-hidden">
+      <div className="w-[35rem]  sm:w-[40rem] md:w-[60rem] h-[33rem] m-[1rem]  bg-white flex-grow flex-shrink-0 flex-[25rem] rounded-[5px] shadow-lg transition-all duration-200 ease-in-out hover:shadow-md hover:translate-y-[-1px] overflow-hidden">
         <Image
-          height="120px"
+          height="150px"
           width="100%"
           src={estatePlan.image.src || Writer}
           alt="describe"
@@ -59,10 +59,9 @@ export default function SimpleWillCard({ estatePlan }) {
           <ModalCloseButton />
           <ModalBody
             px="1.5rem"
-            textTransform="lowercase"
             fontFamily={"Poppins"}
           >
-            <Text mb="1rem">{estatePlan.details}</Text>
+            <Text mb="1rem">{estatePlan.more}</Text>
             <Link
               href={estatePlan.actionUrl}
               isExternal
@@ -77,7 +76,7 @@ export default function SimpleWillCard({ estatePlan }) {
                 size="lg"
                 fontSize="1.6rem"
               >
-                Sign up
+               {estatePlan.linkText}
               </Button>
             </Link>
           </ModalBody>

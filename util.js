@@ -315,18 +315,32 @@ export const banks = [
 export const estatePlans = [
   {
     sn: 1,
-    name: "SET UP A TRUST",
+    name: "Set up a Trust",
     image: TrusImage,
     details:
       "Relieve yourself and your beneficiaries of the hassle associated with managing and transferring multiple asset classes by setting up a Trust.",
     actionUrl: "http://meristemtrustees.com/simple-will/",
+    more: `With a Living Trust asset are transferred into a trust during the lifetime of an individual.
+    The assets under trust are managed by professionals for the benefit of the chosen beneficiaries,
+    with the individual being the primary beneficiary. He/She will also have oversight of the assets and 
+    can appoint protectors to watch over the trust during their lifetime and after their demise. 
+    If you want the assets transferred into the Trust after your lifetime, then a testamentary trust is
+    more appropriate for you. With a testamentary trust, an individual’s will instructs that specific 
+    assets should be transferred into trust and managed for the benefit of their beneficiaries. 
+    Set up a Testamentary Trust.`,
+    linkText : 'Set up a Trust'
+    
   },
   {
     sn: 2,
-    name: "SECURE YOUR CHILDRENS EDUCATION",
+    name: "Secure your child's future",
     image: EduTrustImage,
     details: "Give your children/wards a foundation for a bright future",
     actionUrl: "https://form.typeform.com/to/FIPHRC7H",
+    more: `The Meristem Education Trust allows you to conveniently set up a dedicated trust fund for your children’s education.
+    With this Trust, you can be guaranteed  that neither death nor incapacitation can disrupt your children or wards’ education.
+    `,
+    linkText: "Set up a Trust Funds"
   },
   {
     sn: 3,
@@ -335,13 +349,23 @@ export const estatePlans = [
     details:
       "A Will allows a person determine how their assets are managed and distributed after their demise.",
     actionUrl: "https://form.typeform.com/to/FIPHRC7H",
+    more: `With basic assets such as your cash shares and retired savings account, you can write a Will in few minutes. 
+    Do you want to include more assets in your Will such as Real estate, Jewellery, e.t.c then a comprehensive Will 
+    is more suitable for you.
+    `,
+    linkText: "Get started"
   },
   {
     sn: 4,
-    name: "APPOINT A NOMINEE",
+    name: "Appoint a Nominee",
     image: NominatedImage,
     details:
       "Appoint a Nominee to transfer specific funds to your beneficiaries in the event of incapacity or demise.",
     actionUrl: "https://form.typeform.com/to/D0xUBFsk",
+    more: `Nomination is a directive made by a person to a Trustee that in the case of an eventuality specific funds 
+    should be transferred beneficiaries.A nominated fund can only be cash or proceeds from investments.
+    Set up a Nominated Fund (Linked to the Nominated Fund Questionnaire)
+    `,
+    linkText : "Set up a Nominated Fund"
   },
 ];

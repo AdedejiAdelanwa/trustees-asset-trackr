@@ -20,12 +20,18 @@ import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
 import { useEffect, useState } from "react";
 import {
-  AiOutlineBank,
+  AiOutlineBank, AiOutlinePartition, AiOutlineWallet, AiOutlineStock, AiOutlineBarcode,
+  AiOutlineAreaChart,
+  AiOutlineBulb,
+  AiOutlineApartment,
+  AiOutlineApi,
+  AiOutlineAudit,
+  AiOutlineGift,
+  AiOutlineUser,
   AiOutlineEye,
-  AiOutlineEyeInvisible,
-  AiOutlineStock,
+  AiOutlineEyeInvisible
 } from "react-icons/ai";
-import { BsArrowDown, BsArrowUp, BsHouse } from "react-icons/bs";
+import { BsArrowDown,BsWindowDash, BsArrowUp, BsHouse } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import AuthWrapper from "../../../components/AuthWrapper";
 import jwt_decode from "jwt-decode";
@@ -86,7 +92,8 @@ export default function Assets() {
   return (
     userDetails && (
       <>
-        {userAssets && userAssets.length > 0 ? (
+        {
+          userAssets && userAssets.length > 0 ? (
           <section className="main-content">
             <Flex alignItems={"center"} justifyContent="space-between">
               <Heading fontFamily={"Poppins"} fontSize="2.8rem">
@@ -159,24 +166,86 @@ export default function Assets() {
                         borderBottomWidth={"1.5px"}
                       >
                         <Td py="1.5rem" display="flex" border="none">
-                          {asset_name === "Stocks" && (
-                            <AiOutlineStock
-                              fontSize="2.5rem"
-                              className="bg-lightgreen p-1 rounded text-darkgreen"
-                            />
-                          )}
-                          {asset_name === "Real Estate" && (
-                            <BsHouse
-                              fontSize="2.5rem"
-                              className="bg-lightgreen p-1 rounded text-darkgreen"
-                            />
-                          )}
-                          {asset_name === "Bank Accounts" && (
-                            <AiOutlineBank
-                              fontSize="2.5rem"
-                              className="bg-lightgreen p-1 rounded text-darkgreen"
-                            />
-                          )}
+                        {asset_name === "Stocks" && (
+                                  <AiOutlineStock
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Real Estate" && (
+                                  <BsHouse
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Bank Accounts" && (
+                                  <AiOutlineBank
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Cash" && (
+                                  <AiOutlineBarcode
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                 {asset_name === "Equities" && (
+                                  <AiOutlinePartition
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+
+                                {asset_name === "Fintech Wallets" && (
+                                  <BsWindowDash
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+
+                                {asset_name === "Fixed Income/Money Market" && (
+                                  <AiOutlineAreaChart
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Intellectual Property" && (
+                                  <AiOutlineBulb
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Alternate Assets(Cryptocurrency and NFTs)" && (
+                                  <AiOutlineApartment
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Alternate Assets(Digital Platform)" && (
+                                  <AiOutlineApi
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Personal Assets" && (
+                                  <AiOutlineAudit
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Pension" && (
+                                  <AiOutlineGift
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
+                                {asset_name === "Life Insurance" && (
+                                  <AiOutlineUser
+                                    fontSize="2.5rem"
+                                    className="bg-lightgreen p-1 rounded text-darkgreen"
+                                  />
+                                )}
                           {asset_name}
                         </Td>
 
