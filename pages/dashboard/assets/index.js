@@ -92,7 +92,8 @@ export default function Assets() {
   return (
     userDetails && (
       <>
-        {userAssets && userAssets.length > 0 ? (
+        {
+          userAssets && userAssets.length > 0 ? (
           <section className="main-content">
             <Flex alignItems={"center"} justifyContent="space-between">
               <Heading fontFamily={"Poppins"} fontSize="2.8rem">

@@ -52,6 +52,7 @@ import NoBenefSvg from "../../public/assets/no-beneficiary.svg";
 import Image from "next/image";
 import Writer from "../../public/assets/will-writer.png";
 import { estatePlans } from "../../util";
+import SimpleWillCard from "../../components/SimpleWillCard";
 
 export const estateplanList = [
   { name: "simple will", status: "processing" },
@@ -226,8 +227,7 @@ export default function EstatePlans() {
           <div className="flex items-center justify-between">
             <h2 className="text-[2.8rem] font-bold">My Estate Plans </h2>
 
-            <BiSearchAlt2 fontSize={"2rem"} className="cursor-pointer" />
-          </div>
+           </div>
           <Tabs mt={"3rem"} fontSize="1.6rem">
             <TabList borderBottomColor={"grey"}>
               <Tab
@@ -279,6 +279,7 @@ export default function EstatePlans() {
                 </Flex>
               </TabPanel>
               <TabPanel>
+                <br />
                 <Button
                   bg={"darkgreen"}
                   colorScheme={"darkgreen"}
@@ -332,81 +333,23 @@ export default function EstatePlans() {
                 </Flex>
               </TabPanel>
               <TabPanel>
-                <Heading>Recommended</Heading>
-                <Flex
-                  flexWrap="wrap"
-                  justifyContent={{ base: "space-around", lg: "space-between" }}
-                  gap="2rem"
-                  mt={"3rem"}
-                >
-                  {estatePlans.map((estatePlan, i) => (
-                    <>
-                      <div
-                        key={estatePlan.sn}
-                        className="w-[30rem] sm:w-[40rem] md:w-[60rem] h-[30.5rem] m-[1rem] bg-white flex-grow flex-shrink-0 flex-[25rem] rounded-[5px] shadow-lg transition-all duration-200 ease-in-out hover:shadow-md hover:translate-y-[-1px] overflow-hidden"
-                      >
-                        <Image
-                          src={estatePlan.image || Writer}
-                          height="150px"
-                          alt="describe"
-                        />
-                        <div className="p-[1.8rem]">
-                          <h5 className="text-[2.4rem] capitalize">
-                            {estatePlan.name}
-                          </h5>
-                          <Text fontSize="1.4rem" noOfLines={3}>
-                            {estatePlan.details}
-                          </Text>
-                          <Button onClick={() => handleEstatePlanItemShow(i)}>
-                            Learn More
-                          </Button>
-                        </div>
-                      </div>
-                    </>
-                  ))}
-                  <Modal
-                    size={"4xl"}
-                    isOpen={estatePlanItem.isOpen}
-                    onClose={estatePlanItem.onClose}
-                    isCentered
-                  >
-                    <ModalOverlay bg={`rgba(0,0,0,0.4)`} />
-                    <ModalContent fontSize="1.6rem" py="1.5rem">
-                      <ModalHeader
-                        fontFamily={"Poppins"}
-                        fontSize="1.8rem"
-                        textTransform={"capitalize"}
-                      >
-                        {estatePlan.name}
-                      </ModalHeader>
-                      <ModalCloseButton />
-                      <ModalBody
-                        px="1.5rem"
-                        textTransform="lowercase"
-                        fontFamily={"Poppins"}
-                      >
-                        <Text mb="1rem">{estatePlan.details}</Text>
-                        <Link
-                          href={estatePlan.actionUrl}
-                          isExternal
-                          _hover={{
-                            textDecoration: "none",
-                          }}
-                        >
-                          <Button
-                            bg={"darkgreen"}
-                            colorScheme={"darkgreen"}
-                            className="py-[1rem] px-[2rem]"
-                            size="lg"
-                            fontSize="1.6rem"
-                          >
-                            Sign up
-                          </Button>
-                        </Link>
-                      </ModalBody>
-                    </ModalContent>
-                  </Modal>
-                </Flex>
+          <div className="mt-[4.4rem] sm:mt-[5rem]">
+          <h3 className="font-semibold text-[2.8rem]">
+           PROTECT YOUR LOVED ONES
+          </h3><br />
+          <div className="relative flex items-center overflow-x-auto space-x-8">
+            {estatePlans.map((estatePlan, i) => (
+              <SimpleWillCard key={estatePlan.sn} estatePlan={estatePlan} />
+            ))}
+            </div>
+            <div>
+            <h3 className="mt-[4.4rem] sm:mt-[5rem] text-[1.5rem] text-center">
+              Not sure which Estate Plan, click 
+              <Link href="https://forms.meristemng.com/trustquestionnaire/"> here </Link> to take an Assessment
+            <br />You can also call – 090XXXXXXXXXXXX Or Send an email to trustees@meristemng.com
+            </h3>
+          </div>      
+        </div>
               </TabPanel>
             </TabPanels>
           </Tabs>

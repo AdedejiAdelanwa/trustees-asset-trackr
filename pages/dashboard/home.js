@@ -382,12 +382,7 @@ export default function Index() {
                 <h2 className="text-[1.6rem] font-semibold">
                   Net worth History
                 </h2>
-                <p className="font-semibold text-[1.6rem]">
-                  Value Change:
-                  <span className=" text-green font-semibold ml-4">
-                    200% &#8593;
-                  </span>
-                </p>
+                
               </div>
               <Line options={options} data={data} />
             </div>
@@ -431,6 +426,14 @@ export default function Index() {
             {estatePlans.map((estatePlan, i) => (
               <SimpleWillCard key={estatePlan.sn} estatePlan={estatePlan} />
             ))}
+          </div>
+
+          <div>
+            <h3 className="mt-[4.4rem] sm:mt-[5rem] text-[1.5rem] text-center">
+              Not sure which Estate Plan, click 
+              <Link href="https://forms.meristemng.com/trustquestionnaire/"> here </Link> to take an Assessment
+            <br />You can also call – 090XXXXXXXXXXXX Or Send an email to trustees@meristemng.com
+            </h3>
           </div>
         </div>
       </section>
