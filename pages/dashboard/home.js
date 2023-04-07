@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { logout } from "../../redux/user/userSlice";
 // import { useRouter } from "next/router";
 import {
   Chart as ChartJS,
