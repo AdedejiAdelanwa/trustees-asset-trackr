@@ -20,14 +20,18 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
 import {
-  AiOutlineBank, AiOutlinePartition, AiOutlineWallet, AiOutlineStock, AiOutlineBarcode,
+  AiOutlineBank,
+  AiOutlinePartition,
+  AiOutlineWallet,
+  AiOutlineStock,
+  AiOutlineBarcode,
   AiOutlineAreaChart,
   AiOutlineBulb,
   AiOutlineApartment,
   AiOutlineApi,
   AiOutlineAudit,
   AiOutlineGift,
-  AiOutlineUser
+  AiOutlineUser,
 } from "react-icons/ai";
 import { BsWindowDash, BsHouse } from "react-icons/bs";
 import SideNav from "../../components/SideNavigation";
@@ -193,7 +197,7 @@ export default function Index() {
     userDetails && (
       <section className="main-content text-black">
         <h2 className="text-[2.8rem] font-bold">
-          Hi {userDetails.othernames || ''} {userDetails.surname[0] || ''}. 👋🏼
+          Hi {userDetails.othernames || ""} {userDetails.surname[0] || ""}. 👋🏼
         </h2>
         {userAssets && userAssets.length > 0 ? (
           <>
@@ -276,7 +280,7 @@ export default function Index() {
                                     className="bg-lightgreen p-1 rounded text-darkgreen"
                                   />
                                 )}
-                                 {asset_name === "Equities" && (
+                                {asset_name === "Equities" && (
                                   <AiOutlinePartition
                                     fontSize="2.5rem"
                                     className="bg-lightgreen p-1 rounded text-darkgreen"
@@ -302,13 +306,15 @@ export default function Index() {
                                     className="bg-lightgreen p-1 rounded text-darkgreen"
                                   />
                                 )}
-                                {asset_name === "Alternate Assets(Cryptocurrency and NFTs)" && (
+                                {asset_name ===
+                                  "Alternate Assets(Cryptocurrency and NFTs)" && (
                                   <AiOutlineApartment
                                     fontSize="2.5rem"
                                     className="bg-lightgreen p-1 rounded text-darkgreen"
                                   />
                                 )}
-                                {asset_name === "Alternate Assets(Digital Platform)" && (
+                                {asset_name ===
+                                  "Alternate Assets(Digital Platform)" && (
                                   <AiOutlineApi
                                     fontSize="2.5rem"
                                     className="bg-lightgreen p-1 rounded text-darkgreen"
@@ -332,7 +338,6 @@ export default function Index() {
                                     className="bg-lightgreen p-1 rounded text-darkgreen"
                                   />
                                 )}
-
 
                                 {asset_name}
                               </Td>
@@ -377,12 +382,11 @@ export default function Index() {
                 />
               </div>
             </div>
-            <div className="w-[100%]  h-[40rem] md:h-[auto]">
+            <div className="w-[100%] md:hidden   h-[40rem] ">
               <div className="flex justify-between sm:flex-col sm:mt-[2rem]">
                 <h2 className="text-[1.6rem] font-semibold">
                   Net worth History
                 </h2>
-                
               </div>
               <Line options={options} data={data} />
             </div>
@@ -420,7 +424,7 @@ export default function Index() {
 
         <div className="mt-[4.4rem] sm:mt-[5rem]">
           <h3 className="font-semibold text-[2.8rem]">
-           PROTECT YOUR LOVED ONES
+            PROTECT YOUR LOVED ONES
           </h3>
           <div className="relative flex items-center overflow-x-auto space-x-8">
             {estatePlans.map((estatePlan, i) => (
@@ -430,9 +434,14 @@ export default function Index() {
 
           <div>
             <h3 className="mt-[4.4rem] sm:mt-[5rem] text-[1.5rem] text-center">
-              Not sure which Estate Plan, click 
-              <Link href="https://forms.meristemng.com/trustquestionnaire/"> here </Link> to take an Assessment
-            <br />You can also call – 090XXXXXXXXXXXX Or Send an email to trustees@meristemng.com
+              Not sure which Estate Plan, click
+              <Link href="https://forms.meristemng.com/trustquestionnaire/">
+                here
+              </Link>
+              to take an Assessment
+              <br />
+              You can also call – 090XXXXXXXXXXXX Or Send an email to
+              trustees@meristemng.com
             </h3>
           </div>
         </div>
