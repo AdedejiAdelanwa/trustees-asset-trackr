@@ -126,26 +126,30 @@ const AddAsset = () => {
               top="0"
               left="0"
               zIndex="50"
-              height="100vh"
+              height="auto"
               w={["60%", "20%"]}
-              display={["none", "flex"]}
+              display={["none", "none", "flex"]}
               pl={["1rem", "2rem"]}
               pt="2rem"
               bg="lightgrey"
               textAlign="left"
               alignItems={"flex-start"}
+              overflowY="auto"
             >
               <Heading
                 w="100%"
                 fontSize={["1.8rem", "2.8rem"]}
-                pl={["0rem", "2rem"]}
+                //pl={["0rem", "2rem"]}
                 mb="1.75rem"
                 fontFamily={"Poppins"}
               >
                 New Asset
               </Heading>
               <Flex alignItems={"center"} mb="1.5rem">
-                <Text mr={"1rem"} pl={["0rem", "2rem"]}>
+                <Text
+                  mr={"1rem"}
+                  // pl={["0rem", "2rem"]}
+                >
                   Choose Category
                 </Text>
                 <Tooltip
