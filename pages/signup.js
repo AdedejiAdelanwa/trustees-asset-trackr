@@ -213,32 +213,6 @@ const Signup = () => {
     }
   };
 
-  const ConfirmEmailButton = () => {
-    if (confirmEmail) {
-      return (
-        <button
-          onClick={() => setProgressTrack(2)}
-          type="button"
-          className="bg-[#345C45] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
-          style={{ color: "white" }}
-        >
-          Next
-        </button>
-      );
-    } else {
-      return (
-        <button
-          onClick={() => setProgressTrack(2)}
-          type="button"
-          disabled
-          className="bg-[#363d39] w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md"
-          style={{ color: "white" }}
-        >
-          Next
-        </button>
-      );
-    }
-  };
   // useEffect(()=>{
 
   // },[userInfo, success])

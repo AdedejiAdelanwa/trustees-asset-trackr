@@ -4,7 +4,9 @@ import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { baseUrl } from "../util";
 import { userLogin } from "../redux/user/userActions";
 import block_one from "../public/assets/blockOne.png";
 import block_two from "../public/assets/blockTwo.png";
@@ -13,7 +15,17 @@ import hidden from "../public/assets/Hiddenpassword.svg";
 import show from "../public/assets/Showpassword.svg";
 import validator from "validator";
 import Logocomponent from "../components/LandingPageShared/logocomponent";
-import { Spinner } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Spinner,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { logout } from "../redux/user/userSlice";
@@ -24,12 +36,20 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState("");
   const { loading, error } = useSelector((state) => state.user);
-  // const [validatePassword, setvalidatePassword] = useState("");
   const userToken = JSON.parse(localStorage.getItem("userToken"));
-
+  const [otp, setOtp] = useState("");
+  const [isVerifying, setIsVerifying] = useState(false);
   const dispatch = useDispatch();
-  //const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const [isResendingOtp, setIsResendingOtp] = useState(false);
+  const [isOtpResent, setIsOtpResent] = useState(false);
+  const initialRef = React.useRef(null);
+  const finalRef = React.useRef(null);
+  const {
+    isOpen: isOtpModalOpen,
+    onOpen: onOtpModalOpen,
+    onClose: onOtpModalClose,
+  } = useDisclosure();
   const notify = useCallback(() => {
     toast.error(error, {
       position: toast.POSITION.TOP_RIGHT,
@@ -44,9 +64,38 @@ const Login = () => {
     e.preventDefault();
     try {
       dispatch(userLogin({ email, password }));
-      setEmail("");
       setPassword("");
     } catch (error) {}
+  };
+
+  const handleResendOtp = async (e) => {
+    e.preventDefault();
+    setIsResendingOtp(true);
+    try {
+      await axios.get(`${baseUrl}/user/resend-otp/${email}`);
+      setIsOtpResent(true);
+      setIsResendingOtp(false);
+      onOtpModalOpen();
+      setTimeout(() => {
+        setIsOtpResent(false);
+      }, 3000);
+    } catch (error) {
+      setIsResendingOtp(false);
+    }
+  };
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setIsVerifying(true);
+    try {
+      await axios.get(`${baseUrl}/user/verify-otp/${email}/${otp}`);
+      setIsVerifying(false);
+      setOtp("");
+      onOtpModalClose();
+      router.push("/login");
+    } catch (error) {
+      setIsVerifying(false);
+      alert(error);
+    }
   };
 
   const checkValidToken = useCallback(() => {
@@ -66,6 +115,7 @@ const Login = () => {
 
     notify();
   }, [checkValidToken, notify]);
+  //console.log(userDetails);
   return (
     <>
       <Head>
@@ -166,6 +216,25 @@ const Login = () => {
                 </button>
               </Link>
             </form>
+            {error == "Please verify your email address" && (
+              <form>
+                <div className="mt-[1.5rem]">
+                  <span
+                    onClick={handleResendOtp}
+                    className="text-[black] bg-[lightgreen] p-[0.5rem] rounded  cursor-pointer mr-[1rem]"
+                  >
+                    Resend Otp?
+                  </span>
+                  {isResendingOtp && <Spinner />}
+                  {isOtpResent && (
+                    <span className="bg-lightgreen color-black ml-[1rem] py-[0.2rem] px-[0.8rem] rounded">
+                      Otp Resent
+                    </span>
+                  )}
+                </div>
+              </form>
+            )}
+
             <Link href="/resetpassword">
               <div className="font-semibold text-darkgreen text-[1.8rem] mt-[1.5rem] cursor-pointer">
                 Forget Password?
@@ -174,6 +243,73 @@ const Login = () => {
           </div>
         </div>
         <ToastContainer />
+        <Modal
+          initialFocusRef={initialRef}
+          finalFocusRef={finalRef}
+          size="xl"
+          isOpen={isOtpModalOpen}
+          onClose={onOtpModalClose}
+          isCentered
+        >
+          <ModalOverlay
+            bg="none"
+            backdropFilter="auto"
+            backdropInvert="80%"
+            backdropBlur="2px"
+          />
+          <ModalContent
+            bg="white"
+            fontSize="1.4rem"
+            color="black"
+            fontFamily="Poppins"
+          >
+            <ModalHeader textAlign="center" fontSize="2.3rem">
+              OTP Sent 🎉🎉
+            </ModalHeader>
+            <ModalCloseButton color="black" />
+            <ModalBody pb="1.5rem">
+              <form className=" text-black" onSubmit={handleVerifyOtp}>
+                <Text textAlign="center" mb="1.5rem">
+                  Kindly enter the otp sent to your email to verify your account
+                </Text>
+                <div className="flex flex-col mb-5 mt-[1rem]">
+                  <label className=" text-[1.4rem] mb-[1rem]">Otp</label>
+                  <input
+                    ref={finalRef}
+                    onChange={(e) => setOtp(e.target.value)}
+                    value={otp}
+                    className="bg-[#F3F3F3] py-[0.8rem] px-[1.2rem]   rounded-[0.5rem]"
+                    id="verification-otp"
+                    type="number"
+                    required
+                  />
+                </div>
+
+                <button
+                  onClick={handleVerifyOtp}
+                  className=" w-full bg-darkgreen font-medium text-[1.8rem] items-center text-white py-[0.8rem] px-[1.2rem]  rounded-[0.5rem] "
+                >
+                  {isVerifying ? <Spinner /> : "Verify Email"}
+                </button>
+              </form>
+              <Text mt="1.5rem">
+                Did not receive an Otp?{" "}
+                <span
+                  onClick={handleResendOtp}
+                  className="text-[darkgreen] cursor-pointer mr-[1rem]"
+                >
+                  Resend Otp
+                </span>
+                {isResendingOtp && <Spinner />}
+                {isOtpResent && (
+                  <span className="bg-lightgreen color-black ml-[1rem] py-[0.2rem] px-[0.8rem] rounded">
+                    Otp Resent
+                  </span>
+                )}
+              </Text>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </main>
     </>
   );
