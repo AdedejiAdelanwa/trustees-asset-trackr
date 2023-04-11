@@ -38,7 +38,7 @@ export default function EstatePlanDetailsModal({
           fontSize="1.8rem"
           textTransform={"capitalize"}
         >
-          {estateItem.name}
+          {estateItem.estate_plan}
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>

@@ -91,8 +91,10 @@ export default function EstatePlans() {
     dob: "",
   });
   const dispatch = useDispatch();
+
   const [isAddingBeneficiary, setIsAddingBeneficiary] = useState(false);
   const [isAddingEstatePlan, setIsAddingEstatePlan] = useState(false);
+  const [isFetchingEstatePlans, setIsFetchingEstatePlans] = useState(false);
   const [newBeneficiary, setNewBeneficiary] = useState({
     firstname: "",
     surname: "",
@@ -121,6 +123,35 @@ export default function EstatePlans() {
       ...newBeneficiary,
       [e.target.name]: e.target.value,
     });
+  };
+  const handleCreateEstatePlan = async (e) => {
+    e.preventDefault();
+    setIsAddingEstatePlan(true);
+    try {
+      const {
+        data: { message },
+      } = await axios({
+        method: "post",
+        url: `${baseUrl}/estate-plan`,
+        headers: { Authorization: "Bearer " + userToken },
+        data: estateItem,
+      });
+      setIsAddingEstatePlan(false);
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+
+      setEstateItem({
+        name: "",
+        details: "",
+        status: "",
+      });
+    } catch (error) {
+      setIsAddingEstatePlan(false);
+      toast.error(error, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
   const handleCreateNewbeneficiary = async (e) => {
     e.preventDefault();
@@ -183,7 +214,7 @@ export default function EstatePlans() {
 
   const fetchEstatePlans = useCallback(async () => {
     let token;
-    setIsAddingEstatePlan(true);
+    setIsFetchingEstatePlans(true);
     if (userToken) {
       token = jwt_decode(userToken);
       if (Date.now() >= token.exp * 1000) {
@@ -198,15 +229,17 @@ export default function EstatePlans() {
             headers: { Authorization: "Bearer " + userToken },
           });
           setEstatePlans(data);
-          setIsAddingEstatePlan(true);
-        } catch (error) {}
+          setIsFetchingEstatePlans(false);
+        } catch (error) {
+          setIsFetchingEstatePlans(false);
+        }
       }
     }
   }, [dispatch, userToken]);
   const addBeneficiary = useDisclosure();
   const addEstatePlan = useDisclosure();
   const handleSetItemToShow = (i) => {
-    setEstateItem(estateplanList[i]);
+    setEstateItem(estateplans[i]);
     estatePlanModal.onOpen();
   };
   const handleSetBeneficiaryShow = (i) => {
@@ -272,6 +305,7 @@ export default function EstatePlans() {
                 >
                   Add Estate Plan
                 </Button>
+
                 {estateplans.length > 0 ? (
                   <Flex
                     flexWrap="wrap"
@@ -282,27 +316,32 @@ export default function EstatePlans() {
                     gap="2rem"
                     mt={"5rem"}
                   >
+                    {isFetchingEstatePlans && <Spinner />}
                     {estateplans.map((item, i) => (
-                      <EstatePlanItem
-                        key={item.name}
-                        onOpen={() => handleSetItemToShow(i)}
-                      >
-                        <RiFileList3Line
-                          fontSize={"2.5rem"}
-                          color="darkgreen"
-                        />
+                      <>
+                        <EstatePlanItem
+                          key={item.id}
+                          onOpen={() => handleSetItemToShow(i)}
+                        >
+                          <RiFileList3Line
+                            fontSize={"2.5rem"}
+                            color="darkgreen"
+                          />
 
-                        <Stack spacing={"0"}>
-                          <Heading fontFamily={"Poppins"}>{item.name}</Heading>
-                          <Text color={"gray"}>{item.status}</Text>
-                        </Stack>
-                      </EstatePlanItem>
+                          <Stack spacing={"0"}>
+                            <Heading fontFamily={"Poppins"}>
+                              {item.estate_plan}
+                            </Heading>
+                            <Text color={"gray"}>{item.status}</Text>
+                          </Stack>
+                        </EstatePlanItem>
+                        <EstatePlanDetailsModal
+                          estateItem={item}
+                          isOpen={estatePlanModal.isOpen}
+                          onClose={estatePlanModal.onClose}
+                        />
+                      </>
                     ))}
-                    <EstatePlanDetailsModal
-                      estateItem={estateItem}
-                      isOpen={estatePlanModal.isOpen}
-                      onClose={estatePlanModal.onClose}
-                    />
                   </Flex>
                 ) : (
                   <Flex
@@ -421,7 +460,7 @@ export default function EstatePlans() {
               <ModalBody>
                 <form
                   className="text-[1.6rem] w-[100%] overflow-y-auto"
-                  //onSubmit={handleCreateNewbeneficiary}
+                  onSubmit={handleCreateEstatePlan}
                 >
                   <FormControl w="100%">
                     <FormLabel fontSize="1.6rem">Name</FormLabel>
@@ -446,6 +485,7 @@ export default function EstatePlans() {
                       name="details"
                       onChange={handleEstatePlanChange}
                       value={estateItem.details}
+                      placeholder="Describe the estate"
                       className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
                     />
 
@@ -466,10 +506,10 @@ export default function EstatePlans() {
                     </Select>
                   </FormControl>
                   <button
-                    onClick={handleCreateNewbeneficiary}
+                    onClick={handleCreateEstatePlan}
                     className=" w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
                   >
-                    {isAddingBeneficiary ? <Spinner /> : "Add Estate Plan"}
+                    {isAddingEstatePlan ? <Spinner /> : "Add Estate Plan"}
                   </button>
                 </form>
               </ModalBody>
