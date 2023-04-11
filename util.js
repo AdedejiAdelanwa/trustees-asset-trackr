@@ -312,7 +312,7 @@ export const banks = [
     name: "TCF MFB",
   },
 ];
-export const estatePlans = [
+export const estatePlanSugestions = [
   {
     sn: 1,
     name: "Set up a Trust",
@@ -328,8 +328,7 @@ export const estatePlans = [
     more appropriate for you. With a testamentary trust, an individual’s will instructs that specific 
     assets should be transferred into trust and managed for the benefit of their beneficiaries. 
     Set up a Testamentary Trust.`,
-    linkText : 'Set up a Trust'
-    
+    linkText: "Set up a Trust",
   },
   {
     sn: 2,
@@ -340,7 +339,7 @@ export const estatePlans = [
     more: `The Meristem Education Trust allows you to conveniently set up a dedicated trust fund for your children’s education.
     With this Trust, you can be guaranteed  that neither death nor incapacitation can disrupt your children or wards’ education.
     `,
-    linkText: "Set up a Trust Funds"
+    linkText: "Set up a Trust Funds",
   },
   {
     sn: 3,
@@ -353,7 +352,7 @@ export const estatePlans = [
     Do you want to include more assets in your Will such as Real estate, Jewellery, e.t.c then a comprehensive Will 
     is more suitable for you.
     `,
-    linkText: "Get started"
+    linkText: "Get started",
   },
   {
     sn: 4,
@@ -366,6 +365,6 @@ export const estatePlans = [
     should be transferred beneficiaries.A nominated fund can only be cash or proceeds from investments.
     Set up a Nominated Fund (Linked to the Nominated Fund Questionnaire)
     `,
-    linkText : "Set up a Nominated Fund"
+    linkText: "Set up a Nominated Fund",
   },
 ];

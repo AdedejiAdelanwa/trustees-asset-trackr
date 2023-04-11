@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 import userReducer from "./user/userSlice";
 import userBeneficiariesReducer from "./beneficiaries/beneficiariesSlice";
 import assetsReducer from "./asset/assetSlice";
+import estatePlansReducer from "./estateplans/estatePlanSlice";
 
 const persistConfig = { key: "root", storage, whitelist: ["user"] };
 
@@ -23,6 +24,7 @@ const store = configureStore({
     user: persistedReducer,
     userBeneficiaries: userBeneficiariesReducer,
     assets: assetsReducer,
+    estatePlans: estatePlansReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

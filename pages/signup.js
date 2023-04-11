@@ -228,7 +228,7 @@ const Signup = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex font-Poppins text-black w-full h-[100vh] bg-white">
-        <div className="bg-[#BBF1D1] w-1/2 h-{100vh} sm:hidden md:w-1/2 md:h-{80vh}">
+        <div className="bg-[#BBF1D1] w-1/2 h-{100vh} sm:hidden  md:h-{80vh}">
           <div className="mt-[4rem] w-[15rem] ml-[6.2rem] mb-[7rem] md:block md:mt-[2rem] md:w-[13.8rem] md:ml-[4rem] md:h-fit cursor-pointer ">
             <Link href="/">
               <Image src={logo} alt="MeristemLogo" />
