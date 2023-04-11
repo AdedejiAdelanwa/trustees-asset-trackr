@@ -29,7 +29,6 @@ import {
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
 import SideNav from "../../components/SideNavigation";
-import { BiSearchAlt2 } from "react-icons/bi";
 import { RiFileList3Line } from "react-icons/ri";
 import EstatePlanItem from "../../components/EstatePlanItem";
 import { BsPersonCircle } from "react-icons/bs";
@@ -38,7 +37,7 @@ import { useCallback, useEffect, useState } from "react";
 import BeneficiaryDetailsModal from "../../components/BeneficiaryDetailsModal";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { banks, baseUrl } from "../../util";
+import { baseUrl } from "../../util";
 import Head from "next/head";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -49,8 +48,8 @@ import AuthWrapper from "../../components/AuthWrapper";
 import { logout } from "../../redux/user/userSlice";
 import { NewUser } from "../../components/NewUser";
 import NoBenefSvg from "../../public/assets/no-beneficiary.svg";
+import NoAssetSvg from "../../public/assets/no-asset.svg";
 import Image from "next/image";
-import Writer from "../../public/assets/will-writer.png";
 import { estatePlans } from "../../util";
 import SimpleWillCard from "../../components/SimpleWillCard";
 
@@ -60,6 +59,11 @@ export const estateplanList = [
 
   { name: "mkat", status: "processing" },
   { name: "mfat", status: "active" },
+];
+const estatePlanNames = [
+  "simple will",
+  "comprehensive will",
+  "education trust",
 ];
 
 export default function EstatePlans() {
@@ -71,13 +75,14 @@ export default function EstatePlans() {
   const router = useRouter();
   const estatePlanModal = useDisclosure();
   const beneficiaryModal = useDisclosure();
+  const [estateplans, setEstatePlans] = useState([]);
   const estatePlanItem = useDisclosure();
-  const [estateItem, setEstateItem] = useState({ name: "", status: "" });
-  const [estatePlan, setEstatePlan] = useState({
+  const [estateItem, setEstateItem] = useState({
     name: "",
     details: "",
-    actionUrl: "",
+    status: "",
   });
+
   const [beneficiaryItem, setBeneficiaryItem] = useState({
     name: "",
     relationship: "",
@@ -87,6 +92,7 @@ export default function EstatePlans() {
   });
   const dispatch = useDispatch();
   const [isAddingBeneficiary, setIsAddingBeneficiary] = useState(false);
+  const [isAddingEstatePlan, setIsAddingEstatePlan] = useState(false);
   const [newBeneficiary, setNewBeneficiary] = useState({
     firstname: "",
     surname: "",
@@ -98,7 +104,7 @@ export default function EstatePlans() {
     gender: "",
     marital_status: "",
   });
-  const [estateplans, setEstatePlans] = useState([]);
+
   const handleFetchBeneficiaries = useCallback(() => {
     let token;
     if (userToken) {
@@ -168,9 +174,16 @@ export default function EstatePlans() {
       }
     }
   };
+  const handleEstatePlanChange = (e) => {
+    setEstateItem({
+      ...estateItem,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const fetchEstatePlans = useCallback(async () => {
     let token;
+    setIsAddingEstatePlan(true);
     if (userToken) {
       token = jwt_decode(userToken);
       if (Date.now() >= token.exp * 1000) {
@@ -185,11 +198,13 @@ export default function EstatePlans() {
             headers: { Authorization: "Bearer " + userToken },
           });
           setEstatePlans(data);
+          setIsAddingEstatePlan(true);
         } catch (error) {}
       }
     }
   }, [dispatch, userToken]);
   const addBeneficiary = useDisclosure();
+  const addEstatePlan = useDisclosure();
   const handleSetItemToShow = (i) => {
     setEstateItem(estateplanList[i]);
     estatePlanModal.onOpen();
@@ -197,10 +212,6 @@ export default function EstatePlans() {
   const handleSetBeneficiaryShow = (i) => {
     setBeneficiaryItem(userBeneficiaries[i]);
     beneficiaryModal.onOpen();
-  };
-  const handleEstatePlanItemShow = (i) => {
-    setEstatePlan(estatePlans[i]);
-    estatePlanItem.onOpen();
   };
 
   useEffect(() => {
@@ -226,8 +237,7 @@ export default function EstatePlans() {
         <section className="main-content">
           <div className="flex items-center justify-between">
             <h2 className="text-[2.8rem] font-bold">My Estate Plans </h2>
-
-           </div>
+          </div>
           <Tabs mt={"3rem"} fontSize="1.6rem">
             <TabList borderBottomColor={"grey"}>
               <Tab
@@ -252,31 +262,59 @@ export default function EstatePlans() {
 
             <TabPanels>
               <TabPanel>
-                <Flex
-                  flexWrap="wrap"
-                  justifyContent={{ base: "space-around", lg: "space-between" }}
-                  gap="2rem"
-                  mt={"5rem"}
+                <br />
+                <Button
+                  bg={"darkgreen"}
+                  colorScheme={"darkgreen"}
+                  className="py-[1rem] px-[2rem]"
+                  size="lg"
+                  onClick={addEstatePlan.onOpen}
                 >
-                  {estateplanList.map((item, i) => (
-                    <EstatePlanItem
-                      key={item.sn}
-                      onOpen={() => handleSetItemToShow(i)}
-                    >
-                      <RiFileList3Line fontSize={"2.5rem"} color="darkgreen" />
+                  Add Estate Plan
+                </Button>
+                {estateplans.length > 0 ? (
+                  <Flex
+                    flexWrap="wrap"
+                    justifyContent={{
+                      base: "space-around",
+                      lg: "space-between",
+                    }}
+                    gap="2rem"
+                    mt={"5rem"}
+                  >
+                    {estateplans.map((item, i) => (
+                      <EstatePlanItem
+                        key={item.name}
+                        onOpen={() => handleSetItemToShow(i)}
+                      >
+                        <RiFileList3Line
+                          fontSize={"2.5rem"}
+                          color="darkgreen"
+                        />
 
-                      <Stack spacing={"0"}>
-                        <Heading fontFamily={"Poppins"}>{item.name}</Heading>
-                        <Text color={"gray"}>{item.status}</Text>
-                      </Stack>
-                    </EstatePlanItem>
-                  ))}
-                  <EstatePlanDetailsModal
-                    estateItem={estateItem}
-                    isOpen={estatePlanModal.isOpen}
-                    onClose={estatePlanModal.onClose}
-                  />
-                </Flex>
+                        <Stack spacing={"0"}>
+                          <Heading fontFamily={"Poppins"}>{item.name}</Heading>
+                          <Text color={"gray"}>{item.status}</Text>
+                        </Stack>
+                      </EstatePlanItem>
+                    ))}
+                    <EstatePlanDetailsModal
+                      estateItem={estateItem}
+                      isOpen={estatePlanModal.isOpen}
+                      onClose={estatePlanModal.onClose}
+                    />
+                  </Flex>
+                ) : (
+                  <Flex
+                    direction="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    h="90vh"
+                    gap="2rem"
+                  >
+                    <NewUser text="estate plan" svg={NoAssetSvg} />
+                  </Flex>
+                )}
               </TabPanel>
               <TabPanel>
                 <br />
@@ -333,26 +371,110 @@ export default function EstatePlans() {
                 </Flex>
               </TabPanel>
               <TabPanel>
-          <div className="mt-[4.4rem] sm:mt-[5rem]">
-          <h3 className="font-semibold text-[2.8rem]">
-           PROTECT YOUR LOVED ONES
-          </h3><br />
-          <div className="relative flex items-center overflow-x-auto space-x-8">
-            {estatePlans.map((estatePlan, i) => (
-              <SimpleWillCard key={estatePlan.sn} estatePlan={estatePlan} />
-            ))}
-            </div>
-            <div>
-            <h3 className="mt-[4.4rem] sm:mt-[5rem] text-[1.5rem] text-center">
-              Not sure which Estate Plan, click 
-              <Link href="https://forms.meristemng.com/trustquestionnaire/"> here </Link> to take an Assessment
-            <br />You can also call – 090XXXXXXXXXXXX Or Send an email to trustees@meristemng.com
-            </h3>
-          </div>      
-        </div>
+                <div className="mt-[4.4rem] sm:mt-[5rem]">
+                  <h3 className="font-semibold text-[2.8rem]">
+                    PROTECT YOUR LOVED ONES
+                  </h3>
+                  <br />
+                  <div className="relative flex items-center overflow-x-auto space-x-8">
+                    {estatePlans.map((estatePlan, i) => (
+                      <SimpleWillCard
+                        key={estatePlan.sn}
+                        estatePlan={estatePlan}
+                      />
+                    ))}
+                  </div>
+                  <div>
+                    <h3 className="mt-[4.4rem] sm:mt-[5rem] text-[1.5rem] text-center">
+                      Not sure which Estate Plan, click
+                      <Link href="https://forms.meristemng.com/trustquestionnaire/">
+                        {" "}
+                        here{" "}
+                      </Link>{" "}
+                      to take an Assessment
+                      <br />
+                      You can also call – 090XXXXXXXXXXXX Or Send an email to
+                      trustees@meristemng.com
+                    </h3>
+                  </div>
+                </div>
               </TabPanel>
             </TabPanels>
           </Tabs>
+          <Modal
+            isOpen={addEstatePlan.isOpen}
+            size={"5xl"}
+            onClose={addEstatePlan.onClose}
+            isCentered
+          >
+            <ModalOverlay bg={`rgba(0,0,0,0.4)`} />
+            <ModalContent
+              fontSize="1.6rem"
+              fontFamily={"Poppins"}
+              h="85%"
+              overflowY="scroll"
+            >
+              <ModalHeader fontSize="1.8rem" textTransform={"capitalize"}>
+                add estate plan
+              </ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <form
+                  className="text-[1.6rem] w-[100%] overflow-y-auto"
+                  //onSubmit={handleCreateNewbeneficiary}
+                >
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Name</FormLabel>
+                    <Select
+                      placeholder="Select plan"
+                      value={estateItem.name}
+                      name="name"
+                      onChange={handleEstatePlanChange}
+                    >
+                      {estatePlanNames.map((name) => (
+                        <option value={name} key={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Details</FormLabel>
+                    <input
+                      type="text"
+                      name="details"
+                      onChange={handleEstatePlanChange}
+                      value={estateItem.details}
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
+                    />
+
+                    <FormErrorMessage>
+                      Enter min. of 3 characters
+                    </FormErrorMessage>
+                  </FormControl>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Status</FormLabel>
+                    <Select
+                      placeholder="Select status"
+                      value={estateItem.status}
+                      name="status"
+                      onChange={handleEstatePlanChange}
+                    >
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
+                    </Select>
+                  </FormControl>
+                  <button
+                    onClick={handleCreateNewbeneficiary}
+                    className=" w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
+                  >
+                    {isAddingBeneficiary ? <Spinner /> : "Add Estate Plan"}
+                  </button>
+                </form>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
           <Modal
             isOpen={addBeneficiary.isOpen}
             size={"5xl"}
@@ -490,63 +612,6 @@ export default function EstatePlans() {
                     </Select>
                     <FormErrorMessage>Enter a valid address</FormErrorMessage>
                   </FormControl>
-                  {/* <FormControl w="100%">
-                    <FormLabel fontSize="1.6rem">Marital status</FormLabel>
-                    <Select
-                      placeholder="Select an option"
-                      value={newBeneficiary.marital_status}
-                      name="marital_status"
-                      onChange={handleChange}
-                    >
-                      <option value="married">married</option>
-                      <option value="single">Single</option>
-                      <option value="divorced">Divorced</option>
-                    </Select>
-                    <FormErrorMessage>Enter a valid address</FormErrorMessage>
-                  </FormControl> */}
-                  {/* <FormControl w="100%">
-                    <FormLabel fontSize="1.6rem">Bank name</FormLabel>
-                    <Select
-                      placeholder="Select an option"
-                      name="banker"
-                      value={newBeneficiary.banker}
-                      onChange={handleChange}
-                      width="100%"
-                    >
-                      {banks.map((bank) => (
-                        <option key={bank.id} value={bank.name}>
-                          {bank.name}
-                        </option>
-                      ))}
-                    </Select>
-                    <FormErrorMessage>Enter a valid address</FormErrorMessage>
-                  </FormControl>
-                  <FormControl w="100%">
-                    <FormLabel>Account name</FormLabel>
-                    <input
-              
-                      type="text"
-                      name="account_name"
-                      value={newBeneficiary.account_name}
-                      onChange={handleChange}
-                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
-                    />
-
-                    <FormErrorMessage>Enter the account name</FormErrorMessage>
-                  </FormControl>
-                  <FormControl w="100%">
-                    <FormLabel>Account number</FormLabel>
-                    <input
-              
-                      type="number"
-                      name="account_number"
-                      value={newBeneficiary.account_number}
-                      onChange={handleChange}
-                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
-                    />
-
-                    <FormErrorMessage>Enter 10 digits</FormErrorMessage>
-                  </FormControl> */}
                   <button
                     onClick={handleCreateNewbeneficiary}
                     className=" w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
