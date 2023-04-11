@@ -42,6 +42,7 @@ import Head from "next/head";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { fetchBeneficiaries } from "../../redux/beneficiaries/beneficiariesActions";
+import { fetchEstatePlans } from "../../redux/estateplans/estatePlansActions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import AuthWrapper from "../../components/AuthWrapper";
@@ -50,7 +51,7 @@ import { NewUser } from "../../components/NewUser";
 import NoBenefSvg from "../../public/assets/no-beneficiary.svg";
 import NoAssetSvg from "../../public/assets/no-asset.svg";
 import Image from "next/image";
-import { estatePlans } from "../../util";
+import { estatePlanSugestions } from "../../util";
 import SimpleWillCard from "../../components/SimpleWillCard";
 
 export const estateplanList = [
@@ -68,15 +69,19 @@ const estatePlanNames = [
 
 export default function EstatePlans() {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const dispatch = useDispatch();
+  const addBeneficiary = useDisclosure();
+  const addEstatePlan = useDisclosure();
+  //const estatePlanItem = useDisclosure();
   const { userDetails } = useSelector((state) => state.user);
   const { loading, userBeneficiaries, error } = useSelector(
     (state) => state.userBeneficiaries
   );
+  const { estatePlans } = useSelector((state) => state.estatePlans);
   const router = useRouter();
   const estatePlanModal = useDisclosure();
   const beneficiaryModal = useDisclosure();
-  const [estateplans, setEstatePlans] = useState([]);
-  const estatePlanItem = useDisclosure();
+  //const [estateplans, setEstatePlans] = useState([]);
   const [estateItem, setEstateItem] = useState({
     name: "",
     details: "",
@@ -90,7 +95,6 @@ export default function EstatePlans() {
     account: "",
     dob: "",
   });
-  const dispatch = useDispatch();
 
   const [isAddingBeneficiary, setIsAddingBeneficiary] = useState(false);
   const [isAddingEstatePlan, setIsAddingEstatePlan] = useState(false);
@@ -115,6 +119,17 @@ export default function EstatePlans() {
         dispatch(logout());
       } else {
         dispatch(fetchBeneficiaries(userToken));
+      }
+    }
+  }, [dispatch, userToken]);
+  const handleFetchEstatePlans = useCallback(() => {
+    let token;
+    if (userToken) {
+      token = jwt_decode(userToken);
+      if (Date.now() >= token.exp * 1000) {
+        dispatch(logout());
+      } else {
+        dispatch(fetchEstatePlans(userToken));
       }
     }
   }, [dispatch, userToken]);
@@ -212,34 +227,8 @@ export default function EstatePlans() {
     });
   };
 
-  const fetchEstatePlans = useCallback(async () => {
-    let token;
-    setIsFetchingEstatePlans(true);
-    if (userToken) {
-      token = jwt_decode(userToken);
-      if (Date.now() >= token.exp * 1000) {
-        dispatch(logout());
-      } else {
-        try {
-          const {
-            data: { data },
-          } = await axios({
-            method: "get",
-            url: `${baseUrl}/estate-plans`,
-            headers: { Authorization: "Bearer " + userToken },
-          });
-          setEstatePlans(data);
-          setIsFetchingEstatePlans(false);
-        } catch (error) {
-          setIsFetchingEstatePlans(false);
-        }
-      }
-    }
-  }, [dispatch, userToken]);
-  const addBeneficiary = useDisclosure();
-  const addEstatePlan = useDisclosure();
   const handleSetItemToShow = (i) => {
-    setEstateItem(estateplans[i]);
+    setEstateItem(estatePlans[i]);
     estatePlanModal.onOpen();
   };
   const handleSetBeneficiaryShow = (i) => {
@@ -252,8 +241,8 @@ export default function EstatePlans() {
       router.push("/login");
     }
     handleFetchBeneficiaries();
-    fetchEstatePlans();
-  }, [fetchEstatePlans, handleFetchBeneficiaries, router, userToken]);
+    handleFetchEstatePlans();
+  }, [handleFetchBeneficiaries, handleFetchEstatePlans, router, userToken]);
 
   return (
     userDetails && (
@@ -306,7 +295,7 @@ export default function EstatePlans() {
                   Add Estate Plan
                 </Button>
 
-                {estateplans.length > 0 ? (
+                {estatePlans.length > 0 ? (
                   <Flex
                     flexWrap="wrap"
                     justifyContent={{
@@ -317,7 +306,7 @@ export default function EstatePlans() {
                     mt={"5rem"}
                   >
                     {isFetchingEstatePlans && <Spinner />}
-                    {estateplans.map((item, i) => (
+                    {estatePlans.map((item, i) => (
                       <>
                         <EstatePlanItem
                           key={item.id}
@@ -416,7 +405,7 @@ export default function EstatePlans() {
                   </h3>
                   <br />
                   <div className="relative flex items-center overflow-x-auto space-x-8">
-                    {estatePlans.map((estatePlan, i) => (
+                    {estatePlanSugestions.map((estatePlan, i) => (
                       <SimpleWillCard
                         key={estatePlan.sn}
                         estatePlan={estatePlan}

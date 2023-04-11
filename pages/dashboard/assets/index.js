@@ -19,7 +19,6 @@ import { useEffect, useState } from "react";
 import {
   AiOutlineBank,
   AiOutlinePartition,
-  AiOutlineWallet,
   AiOutlineStock,
   AiOutlineBarcode,
   AiOutlineAreaChart,
