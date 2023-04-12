@@ -284,7 +284,7 @@ export default function EstatePlans() {
 
             <TabPanels>
               <TabPanel>
-                <br />
+                {/* <br />
                 <Button
                   bg={"darkgreen"}
                   colorScheme={"darkgreen"}
@@ -293,7 +293,7 @@ export default function EstatePlans() {
                   onClick={addEstatePlan.onOpen}
                 >
                   Add Estate Plan
-                </Button>
+                </Button> */}
 
                 {estatePlans.length > 0 ? (
                   <Flex
@@ -429,7 +429,7 @@ export default function EstatePlans() {
               </TabPanel>
             </TabPanels>
           </Tabs>
-          <Modal
+          {/* <Modal
             isOpen={addEstatePlan.isOpen}
             size={"5xl"}
             onClose={addEstatePlan.onClose}
@@ -503,7 +503,7 @@ export default function EstatePlans() {
                 </form>
               </ModalBody>
             </ModalContent>
-          </Modal>
+          </Modal> */}
           <Modal
             isOpen={addBeneficiary.isOpen}
             size={"5xl"}
