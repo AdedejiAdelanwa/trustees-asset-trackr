@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = { 
+module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -11,6 +11,7 @@ module.exports = {
       lightgrey: "#F3F3F3",
       grey: "#E2DFDF",
       black: "#323232",
+      red: "#FF0000",
 
       lightgreen: "#BBF1D1",
       pitch: "#F9B353",
@@ -25,8 +26,8 @@ module.exports = {
 
     screens: {
       md: { max: "800px" },
-      sm: { max: "414px" }
-    }
+      sm: { max: "414px" },
+    },
   },
   plugins: [],
 };

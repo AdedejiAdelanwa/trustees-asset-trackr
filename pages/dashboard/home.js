@@ -57,7 +57,7 @@ import {
 //import Image from "next/image";
 import NoAssetSvg from "../../public/assets/no-asset.svg";
 import { NewUser } from "../../components/NewUser";
-import { estatePlans } from "../../util";
+import { estatePlanSugestions } from "../../util";
 
 const assetTypes = [
   { name: "₦ Naira Assets", value: "Naira" },
@@ -427,7 +427,7 @@ export default function Index() {
             PROTECT YOUR LOVED ONES
           </h3>
           <div className="relative flex items-center overflow-x-auto space-x-8">
-            {estatePlans.map((estatePlan, i) => (
+            {estatePlanSugestions.map((estatePlan, i) => (
               <SimpleWillCard key={estatePlan.sn} estatePlan={estatePlan} />
             ))}
           </div>

@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import EstatePlanItem from "./EstatePlanItem";
 import { BsPersonCircle } from "react-icons/bs";
-import { beneficiaries } from "../pages/dashboard/estate-plans";
+//import { beneficiaries } from "../pages/dashboard/estate-plans";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
