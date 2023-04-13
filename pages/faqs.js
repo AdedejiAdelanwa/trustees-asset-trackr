@@ -169,7 +169,7 @@ const FAQs = () => {
                 <u>
                   <h3> What are Stocks </h3>
                 </u>
-                <p>Stocks are a type of security that gives stockholders a share of ownership in a company. Stocks also are called “equities or shares."</p>
+                <p>Stocks are a type of security that gives stockholders a share of ownership in a company. Stocks also are called equities or shares</p>
                 
               </p><br />
              
