@@ -139,35 +139,35 @@ export default function EstatePlans() {
       [e.target.name]: e.target.value,
     });
   };
-  const handleCreateEstatePlan = async (e) => {
-    e.preventDefault();
-    setIsAddingEstatePlan(true);
-    try {
-      const {
-        data: { message },
-      } = await axios({
-        method: "post",
-        url: `${baseUrl}/estate-plan`,
-        headers: { Authorization: "Bearer " + userToken },
-        data: estateItem,
-      });
-      setIsAddingEstatePlan(false);
-      toast.success(message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+  // const handleCreateEstatePlan = async (e) => {
+  //   e.preventDefault();
+  //   setIsAddingEstatePlan(true);
+  //   try {
+  //     const {
+  //       data: { message },
+  //     } = await axios({
+  //       method: "post",
+  //       url: `${baseUrl}/estate-plan`,
+  //       headers: { Authorization: "Bearer " + userToken },
+  //       data: estateItem,
+  //     });
+  //     setIsAddingEstatePlan(false);
+  //     toast.success(message, {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     });
 
-      setEstateItem({
-        name: "",
-        details: "",
-        status: "",
-      });
-    } catch (error) {
-      setIsAddingEstatePlan(false);
-      toast.error(error, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
-  };
+  //     setEstateItem({
+  //       name: "",
+  //       details: "",
+  //       status: "",
+  //     });
+  //   } catch (error) {
+  //     setIsAddingEstatePlan(false);
+  //     toast.error(error, {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     });
+  //   }
+  // };
   const handleCreateNewbeneficiary = async (e) => {
     e.preventDefault();
 
@@ -220,12 +220,12 @@ export default function EstatePlans() {
       }
     }
   };
-  const handleEstatePlanChange = (e) => {
-    setEstateItem({
-      ...estateItem,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const handleEstatePlanChange = (e) => {
+  //   setEstateItem({
+  //     ...estateItem,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   const handleSetItemToShow = (i) => {
     setEstateItem(estatePlans[i]);
