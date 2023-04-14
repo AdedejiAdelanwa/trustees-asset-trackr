@@ -30,12 +30,48 @@ const FAQs = () => {
               </h2>
               <p>
                 <u>
-                  <Link href="#">What is a trust?</Link>
+                  <h3> When should i establish a trust?</h3>
                 </u>
+                <p>
+                  when you have amassed wealth to an extent, with an intent to
+                  transfer it your beneficiaries
+                </p>
               </p>
+              <br />
               <p>
                 <u>
-                  <Link href="#">Who is a trustee?</Link>
+                  <h3> Who owns the property in a Trust.</h3>
+                </u>
+                <p>
+                  By law the assets in a trust are owned by the trustee, however
+                  such ownership is restricted by the terms of the trust and
+                  legal constraints.
+                </p>
+              </p>
+              <br />
+              <p>
+                <u>
+                  <h3>
+                    {" "}
+                    What kind of assets are important to establish a trust?
+                  </h3>
+                </u>
+                <p>Everything of value can be put in a trust</p>
+              </p>
+              <br />
+              <p>
+                <u>
+                  <h3>Can a beneficiary withdraw money from a trust</h3>
+                </u>
+                <p>
+                  A beneficiary can only access the trust fund in accordance
+                  with the provision of the trust deed
+                </p>
+              </p>
+              <br />
+              <p>
+                <u>
+                  <h3>Will i have control over a trust i set up</h3>
                 </u>
               </p>
               <p>
@@ -46,147 +82,138 @@ const FAQs = () => {
                 </u>
               </p>
             </div>
+          </div>
 
-            <div className="w-[335px] sm:w-[25rem]">
+          <div className=" w-[33.5rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
+            <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
+              <h2 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
+                {""}
+              </h2>
+
+              <p>
+                <u>
+                  <h3>
+                    {" "}
+                    I have a living trust already; do i also need a will?
+                  </h3>
+                </u>
+                <p>
+                  This is largely dependent on your estate planning objective
+                  and the kind of assets owned, some assets may be suitably
+                  planned by writing a will.
+                </p>
+              </p>
+              <br />
+              <p>
+                <u>
+                  <h3>
+                    {" "}
+                    Are the Trustee Subject to Any Rules or Regulations?{" "}
+                  </h3>
+                </u>
+                <p>
+                  Yes, The Trustee is subject to statutes, common law and
+                  judicial pronouncements on the subject of trust
+                </p>
+              </p>
+              <br />
+              <p>
+                <u>
+                  <h3> Can I have multiple trusts?</h3>
+                </u>
+                <p>
+                  {" "}
+                  Yes, as long as those trust do not touch on the same subject
+                  matter.
+                </p>
+              </p>
+              <br />
+            </div>
+
+            <div className="w-[335px] mb-10 sm:w-[25rem]">
+              <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
+                Beneficiaries
+              </h1>
+              <p>
+                <u>
+                  <h3>
+                    {" "}
+                    What is the process of transferring assets to beneficiaries?
+                  </h3>
+                </u>
+                <p>Through a Will, a deed of gift or a Trust.</p>
+              </p>
+              <br />
+            </div>
+
+            <div className="w-[335px] mb-10 sm:w-[25rem]">
+              <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
+                Assets
+              </h1>
+              <p>
+                <u>
+                  <h3>What kind of assets are important to track?</h3>
+                </u>
+                <p>Everything of value can be put in a trust</p>
+              </p>
+              <br />
+            </div>
+          </div>
+          {/* second */}
+          <div className=" w-[33.5rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
+            <div className="w-[335px] mb-10 sm:w-[25rem]">
+              <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
+                General
+              </h1>
+              <p>
+                <u>
+                  <h3>
+                    Why should I set up an asset tracking account when I already
+                    have an Estate Plan?
+                  </h3>
+                </u>
+                <p>
+                  Our asset tracking service gives you the opportunity to view
+                  all your assets, no matter the type and wherever they are. It
+                  also gives your beneficiary an idea of what your assets are,
+                  and where they may be found. This is relevant for the purpose
+                  of processing Letters of Administration for example.
+                </p>
+              </p>
+              <br />
+            </div>
+
+            <div className="w-[335px] mb-10 sm:w-[25rem]">
               <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
                 Real Estate
               </h1>
               <p>
                 <u>
-                  <Link href="#">What is a trust?</Link>
+                  <h3> What are Real Estate properties</h3>
                 </u>
+                <p>
+                  Real estate properties include lands and things permanently
+                  attached to it, such as houses.
+                </p>
               </p>
-              <p>
-                <u>
-                  <Link href="#">Who is a trustee?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">
-                    What is the process for transfering assets to beneficiaries?
-                  </Link>
-                </u>
-              </p>
-            </div>
-          </div>
-
-          <div className=" w-[33.5rem] sm:flex-col sm:w-[32rem] sm:mb-3 sm:px-[3rem] md:flex md:w-[70rem]">
-            <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
-              <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] md:text-[2.9rem]">
-                Assets{" "}
-              </h1>
-              <p>
-                <u>
-                  <Link href="#">What is a trust?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">Who is a trustee?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">
-                    What is the process for transfering assets to beneficiaries?
-                  </Link>
-                </u>
-              </p>
+              <br />
             </div>
 
-            <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
-              <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] md:text-[2.9rem]">
-                Beneficiaries
-              </h1>
-              <p>
-                <u>
-                  <Link href="#">What is a trust?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">Who is a trustee?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">
-                    What is the process for transfering assets to beneficiaries?
-                  </Link>
-                </u>
-              </p>
-            </div>
-
-            <div className="w-[33.5rem] sm:w-[25rem]">
-              <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] md:text-[2.9rem]">
-                General FAQ
-              </h1>
-              <p>
-                <u>
-                  <Link href="#">What is a trust?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">Who is a trustee?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">
-                    What is the process for transfering assets to beneficiaries?
-                  </Link>
-                </u>
-              </p>
-            </div>
-          </div>
-
-          <div className=" w-[33.5rem] h-[37rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
-            <div className="w-[33.5rem] mb-7 sm:w-[25rem] ">
-              <h1 className=" mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:text-[2.9rem] md:mb-2">
-                Trust
-              </h1>
-              <p>
-                <u>
-                  <Link href="#">What is a trust?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">Who is a trustee?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">
-                    What is the process for transfering assets to beneficiaries?
-                  </Link>
-                </u>
-              </p>
-            </div>
-
-            <div className="w-[33.5rem] mb-7 sm:w-[25rem]">
-              <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem]  md:text-[2.9rem]">
+            <div className="w-[335px] mb-10 sm:w-[25rem]">
+              <h1 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
                 Stocks
               </h1>
               <p>
                 <u>
-                  <Link href="#">What is a trust?</Link>
+                  <h3> What are Stocks </h3>
                 </u>
+                <p>
+                  Stocks are a type of security that gives stockholders a share
+                  of ownership in a company. Stocks also are called equities or
+                  shares
+                </p>
               </p>
-              <p>
-                <u>
-                  <Link href="#">Who is a trustee?</Link>
-                </u>
-              </p>
-              <p>
-                <u>
-                  <Link href="#">
-                    What is the process for transfering assets to beneficiaries?
-                  </Link>
-                </u>
-              </p>
+              <br />
             </div>
           </div>
         </div>
