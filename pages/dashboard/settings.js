@@ -413,6 +413,7 @@ export default function Settings() {
             isOpen={isOtpModalOpen}
             onClose={onOtpModalClose}
             isCentered
+
           >
             <ModalOverlay
               bg="none"

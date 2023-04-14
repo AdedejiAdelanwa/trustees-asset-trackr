@@ -23,7 +23,7 @@ const FAQs = () => {
           </h1>
         </div>
         <div className="flex mt-[5rem] justify-between px-[10rem] sm:flex-col sm:px-[4rem] md:px-[5rem] md:flex-col">
-          <div className=" w-[33.5rem] h-[35rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
+          <div className=" w-[33.5rem] sm:flex-col sm:w-[32rem] sm:h-[40rem] sm:px-[3rem] md:flex md:w-[50rem] md:h-[20rem]">
             <div className="w-[33.5rem] mb-10 sm:w-[25rem]">
               <h2 className="mb-3 text-[3.2rem] sm:text-[2.5rem] sm:mb-1 md:mb-2 md:text-[2.9rem]">
                 Estate Plans
@@ -81,6 +81,12 @@ const FAQs = () => {
                   </Link>
                 </u>
               </p>
+              <p>
+                <p>
+                  Yes, however the extent of control is as provided by
+                  applicable law and the trust deed.
+                </p>
+              </p>
             </div>
           </div>
 
@@ -106,10 +112,7 @@ const FAQs = () => {
               <br />
               <p>
                 <u>
-                  <h3>
-                    {" "}
-                    Are the Trustee Subject to Any Rules or Regulations?{" "}
-                  </h3>
+                  <h3>Are the Trustee Subject to Any Rules or Regulations? </h3>
                 </u>
                 <p>
                   Yes, The Trustee is subject to statutes, common law and
@@ -122,7 +125,6 @@ const FAQs = () => {
                   <h3> Can I have multiple trusts?</h3>
                 </u>
                 <p>
-                  {" "}
                   Yes, as long as those trust do not touch on the same subject
                   matter.
                 </p>
@@ -137,13 +139,16 @@ const FAQs = () => {
               <p>
                 <u>
                   <h3>
-                    {" "}
                     What is the process of transferring assets to beneficiaries?
                   </h3>
                 </u>
                 <p>Through a Will, a deed of gift or a Trust.</p>
               </p>
-              <br />
+              <p>
+                <u>
+                  <Link href="#">Who is a trustee?</Link>
+                </u>
+              </p>
             </div>
 
             <div className="w-[335px] mb-10 sm:w-[25rem]">
