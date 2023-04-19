@@ -119,9 +119,9 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Mapp | Meristem Trustees</title>
+        <title>Asset Tracker | Meristem Trustees</title>
         <meta
-          name="MAPP"
+          name="Meristem Trustees Asset Tracker"
           content="Easily keep track of your assets, designate beneficiaries and receive estate planning products tailored to your assets."
         />
         <link rel="icon" href="/favicon.ico" />
@@ -237,7 +237,7 @@ const Login = () => {
 
             <Link href="/resetpassword">
               <div className="font-semibold text-darkgreen text-[1.8rem] mt-[1.5rem] cursor-pointer">
-                Forgot Password?
+                Forget Password?
               </div>
             </Link>
           </div>

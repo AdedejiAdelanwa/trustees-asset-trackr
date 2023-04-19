@@ -399,24 +399,33 @@ export default function EstatePlans() {
                 </Flex>
               </TabPanel>
               <TabPanel>
-          <div className="mt-[4.4rem] sm:mt-[5rem]">
-          <h3 className="font-semibold text-[2.8rem]">
-           PROTECT YOUR LOVED ONES
-          </h3><br />
-          <div className="relative flex items-center overflow-x-auto space-x-8">
-            {estatePlans.map((estatePlan, i) => (
-              <SimpleWillCard key={estatePlan.sn} estatePlan={estatePlan} />
-            ))}
-            </div>
-            <div>
-            <h3 className="mt-[4.4rem] sm:mt-[5rem] text-[1.5rem] text-center">
-            Need Help Selecting An Estate Plan, Click 
-            <Link href="https://form.typeform.com/to/D0xUBFsk"> here </Link> to take an Assessment
-              <br />You can also call – 07025640071  Or Send an email to mapp@meristemng.com
-            </h3>
-          </div>      
-        </div>
-
+                <div className="mt-[4.4rem] sm:mt-[5rem]">
+                  <h3 className="font-semibold text-[2.8rem]">
+                    PROTECT YOUR LOVED ONES
+                  </h3>
+                  <br />
+                  <div className="relative flex items-center overflow-x-auto space-x-8">
+                    {estatePlanSugestions.map((estatePlan, i) => (
+                      <SimpleWillCard
+                        key={estatePlan.sn}
+                        estatePlan={estatePlan}
+                      />
+                    ))}
+                  </div>
+                  <div>
+                    <h3 className="mt-[4.4rem] sm:mt-[5rem] text-[1.5rem] text-center">
+                      Not sure which Estate Plan, click
+                      <Link href="https://forms.meristemng.com/trustquestionnaire/">
+                        {" "}
+                        here{" "}
+                      </Link>{" "}
+                      to take an Assessment
+                      <br />
+                      You can also call – 090XXXXXXXXXXXX Or Send an email to
+                      trustees@meristemng.com
+                    </h3>
+                  </div>
+                </div>
               </TabPanel>
             </TabPanels>
           </Tabs>
