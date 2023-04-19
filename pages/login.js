@@ -69,9 +69,9 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Asset Tracker | Meristem Trustees</title>
+        <title>Mapp | Meristem Trustees</title>
         <meta
-          name="Meristem Trustees Asset Tracker"
+          name="MAPP"
           content="Easily keep track of your assets, designate beneficiaries and receive estate planning products tailored to your assets."
         />
         <link rel="icon" href="/favicon.ico" />
@@ -168,7 +168,7 @@ const Login = () => {
             </form>
             <Link href="/resetpassword">
               <div className="font-semibold text-darkgreen text-[1.8rem] mt-[1.5rem] cursor-pointer">
-                Forget Password?
+                Forgot Password?
               </div>
             </Link>
           </div>
