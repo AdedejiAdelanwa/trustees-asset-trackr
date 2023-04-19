@@ -33,7 +33,7 @@ export default function Home() {
       heading: "Peace of mind",
       hexCode: "#E4E9DF",
       textBody:
-        "Eliminate all the worries associated with what happens to your assets in your absence. Asset Tracker will sort it out.",
+        "Eliminate all the worries associated with what happens to your assets in your absence. Mapp will sort it out.",
     },
     {
       icon: securityIcon,
@@ -46,14 +46,14 @@ export default function Home() {
       icon: helpingHand,
       heading: "Built for you",
       hexCode: "#E1F9EB",
-      textBody: `We understand that everyone has different assets and needs. "Asset tracker" enables you to track it all - cash, equities, real estate, digital assets, and more!`,
+      textBody: `We understand that everyone has different assets and needs. "Mapp" enables you to track it all - cash, equities, real estate, digital assets, and more!`,
     },
   ];
 
   return (
     <div>
       <Head>
-        <title>Asset Tracker | Meristem Trustees</title>
+        <title>Mapp | Meristem Trustees</title>
         <meta
           name="description"
           content="Seamlessly track your assets, designate beneficiaries and access estate planning products tailored to your needs."
@@ -215,7 +215,7 @@ export default function Home() {
           <TextBlock
             heading=" Keep track of your assets"
             text1=" Track your assets and monitor their growth seamlessly."
-            text2="  With 'asset tracker' the total value of your cash, investments, real
+            text2="  With 'Mapp' the total value of your cash, investments, real
         estate and digital assets are organised and consolidated."
           ></TextBlock>
         </SectionFlex>
@@ -244,7 +244,7 @@ export default function Home() {
           <TextBlock
             heading="Plan for those you love"
             text1="Give what you want, to whom you want, in the way and manner you want it."
-            text2="'Asset tracker' helps you protect the interests of your loved ones by creating by an estate plan tailored to your needs."
+            text2="'Mapp' helps you protect the interests of your loved ones by creating by an estate plan tailored to your needs."
           />
         </SectionFlex>
         <SectionFlex
