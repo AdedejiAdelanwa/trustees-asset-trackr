@@ -491,4 +491,3 @@ Settings.getLayout = function getLayout(page) {
     </AuthWrapper>
   );
 };
-

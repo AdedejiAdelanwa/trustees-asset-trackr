@@ -11,7 +11,7 @@ const CardWrapper = ({ icon, heading, textBody, hexCode }) => (
     padding="1.5rem"
     transitionDuration="300ms"
     _hover={{
-      border: "1px solid #008145",
+      border: "1px solid #345C45",
       boxShadow: "0 3.25px 2.4rem 0px rgba(151, 169, 46, 0.3)",
     }}
   >
