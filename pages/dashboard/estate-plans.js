@@ -29,7 +29,6 @@ import {
 import DashBoardContainer from "../../components/DashboardLayout";
 import MainHeader from "../../components/MainHeader";
 import SideNav from "../../components/SideNavigation";
-import { BiSearchAlt2 } from "react-icons/bi";
 import { RiFileList3Line } from "react-icons/ri";
 import EstatePlanItem from "../../components/EstatePlanItem";
 import { BsPersonCircle } from "react-icons/bs";
@@ -38,20 +37,21 @@ import { useCallback, useEffect, useState } from "react";
 import BeneficiaryDetailsModal from "../../components/BeneficiaryDetailsModal";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { banks, baseUrl } from "../../util";
+import { baseUrl } from "../../util";
 import Head from "next/head";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { fetchBeneficiaries } from "../../redux/beneficiaries/beneficiariesActions";
+import { fetchEstatePlans } from "../../redux/estateplans/estatePlansActions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import AuthWrapper from "../../components/AuthWrapper";
 import { logout } from "../../redux/user/userSlice";
 import { NewUser } from "../../components/NewUser";
 import NoBenefSvg from "../../public/assets/no-beneficiary.svg";
+import NoAssetSvg from "../../public/assets/no-asset.svg";
 import Image from "next/image";
-import Writer from "../../public/assets/will-writer.png";
-import { estatePlans } from "../../util";
+import { estatePlanSugestions } from "../../util";
 import SimpleWillCard from "../../components/SimpleWillCard";
 
 export const estateplanList = [
@@ -61,23 +61,33 @@ export const estateplanList = [
   { name: "mkat", status: "processing" },
   { name: "mfat", status: "active" },
 ];
+const estatePlanNames = [
+  "simple will",
+  "comprehensive will",
+  "education trust",
+];
 
 export default function EstatePlans() {
   const userToken = JSON.parse(localStorage.getItem("userToken"));
+  const dispatch = useDispatch();
+  const addBeneficiary = useDisclosure();
+  const addEstatePlan = useDisclosure();
+  //const estatePlanItem = useDisclosure();
   const { userDetails } = useSelector((state) => state.user);
   const { loading, userBeneficiaries, error } = useSelector(
     (state) => state.userBeneficiaries
   );
+  const { estatePlans } = useSelector((state) => state.estatePlans);
   const router = useRouter();
   const estatePlanModal = useDisclosure();
   const beneficiaryModal = useDisclosure();
-  const estatePlanItem = useDisclosure();
-  const [estateItem, setEstateItem] = useState({ name: "", status: "" });
-  const [estatePlan, setEstatePlan] = useState({
+  //const [estateplans, setEstatePlans] = useState([]);
+  const [estateItem, setEstateItem] = useState({
     name: "",
     details: "",
-    actionUrl: "",
+    status: "",
   });
+
   const [beneficiaryItem, setBeneficiaryItem] = useState({
     name: "",
     relationship: "",
@@ -85,8 +95,10 @@ export default function EstatePlans() {
     account: "",
     dob: "",
   });
-  const dispatch = useDispatch();
+
   const [isAddingBeneficiary, setIsAddingBeneficiary] = useState(false);
+  const [isAddingEstatePlan, setIsAddingEstatePlan] = useState(false);
+  const [isFetchingEstatePlans, setIsFetchingEstatePlans] = useState(false);
   const [newBeneficiary, setNewBeneficiary] = useState({
     firstname: "",
     surname: "",
@@ -98,7 +110,7 @@ export default function EstatePlans() {
     gender: "",
     marital_status: "",
   });
-  const [estateplans, setEstatePlans] = useState([]);
+
   const handleFetchBeneficiaries = useCallback(() => {
     let token;
     if (userToken) {
@@ -110,12 +122,52 @@ export default function EstatePlans() {
       }
     }
   }, [dispatch, userToken]);
+  const handleFetchEstatePlans = useCallback(() => {
+    let token;
+    if (userToken) {
+      token = jwt_decode(userToken);
+      if (Date.now() >= token.exp * 1000) {
+        dispatch(logout());
+      } else {
+        dispatch(fetchEstatePlans(userToken));
+      }
+    }
+  }, [dispatch, userToken]);
   const handleChange = (e) => {
     setNewBeneficiary({
       ...newBeneficiary,
       [e.target.name]: e.target.value,
     });
   };
+  // const handleCreateEstatePlan = async (e) => {
+  //   e.preventDefault();
+  //   setIsAddingEstatePlan(true);
+  //   try {
+  //     const {
+  //       data: { message },
+  //     } = await axios({
+  //       method: "post",
+  //       url: `${baseUrl}/estate-plan`,
+  //       headers: { Authorization: "Bearer " + userToken },
+  //       data: estateItem,
+  //     });
+  //     setIsAddingEstatePlan(false);
+  //     toast.success(message, {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     });
+
+  //     setEstateItem({
+  //       name: "",
+  //       details: "",
+  //       status: "",
+  //     });
+  //   } catch (error) {
+  //     setIsAddingEstatePlan(false);
+  //     toast.error(error, {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     });
+  //   }
+  // };
   const handleCreateNewbeneficiary = async (e) => {
     e.preventDefault();
 
@@ -168,39 +220,20 @@ export default function EstatePlans() {
       }
     }
   };
+  // const handleEstatePlanChange = (e) => {
+  //   setEstateItem({
+  //     ...estateItem,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
-  const fetchEstatePlans = useCallback(async () => {
-    let token;
-    if (userToken) {
-      token = jwt_decode(userToken);
-      if (Date.now() >= token.exp * 1000) {
-        dispatch(logout());
-      } else {
-        try {
-          const {
-            data: { data },
-          } = await axios({
-            method: "get",
-            url: `${baseUrl}/estate-plans`,
-            headers: { Authorization: "Bearer " + userToken },
-          });
-          setEstatePlans(data);
-        } catch (error) {}
-      }
-    }
-  }, [dispatch, userToken]);
-  const addBeneficiary = useDisclosure();
   const handleSetItemToShow = (i) => {
-    setEstateItem(estateplanList[i]);
+    setEstateItem(estatePlans[i]);
     estatePlanModal.onOpen();
   };
   const handleSetBeneficiaryShow = (i) => {
     setBeneficiaryItem(userBeneficiaries[i]);
     beneficiaryModal.onOpen();
-  };
-  const handleEstatePlanItemShow = (i) => {
-    setEstatePlan(estatePlans[i]);
-    estatePlanItem.onOpen();
   };
 
   useEffect(() => {
@@ -208,8 +241,8 @@ export default function EstatePlans() {
       router.push("/login");
     }
     handleFetchBeneficiaries();
-    fetchEstatePlans();
-  }, [fetchEstatePlans, handleFetchBeneficiaries, router, userToken]);
+    handleFetchEstatePlans();
+  }, [handleFetchBeneficiaries, handleFetchEstatePlans, router, userToken]);
 
   return (
     userDetails && (
@@ -226,8 +259,7 @@ export default function EstatePlans() {
         <section className="main-content">
           <div className="flex items-center justify-between">
             <h2 className="text-[2.8rem] font-bold">My Estate Plans </h2>
-
-           </div>
+          </div>
           <Tabs mt={"3rem"} fontSize="1.6rem">
             <TabList borderBottomColor={"grey"}>
               <Tab
@@ -252,31 +284,65 @@ export default function EstatePlans() {
 
             <TabPanels>
               <TabPanel>
-                <Flex
-                  flexWrap="wrap"
-                  justifyContent={{ base: "space-around", lg: "space-between" }}
-                  gap="2rem"
-                  mt={"5rem"}
+                {/* <br />
+                <Button
+                  bg={"darkgreen"}
+                  colorScheme={"darkgreen"}
+                  className="py-[1rem] px-[2rem]"
+                  size="lg"
+                  onClick={addEstatePlan.onOpen}
                 >
-                  {estateplanList.map((item, i) => (
-                    <EstatePlanItem
-                      key={item.sn}
-                      onOpen={() => handleSetItemToShow(i)}
-                    >
-                      <RiFileList3Line fontSize={"2.5rem"} color="darkgreen" />
+                  Add Estate Plan
+                </Button> */}
 
-                      <Stack spacing={"0"}>
-                        <Heading fontFamily={"Poppins"}>{item.name}</Heading>
-                        <Text color={"gray"}>{item.status}</Text>
-                      </Stack>
-                    </EstatePlanItem>
-                  ))}
-                  <EstatePlanDetailsModal
-                    estateItem={estateItem}
-                    isOpen={estatePlanModal.isOpen}
-                    onClose={estatePlanModal.onClose}
-                  />
-                </Flex>
+                {estatePlans.length > 0 ? (
+                  <Flex
+                    flexWrap="wrap"
+                    justifyContent={{
+                      base: "space-around",
+                      lg: "space-between",
+                    }}
+                    gap="2rem"
+                    mt={"5rem"}
+                  >
+                    {isFetchingEstatePlans && <Spinner />}
+                    {estatePlans.map((item, i) => (
+                      <>
+                        <EstatePlanItem
+                          key={item.id}
+                          onOpen={() => handleSetItemToShow(i)}
+                        >
+                          <RiFileList3Line
+                            fontSize={"2.5rem"}
+                            color="darkgreen"
+                          />
+
+                          <Stack spacing={"0"}>
+                            <Heading fontFamily={"Poppins"}>
+                              {item.estate_plan}
+                            </Heading>
+                            <Text color={"gray"}>{item.status}</Text>
+                          </Stack>
+                        </EstatePlanItem>
+                        <EstatePlanDetailsModal
+                          estateItem={item}
+                          isOpen={estatePlanModal.isOpen}
+                          onClose={estatePlanModal.onClose}
+                        />
+                      </>
+                    ))}
+                  </Flex>
+                ) : (
+                  <Flex
+                    direction="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    h="90vh"
+                    gap="2rem"
+                  >
+                    <NewUser text="estate plan" svg={NoAssetSvg} />
+                  </Flex>
+                )}
               </TabPanel>
               <TabPanel>
                 <br />
@@ -350,9 +416,85 @@ export default function EstatePlans() {
             </h3>
           </div>      
         </div>
+
               </TabPanel>
             </TabPanels>
           </Tabs>
+          {/* <Modal
+            isOpen={addEstatePlan.isOpen}
+            size={"5xl"}
+            onClose={addEstatePlan.onClose}
+            isCentered
+          >
+            <ModalOverlay bg={`rgba(0,0,0,0.4)`} />
+            <ModalContent
+              fontSize="1.6rem"
+              fontFamily={"Poppins"}
+              h="85%"
+              overflowY="scroll"
+            >
+              <ModalHeader fontSize="1.8rem" textTransform={"capitalize"}>
+                add estate plan
+              </ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <form
+                  className="text-[1.6rem] w-[100%] overflow-y-auto"
+                  onSubmit={handleCreateEstatePlan}
+                >
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Name</FormLabel>
+                    <Select
+                      placeholder="Select plan"
+                      value={estateItem.name}
+                      name="name"
+                      onChange={handleEstatePlanChange}
+                    >
+                      {estatePlanNames.map((name) => (
+                        <option value={name} key={name}>
+                          {name}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Details</FormLabel>
+                    <input
+                      type="text"
+                      name="details"
+                      onChange={handleEstatePlanChange}
+                      value={estateItem.details}
+                      placeholder="Describe the estate"
+                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
+                    />
+
+                    <FormErrorMessage>
+                      Enter min. of 3 characters
+                    </FormErrorMessage>
+                  </FormControl>
+                  <FormControl w="100%">
+                    <FormLabel fontSize="1.6rem">Status</FormLabel>
+                    <Select
+                      placeholder="Select status"
+                      value={estateItem.status}
+                      name="status"
+                      onChange={handleEstatePlanChange}
+                    >
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
+                    </Select>
+                  </FormControl>
+                  <button
+                    onClick={handleCreateEstatePlan}
+                    className=" w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"
+                  >
+                    {isAddingEstatePlan ? <Spinner /> : "Add Estate Plan"}
+                  </button>
+                </form>
+              </ModalBody>
+            </ModalContent>
+          </Modal> */}
           <Modal
             isOpen={addBeneficiary.isOpen}
             size={"5xl"}
@@ -490,63 +632,6 @@ export default function EstatePlans() {
                     </Select>
                     <FormErrorMessage>Enter a valid address</FormErrorMessage>
                   </FormControl>
-                  {/* <FormControl w="100%">
-                    <FormLabel fontSize="1.6rem">Marital status</FormLabel>
-                    <Select
-                      placeholder="Select an option"
-                      value={newBeneficiary.marital_status}
-                      name="marital_status"
-                      onChange={handleChange}
-                    >
-                      <option value="married">married</option>
-                      <option value="single">Single</option>
-                      <option value="divorced">Divorced</option>
-                    </Select>
-                    <FormErrorMessage>Enter a valid address</FormErrorMessage>
-                  </FormControl> */}
-                  {/* <FormControl w="100%">
-                    <FormLabel fontSize="1.6rem">Bank name</FormLabel>
-                    <Select
-                      placeholder="Select an option"
-                      name="banker"
-                      value={newBeneficiary.banker}
-                      onChange={handleChange}
-                      width="100%"
-                    >
-                      {banks.map((bank) => (
-                        <option key={bank.id} value={bank.name}>
-                          {bank.name}
-                        </option>
-                      ))}
-                    </Select>
-                    <FormErrorMessage>Enter a valid address</FormErrorMessage>
-                  </FormControl>
-                  <FormControl w="100%">
-                    <FormLabel>Account name</FormLabel>
-                    <input
-              
-                      type="text"
-                      name="account_name"
-                      value={newBeneficiary.account_name}
-                      onChange={handleChange}
-                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
-                    />
-
-                    <FormErrorMessage>Enter the account name</FormErrorMessage>
-                  </FormControl>
-                  <FormControl w="100%">
-                    <FormLabel>Account number</FormLabel>
-                    <input
-              
-                      type="number"
-                      name="account_number"
-                      value={newBeneficiary.account_number}
-                      onChange={handleChange}
-                      className="w-full py-[0.5rem] border-solid border-[1px]  rounded"
-                    />
-
-                    <FormErrorMessage>Enter 10 digits</FormErrorMessage>
-                  </FormControl> */}
                   <button
                     onClick={handleCreateNewbeneficiary}
                     className=" w-[100%] mt-[1rem] py-[0.6rem] px-[1.5rem] text-white bg-darkgreen text-center  rounded-md border-solid border-2 border-darkgreen  hover:shadow-md"

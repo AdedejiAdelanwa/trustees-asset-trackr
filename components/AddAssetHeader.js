@@ -5,9 +5,8 @@ import {
   AiOutlineMenu,
   AiOutlineQuestionCircle,
 } from "react-icons/ai";
-import { GrDiamond, GrHomeRounded } from "react-icons/gr";
-import { RiFileList3Line, RiQuestionMark } from "react-icons/ri";
-import { FiSettings } from "react-icons/fi";
+
+import { RiQuestionMark } from "react-icons/ri";
 import styled from "styled-components";
 import Logo from "../public/assets/Logo.svg";
 import User from "../public/assets/user-icon.png";
@@ -72,13 +71,14 @@ const HeaderWrapper = styled.header`
 
   @media screen and (max-width: 768px) {
     padding: 0 2rem;
-  }
-  @media screen and (max-width: 414px) {
-    padding: 0 1.5rem;
     svg {
       display: block;
       margin-right: 1.5rem;
     }
+  }
+  @media screen and (max-width: 414px) {
+    padding: 0 1.5rem;
+
     .user-box {
       align-items: center;
       justify-content: center;
