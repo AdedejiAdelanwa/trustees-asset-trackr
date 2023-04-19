@@ -15,7 +15,7 @@ const FAQs = () => {
       <main className="font-Poppins text-[1.8rem]">
         <ExternalHeader />
         <div className="w-full h-[182px] px-[10rem] sm:px-[4rem] md:px-[5rem] p-5 bg-[#BBF1D1] ">
-          <h1 className="w-[50rem] text-[4.8rem] text-[#345C45] sm:w-[32rem] sm:h-[10rem] sm:text-[3rem] sm:mt-[2rem] md:w-[40rem] md:h-[16rem] md:text-[4rem] ">
+          <h1 className="w-[50rem] text-[4.8rem] text-[#008145] sm:w-[32rem] sm:h-[10rem] sm:text-[3rem] sm:mt-[2rem] md:w-[40rem] md:h-[16rem] md:text-[4rem] ">
             Got a question?We’ve got answers
           </h1>
         </div>

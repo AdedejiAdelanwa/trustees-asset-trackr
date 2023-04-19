@@ -97,7 +97,7 @@ const data = {
       fill: true,
       label: "",
       data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
-      borderColor: "#345C45",
+      borderColor: "#008145",
       backgroundColor: "rgba(187, 241, 209, .6)",
     },
   ],
@@ -430,7 +430,7 @@ export default function Index() {
 
           <div>
           <h3 className="mt-[4.4rem] sm:mt-[5rem] text-[1.5rem] text-center">
-            Need Help Selecting An Estate Plan, Click Here 
+            Need Help Selecting An Estate Plan, Click 
             <Link href="https://form.typeform.com/to/D0xUBFsk"> here </Link> to take an Assessment
               <br />You can also call – 07025640071  Or Send an email to mapp@meristemng.com
             </h3>
