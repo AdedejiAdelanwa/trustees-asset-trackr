@@ -382,14 +382,14 @@ export default function Settings() {
                     </Flex>
                   </form>
                 </Box>
-                <Box mt="2rem" w={{ base: "100%", lg: "52rem" }}>
+                {/* <Box mt="2rem" w={{ base: "100%", lg: "52rem" }}>
                   <Heading fontFamily={"Poppins"}>Identification</Heading>
                   <Text>
                     You’ll need to upload a valid means of Identification so we
                     know its you. Select from the list and upload the
                     corresponding document.
                   </Text>
-                </Box>
+                </Box> 
                 <VStack alignItems={"flex-start"} mt="2rem">
                   <Button
                     bg={"darkgreen"}
@@ -401,7 +401,7 @@ export default function Settings() {
                   >
                     Upload
                   </Button>
-                </VStack>
+                </VStack>*/}
               </TabPanel>
             </TabPanels>
           </Tabs>

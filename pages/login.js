@@ -81,6 +81,8 @@ const Login = () => {
       }, 3000);
     } catch (error) {
       setIsResendingOtp(false);
+      toast.error(error.response.data.message);
+  
     }
   };
   const handleVerifyOtp = async (e) => {
@@ -94,7 +96,8 @@ const Login = () => {
       router.push("/login");
     } catch (error) {
       setIsVerifying(false);
-      alert(error);
+      toast.error(error.response.data.message);
+  
     }
   };
 
@@ -119,7 +122,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Asset Tracker | Meristem Trustees</title>
+        <title>MAPP | Meristem Trustees</title>
         <meta
           name="Meristem Trustees Asset Tracker"
           content="Easily keep track of your assets, designate beneficiaries and receive estate planning products tailored to your assets."
@@ -158,6 +161,27 @@ const Login = () => {
         </div>
         <div className="w-1/2 sm:w-full flex justify-center items-center sm:pt-[10rem] bg-white ">
           <div>
+            {
+              error == "Please verify your email address" && (
+              <form>
+                <div className="mt-[1.5rem]">
+                  <span
+                    onClick={handleResendOtp}
+                    className="text-[black] bg-[lightgreen] p-[0.5rem] rounded  cursor-pointer mr-[1rem]"
+                  >
+                    You havent verified your email, kindly click here to Resend Otp? 
+                  </span><br /><br />
+                  {isResendingOtp && <Spinner />}
+                  {isOtpResent && (
+                    <span className="bg-lightgreen color-black ml-[1rem] py-[0.2rem] px-[0.8rem] rounded">
+                      Otp Resent
+                    </span>
+                  )}
+                </div>
+              </form>
+              ) 
+            
+            }
             <h1 className="text-darkgreen text-[3.2rem] ">Log In</h1>
             <p className="text-black text-[1.6rem] mt-[0.1rem]">
               Don’t have an account?
@@ -216,28 +240,11 @@ const Login = () => {
                 </button>
               </Link>
             </form>
-            {error == "Please verify your email address" && (
-              <form>
-                <div className="mt-[1.5rem]">
-                  <span
-                    onClick={handleResendOtp}
-                    className="text-[black] bg-[lightgreen] p-[0.5rem] rounded  cursor-pointer mr-[1rem]"
-                  >
-                    Resend Otp?
-                  </span>
-                  {isResendingOtp && <Spinner />}
-                  {isOtpResent && (
-                    <span className="bg-lightgreen color-black ml-[1rem] py-[0.2rem] px-[0.8rem] rounded">
-                      Otp Resent
-                    </span>
-                  )}
-                </div>
-              </form>
-            )}
+           
 
             <Link href="/resetpassword">
               <div className="font-semibold text-darkgreen text-[1.8rem] mt-[1.5rem] cursor-pointer">
-                Forget Password?
+                Forgot Password?
               </div>
             </Link>
           </div>

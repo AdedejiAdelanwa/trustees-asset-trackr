@@ -149,6 +149,7 @@ const Signup = () => {
     }
     setConfirmPassword(confpassword);
   };
+  
   const handleSignUp = async (e) => {
     e.preventDefault();
     setIsSubmission(true);
@@ -219,7 +220,7 @@ const Signup = () => {
   return (
     <div>
       <Head>
-        <title>Asset Tracker | Meristem Trustees</title>
+        <title>MAPP | Meristem Trustees</title>
         <meta
           name="description"
           content="Seamlessly track your assets, designate beneficiaries and access estate planning products tailored to your needs."
@@ -239,7 +240,7 @@ const Signup = () => {
           </div>
 
           <div className="font-normal w-[45rem] ml-[6.2rem] mb-[5.3rem] md:mb-[13.3rem] md:block md:w-[20rem] md:ml-[4rem]">
-            <h1 className="w-[45rem] h-[20rem] text-[4.8rem] mb-[1.7rem] text-[#345C45] md:w-[31rem] md:h-[14.3rem] md:text-[3.5rem] ">
+            <h1 className="w-[45rem] h-[20rem] text-[4.8rem] mb-[1.7rem] text-[#008145] md:w-[31rem] md:h-[14.3rem] md:text-[3.5rem] ">
               Keep track of all your assets on a single dashboard
             </h1>
 
@@ -250,7 +251,7 @@ const Signup = () => {
             </p>
           </div>
 
-          <div className="flex h-[46.4rem] md:h-[22rem] justify-between place-items-end overflow-y-hidden md:overflow-y-hidden">
+          <div className="flex h-100 md:h-[22rem] justify-between place-items-end overflow-y-hidden md:overflow-y-hidden">
             <div className="h-[9.8rem] md:h-[6.9rem] ">
               <Image src={bigBlock} alt="bigBlock" />
             </div>
@@ -269,12 +270,12 @@ const Signup = () => {
           </div>
 
           <div className=" w-[42rem] h-[55rem] mt-[10rem] sm:w-[20rem] sm:mt-[7rem] md:w-[35rem] md:h-[52rem] md:mt-[6rem] ">
-            <h2 className="mb-6 text-[3.2rem] sm:text-[3.2rem] md:text-[3.2rem] text-[#345C45] ">
+            <h2 className="mb-6 text-[3.2rem] sm:text-[3.2rem] md:text-[3.2rem] text-[#008145] ">
               Sign Up
             </h2>
             <div className="flex mb-10 w-[32.1rem] h-[2.4rem]">
               <p className="text-[1.6rem]">Already have an account?</p>
-              <span className="ml-3 w-[5.7rem] font-bold h-[2.4rem] text-[#345C45] text-[1.8rem] ">
+              <span className="ml-3 w-[5.7rem] font-bold h-[2.4rem] text-[#008145] text-[1.8rem] ">
                 <Link href="/login">Log in</Link>
               </span>
             </div>
@@ -383,8 +384,8 @@ const Signup = () => {
                       type="number"
                       name="phone"
                       value={phoneNumber}
-                      className="bg-[#F3F3F3] text-[1.4rem] w-[37.1rem] h-[4.8rem] sm:w-[22.5rem] sm:h-[4.4rem] sm:text-[1.3rem] p-2 md:text-[1.4rem] md:w-[25.5rem] md:h-[4.4rem] rounded-br-xl rounded-tr-xl"
-                      placeholder="+234810xxxxxx"
+                       className="bg-[#F3F3F3] w-[37.1rem] h-[4.8rem] p-2 text-[1.4rem] rounded-lg sm:w-[28rem] sm:h-[4.4rem] sm:text-[1.2rem] sm:rounded-lg md:w-[31rem] md:h-[4.4rem] md:text-[1.4rem] md:rounded-lg  "
+                     placeholder="+234810xxxxxx"
                       style={{ border: "none", outline: "none" }}
                       required
                     />
@@ -394,8 +395,8 @@ const Signup = () => {
                     onClick={() => setProgressTrack(1)}
                     className={`${
                       firstName && lastName && email && phoneNumber
-                        ? "bg-[#345C45]"
-                        : "bg-[#363d39]"
+                        ? "bg-[#008145]"
+                        : "bg-[#008145]"
                     }  w-[37.1rem] h-[4.8rem] mt-7 text-[1.8rem] text-center sm:w-[28rem] sm:h-[48px] md:w-[31rem] md:h-[4.8rem] rounded-md`}
                     style={{ color: "white" }}
                     disabled={!firstName && !lastName && !email && !phoneNumber}
@@ -494,7 +495,7 @@ const Signup = () => {
                     <button
                       type="button"
                       onClick={() => setProgressTrack(0)}
-                      className="bg-tranparent text-[#345C45] text-[1.8rem] w-[14rem] h-[4rem] sm:w-[8rem] sm:h-[3rem] sm:text-[1.3rem] md:w-[10rem] md:h-[3.5rem] md:text-[1.5rem] border border-[#345C45] rounded-md"
+                      className="bg-tranparent text-[#008145] text-[1.8rem] w-[14rem] h-[4rem] sm:w-[8rem] sm:h-[3rem] sm:text-[1.3rem] md:w-[10rem] md:h-[3.5rem] md:text-[1.5rem] border border-[#008145] rounded-md"
                     >
                       Back
                     </button>
@@ -502,8 +503,8 @@ const Signup = () => {
                     <button
                       className={`${
                         password && confirmPassword && isTCAgreed
-                          ? "bg-[#345C45]"
-                          : "bg-[#363d39]"
+                          ? "bg-[#008145]"
+                          : "bg-[#008145]"
                       } w-[14rem] h-[40px] text-[1.8rem] md:w-[10rem] md:h-[35px] rounded-md`}
                       type="submit"
                       disabled={!isTCAgreed || !password || !confirmPassword}
@@ -519,7 +520,7 @@ const Signup = () => {
                         id="checkbox"
                         type="checkbox"
                         onClick={(e) => setIsTCAgreed(e.target.checked)}
-                        className="w-[2rem] sm:w-[1rem] md:w-[1.5rem] border border-[#345C45]"
+                        className="w-[2rem] sm:w-[1rem] md:w-[1.5rem] border border-[#008145]"
                       />
                       <h6 className="ml-3 text-[1.3rem] sm:text-[1rem] md:text-[1.2rem]">
                         I agree to the Terms & Condition and Privacy Policy

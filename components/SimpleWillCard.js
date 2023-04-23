@@ -58,7 +58,8 @@ export default function SimpleWillCard({ estatePlan }) {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody px="1.5rem" fontFamily={"Poppins"}>
-            <Text mb="1rem">{estatePlan.more}</Text>
+            <Text mb="1rem"><p>{estatePlan.more}</p></Text>
+            <Text mb="1rem"><p>{estatePlan.more2}</p></Text>
             <Link
               href={estatePlan.actionUrl}
               isExternal
@@ -66,6 +67,7 @@ export default function SimpleWillCard({ estatePlan }) {
                 textDecoration: "none",
               }}
             >
+              <br />
               <Button
                 bg={"darkgreen"}
                 colorScheme={"darkgreen"}

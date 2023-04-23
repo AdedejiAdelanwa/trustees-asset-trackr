@@ -414,15 +414,15 @@ export default function EstatePlans() {
                   </div>
                   <div>
                     <h3 className="mt-[4.4rem] sm:mt-[5rem] text-[1.5rem] text-center">
-                      Not sure which Estate Plan, click
-                      <Link href="https://forms.meristemng.com/trustquestionnaire/">
+                    Need Help Selecting An Estate Plan, Click
+                      <Link href="https://form.typeform.com/to/D0xUBFsk">
                         {" "}
                         here{" "}
                       </Link>{" "}
                       to take an Assessment
                       <br />
-                      You can also call – 090XXXXXXXXXXXX Or Send an email to
-                      trustees@meristemng.com
+                      You can also call – 07025640071 Or Send an email to
+                      mapp@meristemng.com
                     </h3>
                   </div>
                 </div>
